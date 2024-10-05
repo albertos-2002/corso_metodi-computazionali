@@ -19,6 +19,7 @@ conda config --set auto_activate_base false
 ```
 
 - Creazione di una variabile per l'attivazione dell'ambiente
+
 In bashrc file
 ```bash  
 export mcenv='/home/alberto/UniPd_github/corso_metodi-computazionali/pyenv'

@@ -1,6 +1,6 @@
 # corso_metodi-computazionali
 
-###In bashrc file:
+### In bashrc file:
 
 - to add conda as an easier command
 ```bash

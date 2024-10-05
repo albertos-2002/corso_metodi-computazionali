@@ -1,3 +1,5 @@
+# Informazioni neccessarie per l'utilizzo della GUI
+
 Parte necessaria (per non digitarlo manualmente ogni volta)
 per far si che si apra la gui di matplotlib
 

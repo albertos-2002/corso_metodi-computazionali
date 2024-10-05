@@ -59,3 +59,21 @@ conda install -c conda-forge matplotlib
 conda install -c conda-forge scipy
 conda install -c conda-forge numpy
 ```
+
+### - Eliminazione
+
+eliminare i seguenti file e/o cartelle
+
+``` 
+/conda o /anaconda3 o /miniconda3
+.condarc
+.conda
+.continuum
+.anaconda o .miniconda
+```
+
+per la rimozione delle modifiche dal bashrc
+```bash
+conda init --reverse --all
+```
+oppure rimuoverlo a mano

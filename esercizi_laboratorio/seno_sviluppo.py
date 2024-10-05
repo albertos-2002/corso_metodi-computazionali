@@ -2,36 +2,32 @@ import os
 # Set the QT_QPA_PLATFORM environment variable
 os.environ['QT_QPA_PLATFORM'] = 'xcb'
 
-#import matplotlib
-#matplotlib.use('QtAgg')
-#check the backend
-#print("Current backend:", matplotlib.get_backend()) 
-
 #-----------------------------------------------------------------
 
 from matplotlib import pyplot as plt
 import numpy as np
-
-
+import math
 
 """
 Esercizio:
 Grafico della funzione seno e del suo polinomio di taylor
 """
 
-#variabili globali
-xMax = 50
-NumeroPunti = 5000
-OrdinePolinomio = 5
+# variabili globali ----------------------------------------------------------
 
-
-# simmettrizzazione dell'intervallo (versione laboriosa)
+#essendo l'intervallo simmetrico il risultato migliore si ha per x<25
+#x=10 da un buon risultato
+xMax = 10
+NumeroPunti = 50000
+OrdinePolinomio = 20
 
 ascissePositive = []
 ascisseNegative = []
 ascisse = []
 sinFunction = []
+taylorPol = []
 
+# simmettrizzazione dell'intervallo (versione laboriosa) --------------------
 for index in range( NumeroPunti ): #crea indici da 0 a n-1
     ascissePositive.append( xMax/NumeroPunti*index )
 
@@ -53,17 +49,37 @@ for index in range( NumeroPunti -1, -1, -1 ):
 
 ascisse = ascisseNegative + ascissePositive
 
-#calcolo della funzione seno
+#calcolo della funzione seno -----------------------------------------------
 
 for element in ascisse:
     sinFunction.append( np.sin(element) )
 
-#creazione del grafico ("metodo colab notebook")
+#polinomio di taylor ------------------------------------------------------
+"""
+Ricordiamo la formula della serie di taylor (maclaurin) per il seno
+serie n=0 to n=inf of (-1)^n / (2n+1)! x^(2n+1)
+"""
+
+for element in ascisse:
+    dummy = 0
+    for n in range(OrdinePolinomio+1): #arriviamo così fino ad ordine n e non n-1
+        dummyExp = 2*n +1
+        dummy += (-1)**n / math.factorial( dummyExp ) * element**dummyExp
+    taylorPol.append(dummy)
+
+#creazione del grafico ("metodo colab notebook") ---------------------------
 
 plt.plot( ascisse, sinFunction, linestyle="--", color="orange", label="Sen Function" )
-plt.title("Seno e polinomio di taylor")
-plt.xlabel("Angolo")
-plt.ylabel("Seno")
+plt.plot( ascisse, taylorPol, linestyle=(0, (1, 5)), color="green", label="Taylor seriess" )
+
+#disegno degli assi
+plt.axhline( 0, color='grey', linestyle=(0, (1, 3)) )  # Horizontal axis
+plt.axvline( 0, color='grey', linestyle=(0, (1, 3)) )  # Vertical axis
+
+#abbellimento grafico
+plt.title( "Seno e polinomio di taylor" )
+plt.xlabel( "Angolo" )
+plt.ylabel( "Seno" )
 plt.legend()
 plt.grid()
 plt.show()

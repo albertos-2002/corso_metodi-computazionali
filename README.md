@@ -58,6 +58,9 @@ per creare un ambiente nella directory di default --name env_name
 conda install -c conda-forge matplotlib
 conda install -c conda-forge scipy
 conda install -c conda-forge numpy
+
+conda install -c conda-forge pyqt
+conda install -c conda-forge qt
 ```
 
 ### - Eliminazione

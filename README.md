@@ -34,3 +34,19 @@ Comando di attivazione dell'ambiente
 conda activate $mcenv
 ```
 
+---
+
+### - Creazione dell ambiente
+```bash
+conda create --prefix /home/alberto/UniPd_github/corso_metodi-computazionali/pyenv python
+```
+viene installata l'ultima versione disponibile di python
+
+il path puo essere cambiato 
+
+per creare un ambiente nella directory di default --name env_name
+
+### - Installazione dei pacchetti
+```bash
+conda activate $mcenv
+```

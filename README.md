@@ -18,17 +18,13 @@ conda init
 conda config --set auto_activate_base false
 ```
 
-
-
-
-
-
-
-
-- variables for the location of the invironment
-  does not work well inside a conda command 
+- Creazione di una variabile per l'attivazione dell'ambiente
+In bashrc file
 ```bash  
-alias mcenv='/home/alberto/UniPd_github/corso_metodi-computazionali/pyenv'
 export mcenv='/home/alberto/UniPd_github/corso_metodi-computazionali/pyenv'
 ```    
+Comando di attivazione dell'ambiente
+```bash
+conda activate $mcenv
+```
 

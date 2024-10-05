@@ -48,5 +48,7 @@ per creare un ambiente nella directory di default --name env_name
 
 ### - Installazione dei pacchetti
 ```bash
-conda activate $mcenv
+conda install -c conda-forge matplotlib
+conda install -c conda-forge scipy
+conda install -c conda-forge numpy
 ```

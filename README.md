@@ -34,6 +34,13 @@ Comando di attivazione dell'ambiente
 conda activate $mcenv
 ```
 
+### - Rinominazione dell'ambiente
+Dopo aver attivato l'ambiente
+```bash
+conda config --set env_prompt '({name})'
+```
+in questo modo al posto del path per intero compare solo il nome della cartella finale
+
 ---
 
 ### - Creazione dell ambiente

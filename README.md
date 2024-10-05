@@ -14,14 +14,14 @@ conda init
 ```
 ---
 
-- Disattivare l'attivazione automatica del base environment
+### - Disattivare l'attivazione automatica del base environment
 ```bash
 conda config --set auto_activate_base false
 ```
 in questo modo all'apertura del terminale non si è in nessun ambiente
 
 
-- Creazione di una variabile per l'attivazione dell'ambiente
+### - Creazione di una variabile per l'attivazione dell'ambiente
 
 In bashrc file
 ```bash  

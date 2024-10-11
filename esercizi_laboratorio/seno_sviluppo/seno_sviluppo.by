@@ -11,15 +11,12 @@ import make_range as mr
 Esercizio:
 Grafico della funzione seno e del suo polinomio di taylor
 
-note prof:
-- fare la funzione per il factorial
-
 note:
 - per svilluppo cuttare y > 5
 --------------------------------------------------------- """
 
 # variabili globali ----------------------------------------------------------
-ascisse = mr.range_man();
+ascisse = mr.ask_range("man");
 sinFunction = [];
 taylorPol = [];
 

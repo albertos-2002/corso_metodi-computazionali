@@ -10,7 +10,7 @@ os.environ['QT_QPA_PLATFORM'] = 'xcb'
 ```
 
 Per ottenere informazioni o settare il backend
-``python
+```python
 #import matplotlib
 #matplotlib.use('QtAgg')
 #check the backend

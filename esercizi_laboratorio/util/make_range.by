@@ -1,43 +1,43 @@
 #global ---------------------
 #buon risultato per ordini bassi del polinomio
-xMax = 4
-NumeroPunti = 50000
-OrdinePolinomio = 2
+xMax = 4;
+NumeroPunti = 50000;
+OrdinePolinomio = 2;
 
 #internal ------------------
-ascissePositive = []
-ascisseNegative = []
+ascissePositive = [];
+ascisseNegative = [];
 
 #return --------------------
-ascisse = []
+ascisse = [];
 
 
-def range(npFlag):
-    #go to default values
-    
-    if npFlag != "np":
-        
-        for index in range( NumeroPunti ):
-            ascissePositive.append( xMax/NumeroPunti*index )
-        
-        
-        for index in range( NumeroPunti -1, -1, -1 ):
-            ascisseNegative.append( -ascissePositive[index] )
-        
-    
-    
-    if npFlag == "np":
-    
-    
-    ascisse = ascisseNegative + ascissePositive;        
-    return ascisse
+def range_man(){
+#go to default values
 
+        for index in range( NumeroPunti ){
+            ascissePositive.append( xMax/NumeroPunti*index );
+        }
 
-def ask_range():
-    
-    return ascisse
-    
+        for index in range( NumeroPunti -1, -1, -1 ){
+           ascisseNegative.append( -ascissePositive[index] );
+        }
 
+    ascisse = ascisseNegative + ascissePositive;
+    return ascisse;
+}
+
+def range_np(){
+
+    ascisse = ascisseNegative + ascissePositive;
+    return ascisse;
+}
+
+def ask_range(){
+
+    range_man();
+    return ascisse;
+}
 
 
 """ -----------------------------------------------------------------------
@@ -54,4 +54,3 @@ in questo modo creiamo un range che parte da n-1, decresci di una
 unità ad ogni interazione e si ferma a 0, comprendo in questo modo 
 tutti gli elementi della lista in ordine inverso
 ----------------------------------------------------------------------- """
-

@@ -1,4 +1,5 @@
 #global ---------------------
+#buon risultato per ordini bassi del polinomio
 xMax = 4
 NumeroPunti = 50000
 OrdinePolinomio = 2
@@ -11,35 +12,36 @@ ascisseNegative = []
 ascisse = []
 
 
-def range(npFlag):
-#go to default values
-
-    if npFlag != "np":
-
-        for index in range( NumeroPunti ):
-            ascissePositive.append( xMax/NumeroPunti*index )
-
-        for index in range( NumeroPunti -1, -1, -1 ):
-            ascisseNegative.append( -ascissePositive[index] )
-
-    if npFlag == "np":
-        ascisse = range( NumeroPunti )
+def range_man():
+    #go to default values
+    
+    for index in range( NumeroPunti ):
+        ascissePositive.append( xMax/NumeroPunti*index )
+    
+    
+    for index in range( NumeroPunti -1, -1, -1 ):
+        ascisseNegative.append( -ascissePositive[index] )
+    
     
     ascisse = ascisseNegative + ascissePositive
-        
+    return ascisse
+
+
+def range_np():
+    
+    ascisse = ascisseNegative + ascissePositive
     return ascisse
 
 
 def ask_range():
-
+    
+    range_man()
     return ascisse
 
 
 
-
-"""
+""" -----------------------------------------------------------------------
 doc:
-
 
 utilizzando la funzione range in modo "più" complesso
 
@@ -51,8 +53,5 @@ il terzo termine è quello di step
 in questo modo creiamo un range che parte da n-1, decresci di una 
 unità ad ogni interazione e si ferma a 0, comprendo in questo modo 
 tutti gli elementi della lista in ordine inverso
+----------------------------------------------------------------------- """
 
-#essendo l'intervallo simmetrico il risultato migliore si ha per x<25
-#x=10 da un buon risultato
-
-"""

@@ -18,6 +18,6 @@ Per ottenere informazioni o settare il backend
 ```
 
 Per aprire la gui è necessario includere
-```python
+```py
 plt.show()
 ```

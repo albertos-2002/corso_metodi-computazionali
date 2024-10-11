@@ -14,6 +14,7 @@ ascisseNegative = []
 #return --------------------
 ascisse = []
 
+#global keyword -> permette di modificare la variabile globale (quelle definite sopra)
 
 def range_man():
     #go to default values

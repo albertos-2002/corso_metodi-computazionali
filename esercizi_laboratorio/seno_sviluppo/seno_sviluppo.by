@@ -1,3 +1,8 @@
+""" ---------------------------------------------------------
+Esercizio:
+Grafico della funzione seno e del suo polinomio di taylor
+--------------------------------------------------------- """
+
 import sys
 sys.path.append("../util/")
 #-----------------------------------------------------------------
@@ -7,13 +12,6 @@ import math
 
 import make_range as mr
 
-""" ---------------------------------------------------------
-Esercizio:
-Grafico della funzione seno e del suo polinomio di taylor
-
-note:
-- per svilluppo cuttare y > 5
---------------------------------------------------------- """
 
 # variabili globali ----------------------------------------------------------
 ascisse = mr.ask_range("man");
@@ -30,7 +28,6 @@ for element in ascisse{
 Ricordiamo la formula della serie di taylor (maclaurin) per il seno
 serie n=0 to n=inf of (-1)^n / (2n+1)! x^(2n+1)
 ---------------------------------------------------------------------- """
-
 for element in ascisse{
     dummy = 0;
     for n in range(mr.OrdinePolinomio+1){ #arriviamo così fino ad ordine n e non n-1
@@ -41,7 +38,6 @@ for element in ascisse{
 }
 
 #creazione del grafico ("metodo colab notebook") ---------------------------
-
 plt.plot( ascisse, sinFunction, linestyle="--", color="orange", label="Sen Function" );
 plt.plot( ascisse, taylorPol, linestyle=(0, (1, 5)), color="green", label="Taylor seriess" );
 

@@ -1,7 +1,11 @@
-""" ---------------------------------------------------------
+""" ---------------------------------------------------------------------------------
 Esercizio:
+Derivazione con il metodo delle differenze finite
+Modificare il programma fornito dal docente per calcolare l’errore nella derivata
+prima della funzione sin(x) risultante dall’uso delle formule O(h), 0(h^2), O(h^4).
 
---------------------------------------------------------- """
+L’errore va riportato su di un grafico.
+--------------------------------------------------------------------------------- """
 
 import sys
 sys.path.append("../util/")
@@ -14,26 +18,55 @@ import make_range as mr
 import set_graph as sg
 
 #global -----------------------------------------------------------	
-
 ascisse = mr.range_np(); #automatico tra -4,4 50000 punti
 
+fSeno   = np.sin(ascisse);
+fCoseno = np.cos(ascisse); #derivata "esatta"	
+
+derivataOrdineh1 = [] ;
+derivataOrdineh2 = [] ;
+derivataOrdineh4 = [] ;
+
+#calcolo derivate -------------------------------------------------
+h = mr.step;
+
+#ordine h1
+for index in range( len(ascisse)-2 ){ #l'ultimo valore deve essere un i+1 #-2 per la non inclusività dello stop
+	derivataOrdineh1.append( (fSeno[index+1]-fSeno[index]) / h );
+}
+
+#ordine h2
+for index in range( 1, len(ascisse)-2 ){ #primo valore i-1, ultimo i+1
+	derivataOrdineh2.append( (fSeno[index+1] - fSeno[index-1]) / (2*h) );	
+}
+#ordine h4
+for index in range( 2, len(ascisse)-3 ){ #primo valore i-2, ultimo i+2
+	dummyDen = 12*h;
+	dummy1 = fSeno[index+1] - fSeno[index-1];
+	dummy2 = fSeno[index-2] - fSeno[index+2];
+	derivataOrdineh4.append( (8*dummy1 + dummy2) / dummyDen );
+}
 
 #grafica ----------------------------------------------------------
 figure, axs = plt.subplots(1,2);
 graph1 = axs[0];
 graph2 = axs[1];
+sg.set_style(20);
 
 graph1.set_title("Seno e derivate");
 graph1.set_ylabel( "f(" + r'$\theta$' + ") - f\'(" + r'$\theta$' + ")" ); #string raw (r) usata per il tex
 graph1.set_xlabel("Angolo");
-graph1.set_ylim(-1.5,1.5);
+#graph1.set_ylim(-1.5,1.5);
+graph1.plot( ascisse, fSeno,   linestyle="-", label="Seno" );
+graph1.plot( ascisse, fCoseno, linestyle="-", label="Derivata" );
+graph1.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", label=r'$\mathscr{O}(h)$' );
+#graph1.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", label=r'$\mathcal{O}(h^2)$' );
+#graph1.plot( ascisse[2:-2], derivataOrdineh4, linestyle="--", label=r'$\mathcal{O}(h^4)$' );
 sg.make_fine(graph1);
 
 graph2.set_title("Errore");
 graph2.set_ylabel("Errore");
 graph2.set_xlabel("Angolo");
 sg.make_fine(graph2);
-
-sg.set_style(20);
 
 plt.show();

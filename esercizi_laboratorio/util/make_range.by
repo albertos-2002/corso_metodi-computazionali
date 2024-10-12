@@ -4,6 +4,7 @@ import numpy as np
 #buon risultato per ordini bassi del polinomio
 xMax = 4;
 NumeroPunti = 50000;
+step = xMax/NumeroPunti;
 
 #internal ------------------
 #le liste hanno indice che va da 0 a n-1
@@ -51,10 +52,12 @@ def range_np(){
 
 def ask_range(npFlag){
 
-    global xMax, NumeroPunti, OrdinePolinomio;
+    global xMax, NumeroPunti, step;
 
     xMax            = float( input("Inserire il valore di xMax:") ) ;
     NumeroPunti     =   int( input("Inserire il numero di punti:") ) ;
+
+    step = xMax/NumeroPunti;
 
     if npFlag == "np": range_np();
     if npFlag != "np": range_man();

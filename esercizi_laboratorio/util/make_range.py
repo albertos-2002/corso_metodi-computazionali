@@ -4,7 +4,6 @@ import numpy as np
 #buon risultato per ordini bassi del polinomio
 xMax = 4
 NumeroPunti = 50000
-OrdinePolinomio = 2
 
 #internal ------------------
 #le liste hanno indice che va da 0 a n-1
@@ -56,7 +55,6 @@ def ask_range(npFlag):
     
     xMax            = float( input("Inserire il valore di xMax:") ) 
     NumeroPunti     =   int( input("Inserire il numero di punti:") ) 
-    OrdinePolinomio =   int( input("Inserire l'ordine del polinomio di Taylot (centrato in zero):") ) 
     
     if npFlag == "np": range_np()
     if npFlag != "np": range_man()

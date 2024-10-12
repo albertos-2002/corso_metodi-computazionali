@@ -19,6 +19,10 @@ ascisse = mr.ask_range("man");
 sinFunction = [];
 taylorPol = [];
 
+OrdinePolinomio = 2;
+OrdinePolinomio =   int( input("Inserire (n+1) l'ordine (2n+1) del polinomio di Taylot (centrato in zero):") ) ;
+
+
 #calcolo della funzione seno -----------------------------------------------
 for element in ascisse{
     sinFunction.append( np.sin(element) );
@@ -31,10 +35,12 @@ serie n=0 to n=inf of (-1)^n / (2n+1)! x^(2n+1)
 ---------------------------------------------------------------------- """
 for element in ascisse{
     dummy = 0;
-    for n in range(mr.OrdinePolinomio+1){ #arriviamo così fino ad ordine n e non n-1
+    for n in range(OrdinePolinomio){ #arriviamo così fino ad ordine n e non n-1
         dummyExp = 2*n +1;
         dummy += (-1)**n / math.factorial( dummyExp ) * element**dummyExp;
     }
+    #in questo modo l'ordine(di serie) 1 corrisponde a x, ordine 2 a x^3 e ordine zero non è presente
+    
     taylorPol.append(dummy);
 }
 

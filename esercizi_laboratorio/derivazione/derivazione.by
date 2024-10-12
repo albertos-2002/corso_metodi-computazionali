@@ -1,9 +1,39 @@
-import os
-# Set the QT_QPA_PLATFORM environment variable
-os.environ['QT_QPA_PLATFORM'] = 'xcb'
+""" ---------------------------------------------------------
+Esercizio:
 
+--------------------------------------------------------- """
+
+import sys
+sys.path.append("../util/")
 #------------------------------------------------------------------
-
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
+import make_range as mr
+import set_graph as sg
+
+#global -----------------------------------------------------------	
+
+ascisse = mr.range_np(); #automatico tra -4,4 50000 punti
+
+
+#grafica ----------------------------------------------------------
+figure, axs = plt.subplots(1,2);
+graph1 = axs[0];
+graph2 = axs[1];
+
+graph1.set_title("Seno e derivate");
+graph1.set_ylabel( "f(" + r'$\theta$' + ") - f\'(" + r'$\theta$' + ")" ); #string raw (r) usata per il tex
+graph1.set_xlabel("Angolo");
+graph1.set_ylim(-1.5,1.5);
+sg.make_fine(graph1);
+
+graph2.set_title("Errore");
+graph2.set_ylabel("Errore");
+graph2.set_xlabel("Angolo");
+sg.make_fine(graph2);
+
+sg.set_style(20);
+
+plt.show();

@@ -12,3 +12,11 @@ def make_fine(axObj):
     return axObj
 
 
+def set_style(fontSize):
+    
+    plt.rcParams['axes.titlesize'] = fontSize+2;  # Set title size
+    plt.rcParams['axes.labelsize'] = fontSize;    # Set label size
+    plt.tight_layout()
+    
+
+

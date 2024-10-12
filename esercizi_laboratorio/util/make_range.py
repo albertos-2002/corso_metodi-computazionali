@@ -1,10 +1,10 @@
 import numpy as np
 
 #global ---------------------
-#buon risultato per ordini bassi del polinomio
+#buon risultato per ordini bassi del polinomio di taylor
 xMax = 4
 NumeroPunti = 50000
-step = xMax/NumeroPunti
+step = 0.5*xMax/NumeroPunti; #0.5* altrimento per specularità ho 100k punti e non 50k
 
 #internal ------------------
 #le liste hanno indice che va da 0 a n-1
@@ -21,7 +21,7 @@ def range_man():
     global ascissePositive, ascisseNegative, ascisse
     
     for index in range( NumeroPunti ):
-        ascissePositive.append( xMax/NumeroPunti*index )
+        ascissePositive.append( step*index )
     
     
     #prende le ascisse positive e le copia rovesciate e cambiate di segno
@@ -46,7 +46,7 @@ def range_np():
     
     global ascisse
     
-    ascisse = np.arange(-xMax, xMax, 2*xMax/NumeroPunti)
+    ascisse = np.arange(-xMax, xMax, step)
     return ascisse
 
 

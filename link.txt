@@ -1,1 +1,5 @@
 https://matplotlib.org/stable/users/explain/text/mathtext.html#mathtext
+
+https://matplotlib.org/stable/users/explain/text/usetex.html#usetex
+
+https://matplotlib.org/stable/gallery/text_labels_and_annotations/tex_demo.html

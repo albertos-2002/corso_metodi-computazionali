@@ -41,5 +41,6 @@ def set_style(fontSize, markerSize){
 
 	# Enable LaTeX rendering
 	plt.rcParams['text.usetex'] = False;
-	
+
+	return;
 }

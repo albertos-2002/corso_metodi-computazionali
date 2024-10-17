@@ -34,13 +34,13 @@ def set_style(fontSize, markerSize):
     
     
     if markerFlag:
-        plt.rcParams['lines.markersize'] = markerSize  # Reset to the default value
+        plt.rcParams['lines.markersize'] = markerSize;  # Reset to the default value
     
     
     plt.tight_layout()
     
     # Enable LaTeX rendering
-    plt.rcParams['text.usetex'] = True
+    plt.rcParams['text.usetex'] = False
     
 
 

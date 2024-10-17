@@ -82,9 +82,9 @@ graph_main.set_ylabel( "f(" + r'$\theta$' + ") e f\'(" + r'$\theta$' + ")" ); #s
 graph_main.set_xlabel("Angolo");
 graph_main.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_main.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
-graph_main.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r'$\mathcal{O}(h)$' );
-graph_main.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r'$\mathcal{O}(h^2)$' );
-graph_main.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=r'$\mathcal{O}(h^4)$' );
+graph_main.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=str(r'$\mathcal{O}(h)$') );
+graph_main.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=str(r'$\mathcal{O}(h^2)$') );
+graph_main.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=str(r'$\mathcal{O}(h^4)$') );
 sg.make_fine(graph_main);
 
 graph_zoom.set_title("Seno e derivate (zoom)");
@@ -94,31 +94,31 @@ graph_zoom.set_ylim(0.69,0.73);
 graph_zoom.set_xlim(0.77,0.80);
 graph_zoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_zoom.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
-graph_zoom.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r'$\mathcal{O}(h)$' );
-graph_zoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r'$\mathcal{O}(h^2)$' );
-graph_zoom.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=r'$\mathcal{O}(h^4)$' );
+graph_zoom.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r"$\mathcal{O}(h)$" );
+graph_zoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
+graph_zoom.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_zoom);
 
 
 graph_allerr.set_title("Errore");
 graph_allerr.set_ylabel("Errore");
 graph_allerr.set_xlabel("Angolo");
-graph_allerr.plot( ascisse[:-2],  errOrdineh1, linestyle="", marker=".", color="g" ,label=r'$\mathcal{O}(h)$' );
-graph_allerr.plot( ascisse[1:-2], errOrdineh2, linestyle="", marker=".", color="r" ,label=r'$\mathcal{O}(h^2)$' );
-graph_allerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r'$\mathcal{O}(h^4)$' );
+graph_allerr.plot( ascisse[:-2],  errOrdineh1, linestyle="", marker=".", color="g" ,label=r"$\mathcal{O}(h)$" );
+graph_allerr.plot( ascisse[1:-2], errOrdineh2, linestyle="", marker=".", color="r" ,label=r"$\mathcal{O}(h^2)$" );
+graph_allerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_allerr);
 
 graph_zoomerr.set_title("Errore");
 graph_zoomerr.set_ylabel("Errore");
 graph_zoomerr.set_xlabel("Angolo");
-graph_zoomerr.plot( ascisse[1:-2], errOrdineh2, linestyle="", marker=".", color="r" ,label=r'$\mathcal{O}(h^2)$' );
-graph_zoomerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r'$\mathcal{O}(h^4)$' );
+graph_zoomerr.plot( ascisse[1:-2], errOrdineh2, linestyle="", marker=".", color="r" ,label=r"$\mathcal{O}(h^2)$" );
+graph_zoomerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_zoomerr);
 
 graph_zoomzoomerr.set_title("Errore");
 graph_zoomzoomerr.set_ylabel("Errore");
 graph_zoomzoomerr.set_xlabel("Angolo");
-graph_zoomzoomerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r'$\mathcal{O}(h^4)$' );
+graph_zoomzoomerr.plot( ascisse[3:-2], errOrdineh4, linestyle="", marker=".", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_zoomzoomerr);
 
 plt.show();

@@ -11,7 +11,7 @@ ax.semilogx()
 ax.semilogy()
 """
 
-import system 
+import sys 
 sys.path.append("../util/");
 #------------------------------------------------------------------
 import numpy as np
@@ -23,7 +23,16 @@ import make_range as mr
 import set_graph as sg
 
 #global -----------------------------------------------------------
+OrdiniDivisione = [];
+#insert map (dictionaries)
 
+# ------------------------------------------
+numeroEsponenti = int( input("numero ordini di grandezza (10**) da spaziare: \n") );
+for ordine in range(1, numeroEsponenti+1, 1){
+	OrdiniDivisione.append( 10**ordine );
+	ascisseHoldel.append( [] );
+	ordinateHolder.append( [] );
+}
 
 # RETTANGOLI NAIF --------------------------
 

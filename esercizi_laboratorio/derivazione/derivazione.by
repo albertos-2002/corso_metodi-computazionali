@@ -36,7 +36,7 @@ errOrdineh4 = [] ;
 h = mr.step;
 
 #ordine h1
-for index in range( len(ascisse)-2 ){ #l'ultimo valore deve essere un i+1 #-2 per la non inclusività dello stop
+for index in range( len(ascisse)-2 ){ #l'ultimo valore deve essere un i+1, -2 per la non inclusività dello stop
 	result = (fSeno[index+1]-fSeno[index]) / h; 
 	derivataOrdineh1.append( result );
 	errOrdineh1.append( fCoseno[index]-result );
@@ -78,17 +78,17 @@ graph_zoomzoomerr = figure.add_subplot(gs[1, 2]);  # Row 1, column 2
 sg.set_style(19,1);
 
 graph_main.set_title("Seno e derivate");
-graph_main.set_ylabel( "f(" + r'$\theta$' + ") e f\'(" + r'$\theta$' + ")" ); #string raw (r) usata per il tex
+graph_main.set_ylabel( "f($\\theta$) e f\'($\\theta$)" ); 
 graph_main.set_xlabel("Angolo");
 graph_main.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_main.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
 graph_main.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r"$\mathcal{O}(h)$" );
 graph_main.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
-graph_main.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
+graph_main.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_main);
 
 graph_zoom.set_title("Seno e derivate (zoom)");
-graph_zoom.set_ylabel( "f(" + r'$\theta$' + ") e f\'(" + r'$\theta$' + ")" ); #string raw (r) usata per il tex
+graph_zoom.set_ylabel( "f($\\theta$) e f\'($\\theta$)" );
 graph_zoom.set_xlabel("Angolo");
 graph_zoom.set_ylim(0.69,0.73);
 graph_zoom.set_xlim(0.77,0.80);
@@ -96,7 +96,7 @@ graph_zoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_zoom.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
 graph_zoom.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r"$\mathcal{O}(h)$" );
 graph_zoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
-graph_zoom.plot( ascisse[3:-2], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
+graph_zoom.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_zoom);
 
 

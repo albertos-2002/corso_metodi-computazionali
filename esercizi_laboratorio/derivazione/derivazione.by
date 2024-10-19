@@ -5,6 +5,9 @@ Modificare il programma fornito dal docente per calcolare l’errore nella deriv
 prima della funzione sin(x) risultante dall’uso delle formule O(h), 0(h^2), O(h^4).
 
 L’errore va riportato su di un grafico.
+
+Fissati gli estremi dell'intervallo, spingendo il numero di punti verso infinito
+l'algoritmo riporta risultati non aspettati
 --------------------------------------------------------------------------------- """
 
 import sys
@@ -89,11 +92,19 @@ graph_main.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,lab
 graph_main.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_main);
 
+# zoom dinamico
+CosenoMenoSeno = np.abs(fSeno - fCoseno);
+indexIntersezione = np.argmin(CosenoMenoSeno);
+valoreAscissa  = ascisse[indexIntersezione]
+valoreOrdinata = fCoseno[indexIntersezione]
+indexErrh1Min = np.argmin( errOrdineh1 );
+indexErrh2Min = np.argmin( errOrdineh2 );
+
 graph_zoom.set_title("Seno e derivate (zoom)");
 graph_zoom.set_ylabel( "f($\\theta$) e f\'($\\theta$)" );
 graph_zoom.set_xlabel("Angolo");
-graph_zoom.set_ylim(0.69,0.73);
-graph_zoom.set_xlim(0.77,0.80);
+graph_zoom.set_ylim( valoreOrdinata - errOrdineh1[indexErrh1Min], valoreOrdinata + errOrdineh1[indexErrh1Min] );
+graph_zoom.set_xlim( valoreAscissa - errOrdineh1[indexErrh1Min], valoreAscissa + errOrdineh1[indexErrh1Min] );
 graph_zoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_zoom.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
 graph_zoom.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,label=r"$\mathcal{O}(h)$" );
@@ -104,9 +115,9 @@ sg.make_fine(graph_zoom);
 graph_zoomzoom.set_title("Seno e derivate (zoom)");
 graph_zoomzoom.set_ylabel( "f($\\theta$) e f\'($\\theta$)" );
 graph_zoomzoom.set_xlabel("Angolo");
-#graph_zoomzoom.set_ylim(0.69,0.73);
-#graph_zoomzoom.set_xlim(0.77,0.80);
-graph_zoomzoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
+graph_zoomzoom.set_ylim( valoreOrdinata - errOrdineh2[indexErrh2Min], valoreOrdinata + errOrdineh2[indexErrh2Min] );
+graph_zoomzoom.set_xlim( valoreAscissa - errOrdineh2[indexErrh2Min], valoreAscissa + errOrdineh2[indexErrh2Min] );
+#graph_zoomzoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
 graph_zoomzoom.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
 graph_zoomzoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
 graph_zoomzoom.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );

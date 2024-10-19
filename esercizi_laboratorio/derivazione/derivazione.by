@@ -66,11 +66,13 @@ figure = plt.figure();
 gs = gridspec.GridSpec(2, 3, figure=figure);
 
 # Create the first subplot spanning the first two columns of the first row
-graph_main        = figure.add_subplot(gs[0, :2])  # Row 0, columns 0 and 1
+graph_main        = figure.add_subplot(gs[0, 0])  # Row 0, columns 0
 
 # Create the other subplots
-graph_allerr      = figure.add_subplot(gs[0, 2]);  # Row 0, column 2
-graph_zoom        = figure.add_subplot(gs[1, 0]);  # Row 1, column 0
+graph_zoom        = figure.add_subplot(gs[0, 1]);  # Row 1, column 1
+graph_zoomzoom    = figure.add_subplot(gs[0, 2]);  # Row 1, column 2
+
+graph_allerr      = figure.add_subplot(gs[1, 0]);  # Row 0, column 0
 graph_zoomerr     = figure.add_subplot(gs[1, 1]);  # Row 1, column 1
 graph_zoomzoomerr = figure.add_subplot(gs[1, 2]);  # Row 1, column 2
 
@@ -98,6 +100,17 @@ graph_zoom.plot( ascisse[:-2],  derivataOrdineh1, linestyle="--", color="g" ,lab
 graph_zoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
 graph_zoom.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
 sg.make_fine(graph_zoom);
+
+graph_zoomzoom.set_title("Seno e derivate (zoom)");
+graph_zoomzoom.set_ylabel( "f($\\theta$) e f\'($\\theta$)" );
+graph_zoomzoom.set_xlabel("Angolo");
+#graph_zoomzoom.set_ylim(0.69,0.73);
+#graph_zoomzoom.set_xlim(0.77,0.80);
+graph_zoomzoom.plot( ascisse, fSeno,   linestyle="-", color="b" ,label="Seno" );
+graph_zoomzoom.plot( ascisse, fCoseno, linestyle="-", color="k" ,label="Derivata" );
+graph_zoomzoom.plot( ascisse[1:-2], derivataOrdineh2, linestyle="--", color="r" ,label=r"$\mathcal{O}(h^2)$" );
+graph_zoomzoom.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,label=r"$\mathcal{O}(h^4)$" );
+sg.make_fine(graph_zoomzoom);
 
 
 graph_allerr.set_title("Errore");

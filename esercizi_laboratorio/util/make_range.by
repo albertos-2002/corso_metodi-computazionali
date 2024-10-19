@@ -1,40 +1,44 @@
+#global keyword -> permette di modificare la variabile globale (quelle definite sopra)
 import numpy as np
 
-#global ---------------------
-#buon risultato per ordini bassi del polinomio di taylor
+#global ----------------------------------------------------------------------------------------------------
 xMax = 4;
 NumeroPunti = 50000;
-step = 0.5*xMax/NumeroPunti; #0.5* altrimento per specularità ho 100k punti e non 50k
+step = 2*xMax/NumeroPunti; 
+#il fattore 2 deriva dal fatto che l'intervallo viene simmetrizato
+#step = DeltaX / numeroPunti = 2*xMax / numeroPunti 
+#infatti il range di valori spazia tra -xMax e xMax  
 
-#internal ------------------
-#le liste hanno indice che va da 0 a n-1
+#internal ---------------------
 ascissePositive = [];
 ascisseNegative = [];
 
-#return --------------------
+#return -----------------------
 ascisse = [];
 
-#global keyword -> permette di modificare la variabile globale (quelle definite sopra)
+# ----------------------------------------------------------------------------------------------------------
 
 def range_man(){
-#go to default values
+    #usa i valori predefiniti
     global ascissePositive, ascisseNegative, ascisse;
 
-    for index in range( NumeroPunti ){
+    #il lato positivo contiene la metà (simmetria) dei punti totali
+    for index in range( NumeroPunti*0.5 ){
         ascissePositive.append( step*index );
     }
 
-    #prende le ascisse positive e le copia rovesciate e cambiate di segno
+    
     """
-    il primo termine si riferisce al valore max
-    il secondo termine è quello di stop NON INCLUSO
+    il primo termine si riferisce al valore max (start)
+    il secondo termine è quello di stop NON INCLUSO 
     il terzo termine è quello di step
 
-    in questo modo creiamo un range che parte da n-1, decresci di una   
+    in questo modo creiamo un range che parte da n-1, decresce di una   
     unità ad ogni interazione e si ferma a 0, comprendo in questo modo 
     tutti gli elementi della lista in ordine inverso
     """
-    for index in range( NumeroPunti -1, -1, -1 ){
+    #prende le ascisse positive e le copia rovesciate e cambiate di segno
+    for index in range( (NumeroPunti*0.5) -1, -1, -1 ){
         ascisseNegative.append( -ascissePositive[index] );
     }
 

@@ -22,7 +22,6 @@ import make_range as mr
 import set_graph as sg
 
 #global -----------------------------------------------------------	
-#ascisse = mr.range_np(); #automatico tra -4,4 50000 punti
 ascisse = mr.ask_range("np");
 
 fSeno   = np.sin(ascisse);
@@ -39,20 +38,24 @@ errOrdineh4 = [] ;
 h = mr.step;
 
 #ordine h1
-for index in range( len(ascisse)-2 ){ #l'ultimo valore deve essere un i+1, -2 per la non inclusività dello stop
+for index in range( len(ascisse)-2 ){ 
+	#l'ultimo valore deve essere un i+1, -2 per la non inclusività dello stop
 	result = (fSeno[index+1]-fSeno[index]) / h; 
 	derivataOrdineh1.append( result );
 	errOrdineh1.append( fCoseno[index]-result );
 }
 
 #ordine h2
-for index in range( 1, len(ascisse)-2 ){ #primo valore i-1, ultimo i+1
+for index in range( 1, len(ascisse)-2 ){ 
+	#primo valore i-1, ultimo i+1
 	result = (fSeno[index+1] - fSeno[index-1]) / (2*h);
 	derivataOrdineh2.append( result );	
 	errOrdineh2.append( fCoseno[index]-result );
 }
+
 #ordine h4
-for index in range( 2, len(ascisse)-3 ){ #primo valore i-2, ultimo i+2
+for index in range( 2, len(ascisse)-3 ){ 
+	#primo valore i-2, ultimo i+2
 	dummyDen = 12*h;
 	dummy1 = fSeno[index+1] - fSeno[index-1];
 	dummy2 = fSeno[index-2] - fSeno[index+2];
@@ -68,10 +71,8 @@ figure = plt.figure();
 # Define a gridspec with 2 rows and 3 columns
 gs = gridspec.GridSpec(2, 3, figure=figure);
 
-# Create the first subplot spanning the first two columns of the first row
-graph_main        = figure.add_subplot(gs[0, 0])  # Row 0, columns 0
-
-# Create the other subplots
+# Create subplots 
+graph_main        = figure.add_subplot(gs[0, 0]);  # Row 0, columns 0
 graph_zoom        = figure.add_subplot(gs[0, 1]);  # Row 1, column 1
 graph_zoomzoom    = figure.add_subplot(gs[0, 2]);  # Row 1, column 2
 
@@ -80,7 +81,7 @@ graph_zoomerr     = figure.add_subplot(gs[1, 1]);  # Row 1, column 1
 graph_zoomzoomerr = figure.add_subplot(gs[1, 2]);  # Row 1, column 2
 
 
-sg.set_style(19,1);
+sg.set_style( fontSize=19, markerSize=1 );
 
 graph_main.set_title("Seno e derivate");
 graph_main.set_ylabel( "f($\\theta$) e f\'($\\theta$)" ); 
@@ -93,12 +94,12 @@ graph_main.plot( ascisse[2:-3], derivataOrdineh4, linestyle="--", color="m" ,lab
 sg.make_fine(graph_main);
 
 # zoom dinamico
-CosenoMenoSeno = np.abs(fSeno - fCoseno);
-indexIntersezione = np.argmin(CosenoMenoSeno);
-valoreAscissa  = ascisse[indexIntersezione]
-valoreOrdinata = fCoseno[indexIntersezione]
-indexErrh1Min = np.argmin( errOrdineh1 );
-indexErrh2Min = np.argmin( errOrdineh2 );
+CosenoMenoSeno = np.abs(fCoseno - fSeno);
+indexIntersezione = np.argmin(CosenoMenoSeno);  #determina una delle intersezioni
+valoreAscissa  = ascisse[indexIntersezione];
+valoreOrdinata = fCoseno[indexIntersezione];
+indexErrh1Min = np.argmax( errOrdineh1 );  #trova l'indice del massimo valore di errore
+indexErrh2Min = np.argmax( errOrdineh2 );
 
 graph_zoom.set_title("Seno e derivate (zoom)");
 graph_zoom.set_ylabel( "f($\\theta$) e f\'($\\theta$)" );

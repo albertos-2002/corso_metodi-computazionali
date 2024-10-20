@@ -39,8 +39,7 @@ for element in ascisse:
         dummyExp = 2*n +1
         dummy += (-1)**n / math.factorial( dummyExp ) * element**dummyExp
     
-    #in questo modo l'ordine(di serie) 1 corrisponde a x, ordine 2 a x^3 e ordine zero non è presente
-    
+    #in questo modo l'ordine n (di serie) 0 corrisponde a x, ordine 1 a x^3 e ordine zero non è presente 
     taylorPol.append(dummy)
 
 

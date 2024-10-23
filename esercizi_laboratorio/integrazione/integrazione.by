@@ -132,10 +132,26 @@ for numeroPunti in OrdiniDivisione {
 	#consideriamo un polinomio di ordine 2 in un intervallo 2h
 	sommaSimpson = 0;
 	for index in range( 1, len(puntiGriglia)-1 ){
-		valoreFunzione_1 = np.e ** puntiGriglia[index-1] ;
-		valoreFunzione_2 = 4 * (np.e ** puntiGriglia[index]) ;
-		valoreFunzione_3 = np.e ** puntiGriglia[index+1] ;
-		sommaSimpson += (valoreFunzione_1 + valoreFunzione_2 + valoreFunzione_3) * step / 3;
+
+		if index == 1 {
+			valoreFunzione_1 = (1/3) * np.e ** puntiGriglia[index-1] ;
+			valoreFunzione_2 = (4/3) * np.e ** puntiGriglia[index] ;
+			valoreFunzione_3 = (2/3) * np.e ** puntiGriglia[index+1] ;
+			sommaSimpson += (valoreFunzione_1 + valoreFunzione_2 + valoreFunzione_3) * step;	
+		}
+		elif index == (len(puntiGriglia)-2) {
+			valoreFunzione_1 = (2/3) * np.e ** puntiGriglia[index-1] ;
+			valoreFunzione_2 = (4/3) * np.e ** puntiGriglia[index] ;
+			valoreFunzione_3 = (1/3) * np.e ** puntiGriglia[index+1] ;
+			sommaSimpson += (valoreFunzione_1 + valoreFunzione_2 + valoreFunzione_3) * step;
+		}
+		else {
+			valoreFunzione_1 = (2/3) * np.e ** puntiGriglia[index-1] ;
+			valoreFunzione_2 = (4/3) * np.e ** puntiGriglia[index] ;
+			valoreFunzione_3 = (2/3) * np.e ** puntiGriglia[index+1] ;
+			sommaSimpson += (valoreFunzione_1 + valoreFunzione_2 + valoreFunzione_3) * step;
+		}
+		
 	}
 	risultatiSimpson.append( sommaSimpson );
 	errSimpson.append( abs(risultatoEsatto - sommaSimpson) );

@@ -61,7 +61,7 @@ def ask_range(npFlag){
     xMax            = float( input("Inserire il valore di xMax:") ) ;
     NumeroPunti     =   int( input("Inserire il numero di punti:") ) ;
 
-    step = xMax/NumeroPunti;
+    step = 2*xMax/NumeroPunti;
 
     if npFlag == "np": range_np();
     if npFlag != "np": range_man();

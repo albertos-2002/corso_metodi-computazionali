@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 
 import set_graph as sg
 
-debugFlag = True;
+debugFlag = False;
 #global -----------------------------------------------------------
 OrdiniDivisione = [];
 
@@ -58,6 +58,11 @@ for numeroPunti in OrdiniDivisione {
 
 	step = (estremoSuperiore - estremoInferiore) / numeroPunti;
 	puntiGriglia = np.arange( estremoInferiore, estremoSuperiore, step );
+
+	if len(puntiGriglia) % 2 != 0 {
+		print("Numero di punti totali è dispari");
+		input();
+	}
 	
 	# RETTANGOLI NAIF -------------------------------------------------------
 	#considera come valore di f in h l'estremo sinistro

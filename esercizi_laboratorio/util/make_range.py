@@ -23,7 +23,7 @@ def range_man():
     global ascissePositive, ascisseNegative, ascisse
     
     #il lato positivo contiene la metà (simmetria) dei punti totali
-    for index in range( NumeroPunti*0.5 ):
+    for index in range( int(NumeroPunti*0.5) ):
         ascissePositive.append( step*index )
     
     
@@ -38,7 +38,7 @@ def range_man():
     tutti gli elementi della lista in ordine inverso
     """
     #prende le ascisse positive e le copia rovesciate e cambiate di segno
-    for index in range( (NumeroPunti*0.5) -1, -1, -1 ):
+    for index in range( ( int(NumeroPunti*0.5) ) -1, -1, -1 ):
         ascisseNegative.append( -ascissePositive[index] )
     
     

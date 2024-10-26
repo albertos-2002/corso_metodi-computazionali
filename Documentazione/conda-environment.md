@@ -82,7 +82,7 @@ conda install -c conda-forge scipy
 conda install -c conda-forge numpy
 ```
 
-Nel caso matplotlib presenti problemi ad aprire una finestra grafica 
+Nel caso matplotlib presenti problemi ad aprire una finestra grafica <>
 ```
 conda install -c conda-forge pyqt
 conda install -c conda-forge qt

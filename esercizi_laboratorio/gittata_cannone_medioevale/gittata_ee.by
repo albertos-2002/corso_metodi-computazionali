@@ -73,6 +73,7 @@ def calcolatoreEuleroEsplicito(vecCoordGen){
 }
 
 gittataFlag = False;
+indiceIterazione = 0;
 
 #applicazione del metodo di eulero esplicito
 coordinateStep_0 = coordinateGeneralizzate_0;
@@ -81,6 +82,8 @@ coordinateStep_1 = np.zeros(4);
 while (not gittataFlag){
 
 	coordinateStep_1 = coordinateStep_0 + calcolatoreEuleroEsplicito(coordinateStep_0);
+
+	print(indiceIterazione)
 
 	#metodo della bisezione - controlliamo il cambio di segno della coordinata y
 	if( coordinateStep_1[1]*coordinateStep_0[1] < 0 ){
@@ -92,6 +95,8 @@ while (not gittataFlag){
 	#setting del nuovo punto di partenza
 	coordinateStep_0 = coordinateStep_1 ;
 	coordinateStep_1 = np.zeros(4);
+
+	indiceIterazione += 1;
 }
 
 print(" Gittata teorica senza attrito [m]:");

@@ -63,7 +63,7 @@ for numeroPunti in OrdiniDivisione:
     per usare la notazione degli intervalli (primo punto x_0) usiamo la funzione range
     dato che il punto di stop non è incluso
     quindi inserendo nella funzione range (len(...) - 1) = ( N +1 -1) = N
-    quindi ci fermiano al punto N-1 (incluso) nella notazione della notazione degli intervalli  
+    quindi ci fermiano al punto N-1 (incluso) nella notazione degli intervalli  
     """
     sommaRettangoliNaif = 0
     for index in range( len(puntiGriglia)-1 ):

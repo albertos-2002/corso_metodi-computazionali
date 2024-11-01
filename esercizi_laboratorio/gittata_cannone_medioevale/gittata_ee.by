@@ -25,6 +25,8 @@ import sys
 sys.path.append("../util/");
 
 import numpy as np
+import matplotlib.pyplot as plt
+import set_graph as sg
 
 # Costanti ----------------------------------------------------------------------------------------------------
 RAGGIO_PROIETTILE = 0.05; #[m]
@@ -71,9 +73,13 @@ coordinateGeneralizzate_0 = np.array( [0, 0, VELOCITA_INIZIALE*np.cos(ANGOLO_LAN
 # ------------------------------------------------------------------------------------------------------------------------------------------------
 
 gittataAttritoEuleroEsplicito = 0;
+stepXEuleroEsplicito = [];
+stepYEuleroEsplicito = [];
+
+stepXEuleroEsplicito.append( coordinateGeneralizzate_0[0] );
+stepYEuleroEsplicito.append( coordinateGeneralizzate_0[1] );
 
 # definiamo il metodo di eulero esplicito
-
 def calcolatoreEuleroEsplicito(vecCoordGen){
 
 	NextStep = np.zeros(4);
@@ -82,11 +88,27 @@ def calcolatoreEuleroEsplicito(vecCoordGen){
 
 	if(FLAG_ATTRITO){
 
+		#modulo della forza di attrito
 		forzaAttritoX = 0.5 * DENSITA_ARIA * COEFFICIENTE_RESISTENZA_AERODINAMICA_SFERA * AREA_SEZIONE_TRASVERSALE * ( vecCoordGen[2]**2);
 		forzaAttritoY = 0.5 * DENSITA_ARIA * COEFFICIENTE_RESISTENZA_AERODINAMICA_SFERA * AREA_SEZIONE_TRASVERSALE * ( vecCoordGen[3]**2);
 
-		NextStep[2] = - forzaAttritoX / MASSA_PROIETTILE;
-		NextStep[3] = - GRAVITA + forzaAttritoY / MASSA_PROIETTILE;	
+		#per il nostro SdR
+		#per una velocità positiva -> attrito con segno negativo
+		#per una velocità negativa -> attrito con seno positivo
+
+		if( vecCoordGen[2] >= 0 ){
+			NextStep[2] = - forzaAttritoX / MASSA_PROIETTILE;
+		}
+		else{
+			NextStep[2] = + forzaAttritoX / MASSA_PROIETTILE;
+		}
+		
+		if( vecCoordGen[3] >= 0 ){
+			NextStep[3] = - GRAVITA - forzaAttritoY / MASSA_PROIETTILE;
+		}
+		else{
+			NextStep[3] = - GRAVITA + forzaAttritoY / MASSA_PROIETTILE;
+		}	
 	}
 	else{
 	
@@ -98,6 +120,7 @@ def calcolatoreEuleroEsplicito(vecCoordGen){
 }
 
 gittataFlag = False;
+contatoreIterazione = 0;
 
 #applicazione del metodo di eulero esplicito
 coordinateStep_0 = coordinateGeneralizzate_0;
@@ -106,6 +129,9 @@ coordinateStep_1 = np.zeros(4);
 while (not gittataFlag){
 
 	coordinateStep_1 = coordinateStep_0 + calcolatoreEuleroEsplicito(coordinateStep_0);
+
+	stepXEuleroEsplicito.append( coordinateStep_1[0] );
+	stepYEuleroEsplicito.append( coordinateStep_1[1] );
 
 	#metodo della bisezione - controlliamo il cambio di segno della coordinata y
 	if( coordinateStep_1[1]*coordinateStep_0[1] < 0 ){
@@ -117,7 +143,7 @@ while (not gittataFlag){
 	#setting del nuovo punto di partenza
 	coordinateStep_0 = coordinateStep_1 ;
 	coordinateStep_1 = np.zeros(4);
-	
+
 }
 
 if (not FLAG_ATTRITO){
@@ -127,3 +153,6 @@ if (not FLAG_ATTRITO){
 print("\n Gittata calcolata con il metodo di eulero esplicito con attrito:");
 print(" ", gittataAttritoEuleroEsplicito);
 
+figure, ax = plt.subplots();
+ax.plot(stepXEuleroEsplicito, stepYEuleroEsplicito, marker=".", linestyle=":");
+plt.show();

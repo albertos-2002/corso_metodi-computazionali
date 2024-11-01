@@ -75,9 +75,13 @@ coordinateGeneralizzate_0 = np.array( [0, 0, VELOCITA_INIZIALE*np.cos(ANGOLO_LAN
 gittataAttritoEuleroEsplicito = 0;
 stepXEuleroEsplicito = [];
 stepYEuleroEsplicito = [];
+velocitaXEuleroEsplicito = [];
+velocitaYEuleroEsplicito = [];
 
 stepXEuleroEsplicito.append( coordinateGeneralizzate_0[0] );
 stepYEuleroEsplicito.append( coordinateGeneralizzate_0[1] );
+velocitaXEuleroEsplicito.append( coordinateGeneralizzate_0[2] );
+velocitaYEuleroEsplicito.append( coordinateGeneralizzate_0[3] );
 
 # definiamo il metodo di eulero esplicito
 def calcolatoreEuleroEsplicito(vecCoordGen){
@@ -132,6 +136,8 @@ while (not gittataFlag){
 
 	stepXEuleroEsplicito.append( coordinateStep_1[0] );
 	stepYEuleroEsplicito.append( coordinateStep_1[1] );
+	velocitaXEuleroEsplicito.append( coordinateStep_1[2] );
+	velocitaYEuleroEsplicito.append( coordinateStep_1[3] );
 
 	#metodo della bisezione - controlliamo il cambio di segno della coordinata y
 	if( coordinateStep_1[1]*coordinateStep_0[1] < 0 ){
@@ -143,6 +149,10 @@ while (not gittataFlag){
 	#setting del nuovo punto di partenza
 	coordinateStep_0 = coordinateStep_1 ;
 	coordinateStep_1 = np.zeros(4);
+	#coordinateStep_1[0] = 0;
+	#coordinateStep_1[1] = 0;
+	#coordinateStep_1[2] = 0;
+	#coordinateStep_1[3] = 0;
 
 }
 
@@ -154,5 +164,13 @@ print("\n Gittata calcolata con il metodo di eulero esplicito con attrito:");
 print(" ", gittataAttritoEuleroEsplicito);
 
 figure, ax = plt.subplots();
-ax.plot(stepXEuleroEsplicito, stepYEuleroEsplicito, marker=".", linestyle=":");
+sg.set_style(fontSize=19, markerSize=1);
+
+ax.set_title("Curva di moto con metodo di eulero esplicito ");
+ax.set_xlabel("Coordinata x $[m]$ $|$ Velocità x $[m/s]$");
+ax.set_ylabel("Coordinata y $[m]$ $|$ Velocità x $[m/s]$");
+ax.plot(stepXEuleroEsplicito, stepYEuleroEsplicito, marker=".", linestyle=":", color="g", label="curva di moto");
+ax.plot(velocitaXEuleroEsplicito, velocitaYEuleroEsplicito, marker=".", linestyle=":", color="r", label="curva delle veloctià");
+sg.make_fine(ax);
+
 plt.show();

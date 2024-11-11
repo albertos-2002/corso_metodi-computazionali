@@ -1,24 +1,20 @@
 """ -----------------------------------------------------------------------------------------
 Gittata del cannone medioevale con il metodo di eulero esplicito:
 
-
 definiamo la struttura del vettore coordinate generalizzate e della forza generalizzata
-coordinate generalizzate
+coordinate generalizzate:
 [spazio x,   spazio y,   velocità x, valocità y]
-forza generalizzata
+forza generalizzata:
 [velocità x, velocità y, forza x,    forza y]
 
-Il sistema di riferimento lo definiamo come 
+Il sistema di riferimento lo definiamo come:
 
    y^
 	|
 	|
 	|
-	|
- ----------------------->
- 	|                   x  
-
- velocità di partenza sono positive
+ ---------------->
+ 	|            x  
 ----------------------------------------------------------------------------------------- """
 
 import sys

@@ -34,3 +34,4 @@ from parameter_setter import parameterSetter
 
 #set dei parametri del moto ------------------------------------------------
 parameterSetter(); #per usare i default commentare la riga
+

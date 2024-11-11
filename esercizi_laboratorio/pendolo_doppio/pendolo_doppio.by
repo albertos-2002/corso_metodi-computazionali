@@ -1,0 +1,36 @@
+#""" -----------------------------------------------------------------------
+#Esercizio:
+#propagazione del moto di un pendolo doppio con il metodo
+#di Runge-Kutta a 4 punti
+#
+#Sistema di riferimento utilizzato:
+#
+# y	^
+#	|
+#  -----------------------------> x	
+#	|\
+#	| \ angolo 1, asta 1
+#	|  \
+#	|	* massa 1
+#	|	:\ 
+#	|   : \ angolo 2, asta 2
+#	|   :  \
+#	|       * massa 2
+#	|
+#
+#Come variabili per il moto usiamo gli angoli
+#La struttura vettoriale in cui conserviamo le variabili è:
+#[ ang_1, ang_2, (d/dt)ang_1, (d/dt)ang_2 ]	
+#----------------------------------------------------------------------- """
+
+import sys
+sys.path.append("/util/");
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#import parameter_setter as ps
+from parameter_setter import parameterSetter
+
+#set dei parametri del moto ------------------------------------------------
+parameterSetter(); #per usare i default commentare la riga

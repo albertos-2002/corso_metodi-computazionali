@@ -40,3 +40,30 @@ parameter_setter.parameterSetter(); #per usare i default commentare la riga
 
 #definiamo il vettore di step zero
 coordinateGeneralizzate0 = np.array([ANGOLO_DISTACCO_1, ANGOLO_DISTACCO_2, VELOCITA_ANGOLARE_1, VELOCITA_ANGOLARE_2]);
+
+#definiamo delle liste per la conservazione delle posizioni e dello step temporale
+coordinateAngolo1 = [];
+coordinateAngolo2 = [];
+coordinateTemporali = [];
+
+#propaghiamo le equazioni del moto
+indiceIterazione = 0;
+stepN0 = coordinateGeneralizzate0;
+stepN1 = np.zeros(4);
+
+while( indiceIterazione <= NUMERO_PASSI){
+
+	stepN1 = propagatore.propagatoreRungeKutta4(stepN0);
+
+	coordinateAngolo1.append( stepN1[0] );
+	coordinateAngolo2.append( stepN1[1] );
+	coordinateTemporali.append(indiceIterazione);
+
+	indiceIterazione+=1;
+	
+}
+
+figure, ax = plt.subplots();
+ax.plot( coordinateTemporali, coordinateAngolo1);
+ax.plot( coordinateTemporali, coordinateAngolo2);
+plt.show();

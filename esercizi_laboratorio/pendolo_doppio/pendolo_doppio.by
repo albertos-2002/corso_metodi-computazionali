@@ -21,6 +21,8 @@
 #Come variabili per il moto usiamo gli angoli
 #La struttura vettoriale in cui conserviamo le variabili è:
 #[ ang_1, ang_2, (d/dt)ang_1, (d/dt)ang_2 ]	
+# il vettore forza è composto da: 
+#[ (d/dt)ang_1, (d/dt)ang_2, (d2/dt2)ang_1, (d2/dt2)ang_2 ]
 #----------------------------------------------------------------------- """
 
 import sys

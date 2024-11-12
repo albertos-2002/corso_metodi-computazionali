@@ -1,0 +1,43 @@
+""" -----------------------------------------------------------
+Definizione delle funzioni di forza 
+
+#La struttura vettoriale in cui conserviamo le variabili è:
+#[ ang_1, ang_2, (d/dt)ang_1, (d/dt)ang_2 ]
+----------------------------------------------------------- """
+
+from scipy.constants import g as GRAVITA; #[m/s^2]
+import numpy as np
+
+import parameter_setter
+
+
+def accelerazioneAngolare(vecCoordGen){
+
+	vettoreAccelerazioni = np.zeros(2);
+
+	sommaMasse = MASSA_PARTICELLA_1 + MASSA_PARTICELLA_2;
+	deltaAngoli = vecCoordGen[0] - vecCoordGen[1];
+	deltaSeno = np.sin(deltaAngoli);
+	deltaCoseno = np.cos(deltaAngoli);
+	
+	viola     = deltaCoseno**2;
+	#m2*l2*sin(theta1-theta1)*vel2^2
+	rosso     = MASSA_PARTICELLA_2 * LUNGHEZZA_ASTA_2 * deltaSeno * (vecCoordGen[3]**2);
+	#g*(m1+m2)*sin(theta1)
+	azzurro   = GRAVITA * sommaMasse * np.sin(vecCoordGen[0]);
+	#m2*l1*sin(theta1-theta2)*vel1^2
+	blu       = MASSA_PARTICELLA_2 * LUNGHEZZA_ASTA_1 * deltaSeno * (vecCoordGen[2]**2);
+	#m2*g*sin(theta2)
+	giallo    = MASSA_PARTICELLA_2 * GRAVITA * np.sin(vecCoordGen[1]);
+
+	sommaRA = rosso + azzurro;
+	sommaBG = - blu + giallo;
+
+	dummyDen1 = LUNGHEZZA_ASTA_1 * ( MASSA_PARTICELLA_1 + MASSA_PARTICELLA_2*(1-viola) );
+	vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - deltaCoseno*sommaBG );
+
+	dummyDen2 = LUNGHEZZA_ASTA_2 * ( MASSA_PARTICELLA_2 - ( (MASSA_PARTICELLA_2**2)/sommaMasse )*viola );
+	vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
+
+	return vettoreAccelerazioni
+}

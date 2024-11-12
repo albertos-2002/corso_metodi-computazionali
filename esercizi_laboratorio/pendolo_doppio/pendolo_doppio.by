@@ -29,9 +29,12 @@ sys.path.append("/util/");
 import numpy as np
 import matplotlib.pyplot as plt
 
-#import parameter_setter as ps
-from parameter_setter import parameterSetter
+import parameter_setter
+import propagatore
+
 
 #set dei parametri del moto ------------------------------------------------
-parameterSetter(); #per usare i default commentare la riga
+parameter_setter.parameterSetter(); #per usare i default commentare la riga
 
+#definiamo il vettore di step zero
+coordinateGeneralizzate0 = np.array([ANGOLO_DISTACCO_1, ANGOLO_DISTACCO_2, VELOCITA_ANGOLARE_1, VELOCITA_ANGOLARE_2]);

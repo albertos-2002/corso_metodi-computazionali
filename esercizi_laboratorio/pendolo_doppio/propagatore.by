@@ -17,29 +17,29 @@ def accelerazioneAngolare(vecCoordGen){
 
 	vettoreAccelerazioni = np.zeros(2);
 
-	sommaMasse = MASSA_PARTICELLA_1 + MASSA_PARTICELLA_2;
+	sommaMasse = parameter_setter.MASSA_PARTICELLA_1 + parameter_setter.MASSA_PARTICELLA_2;
 	deltaAngoli = vecCoordGen[0] - vecCoordGen[1];
 	deltaSeno = np.sin(deltaAngoli);
 	deltaCoseno = np.cos(deltaAngoli);
 	
 	viola     = deltaCoseno**2;
 	#m2*l2*sin(theta1-theta1)*vel2^2
-	rosso     = MASSA_PARTICELLA_2 * LUNGHEZZA_ASTA_2 * deltaSeno * (vecCoordGen[3]**2);
+	rosso     = parameter_setter.MASSA_PARTICELLA_2 * parameter_setter.LUNGHEZZA_ASTA_2 * deltaSeno * (vecCoordGen[3]**2);
 	#g*(m1+m2)*sin(theta1)
 	azzurro   = GRAVITA * sommaMasse * np.sin(vecCoordGen[0]);
 	#m2*l1*sin(theta1-theta2)*vel1^2
-	blu       = MASSA_PARTICELLA_2 * LUNGHEZZA_ASTA_1 * deltaSeno * (vecCoordGen[2]**2);
+	blu       = parameter_setter.MASSA_PARTICELLA_2 * parameter_setter.LUNGHEZZA_ASTA_1 * deltaSeno * (vecCoordGen[2]**2);
 	#m2*g*sin(theta2)
-	giallo    = MASSA_PARTICELLA_2 * GRAVITA * np.sin(vecCoordGen[1]);
+	giallo    = parameter_setter.MASSA_PARTICELLA_2 * GRAVITA * np.sin(vecCoordGen[1]);
 
 	sommaRA = rosso + azzurro;
 	sommaBG = - blu + giallo;
 
-	dummyDen1 = LUNGHEZZA_ASTA_1 * ( MASSA_PARTICELLA_1 + MASSA_PARTICELLA_2*(1-viola) );
+	dummyDen1 = parameter_setter.LUNGHEZZA_ASTA_1 * ( parameter_setter.MASSA_PARTICELLA_1 + parameter_setter.MASSA_PARTICELLA_2*(1-viola) );
 	vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - deltaCoseno*sommaBG );
 
-	dummyDen2 = LUNGHEZZA_ASTA_2 * ( MASSA_PARTICELLA_2 - ( (MASSA_PARTICELLA_2**2)/sommaMasse )*viola );
-	vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
+	dummyDen2 = parameter_setter.LUNGHEZZA_ASTA_2 * ( parameter_setter.MASSA_PARTICELLA_2 - ( (parameter_setter.MASSA_PARTICELLA_2**2)/sommaMasse )*viola );
+	vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -parameter_setter.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
  
 	return vettoreAccelerazioni
 }
@@ -59,8 +59,8 @@ def forza(vecCoordGen){
 
 def propagatoreRungeKutta4(formerStep){
 
-	halfTime = STEP_TEMPORALE / 2;
-	sixthTime = STEP_TEMPORALE / 6;
+	halfTime = parameter_setter.STEP_TEMPORALE / 2;
+	sixthTime = parameter_setter.STEP_TEMPORALE / 6;
 
 	#intermedio 1
 	intermedio1 = formerStep;
@@ -72,7 +72,7 @@ def propagatoreRungeKutta4(formerStep){
 	intermedio3 = formerStep + forza2*halfTime;
 	#intermedio 4
 	forza3 = forza(intermedio3);
-	intermedio4 = formerStep + forza3*STEP_TEMPORALE;
+	intermedio4 = formerStep + forza3*parameter_setter.STEP_TEMPORALE;
 
 	#step finale
 	nextStep = formerStep + ( forza1 + 2*(forza2 + forza3) + forza(intermedio4) )*sixthTime;

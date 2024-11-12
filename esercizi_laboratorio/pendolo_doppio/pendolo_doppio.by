@@ -15,7 +15,7 @@
 #	|	:\ 
 #	|   : \ angolo 2, asta 2
 #	|   :  \
-#	|       * massa 2
+#	|        * massa 2
 #	|
 #
 #Come variabili per il moto usiamo gli angoli
@@ -26,13 +26,13 @@
 #----------------------------------------------------------------------- """
 
 import sys
-sys.path.append("/util/");
+sys.path.append("../util/");
 
 import numpy as np
-import matplotlib.pyplot as plt
 
 import parameter_setter
 import propagatore
+import data_plotter
 
 
 #set dei parametri del moto ------------------------------------------------
@@ -44,6 +44,8 @@ coordinateGeneralizzate0 = np.array([parameter_setter.ANGOLO_DISTACCO_1, paramet
 #definiamo delle liste per la conservazione delle posizioni e dello step temporale
 coordinateAngolo1 = [];
 coordinateAngolo2 = [];
+velocitaAngolari1 = [];
+velocitaAngolari2 = [];
 coordinateTemporali = [];
 
 #propaghiamo le equazioni del moto
@@ -57,6 +59,8 @@ while( indiceIterazione <= parameter_setter.NUMERO_PASSI){
 
 	coordinateAngolo1.append( stepN1[0] );
 	coordinateAngolo2.append( stepN1[1] );
+	velocitaAngolari1.append( stepN1[2] );
+	velocitaAngolari2.append( stepN1[3] );
 	coordinateTemporali.append(indiceIterazione*parameter_setter.STEP_TEMPORALE);
 
 	stepN0 = stepN1;
@@ -64,37 +68,9 @@ while( indiceIterazione <= parameter_setter.NUMERO_PASSI){
 	
 }
 
-#print(coordinateTemporali);
-#print(coordinateAngolo1);
-#print(coordinateAngolo2);
+#plotting delle coordinate (punto4)
+data_plotter.plotAngolo(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2);
+data_plotter.plotCartesiano(a1=coordinateAngolo1, a2=coordinateAngolo2);
+data_plotter.energiaMeccanica(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2, v1=velocitaAngolari1, v2=velocitaAngolari2);
 
-
-#restrizione all angolo 2pi
-coordinateAngolo1Lim = [];
-coordinateAngolo2Lim = [];
-
-for element in coordinateAngolo1{
-
-	dummy = element;
-	while(dummy > 2*np.pi){
-		dummy -= (2*np.pi); 
-	}
-	coordinateAngolo1Lim.append(dummy);
-}
-for element in coordinateAngolo2{
-
-	dummy = element;
-	while(dummy > 2*np.pi){
-		dummy -= (2*np.pi); 
-	}
-	coordinateAngolo2Lim.append(dummy);
-}
-
-
-figure, ax = plt.subplots();
-ax.plot( coordinateTemporali, coordinateAngolo1, label="angolo1");
-ax.plot( coordinateTemporali, coordinateAngolo2, label="angolo2");
-plt.legend();
-plt.grid();
-plt.show();
-
+input("Enter to close plot and exit ....")

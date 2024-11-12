@@ -1,0 +1,108 @@
+""" -------------------------------------------
+Plotting dei dati per il pendolo
+
+calcolo cartesiano ed energetico da spostare
+------------------------------------------- """
+import sys
+sys.path.append("../util/")
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.constants import g as GRAVITA
+
+import parameter_setter
+import set_graph as sg
+
+fontSetterFlag = True;
+def fontSetter(){
+	sg.set_style(fontSize=15, markerSize=1);
+	fontSetterFlag = False;
+}
+
+def plotAngolo(t=[], a1=[], a2=[]){
+
+	figure, ax = plt.subplots();
+	if(fontSetterFlag){
+		fontSetter();
+	}
+
+	ax.set_title("Variazione angolo in funzione dello step temporale");
+	ax.set_ylabel("Angoli [rad]");
+	ax.set_xlabel("Step temporale [s]");
+
+	ax.plot( t, a1, linestyle="--", label="Angolo 1");
+	ax.plot( t, a2, linestyle="--", label="Angolo 2");
+
+	sg.make_fine(ax);
+	plt.show(block=False);
+	
+}
+
+def plotCartesiano(a1=[], a2=[]){
+
+	figure, ax = plt.subplots();
+	if(fontSetterFlag){
+		fontSetter();
+	}
+
+	ax.set_title("Coordinate cartesiane");
+	ax.set_ylabel("Coordinata Y [m]");
+	ax.set_xlabel("Coordinata X [m]");
+
+	x1 = [];
+	x2 = [];
+	y1 = [];
+	y2 = [];
+
+	for ang in a1 {
+		x1.append( parameter_setter.LUNGHEZZA_ASTA_1 * np.sin(ang) );
+		y1.append( -parameter_setter.LUNGHEZZA_ASTA_1 * np.cos(ang) );
+	}
+
+	for i in range(len(a2)){
+		x2.append( x1[i] + parameter_setter.LUNGHEZZA_ASTA_2*np.sin(a2[i]) );
+		y2.append( y1[i] - parameter_setter.LUNGHEZZA_ASTA_2*np.cos(a2[i]) );
+	}
+
+	ax.plot( x1, y1, linestyle="--", label="Angolo 1");
+	ax.plot( x2, y2, linestyle="--", label="Angolo 2");
+
+	sg.make_fine(ax);
+	plt.show(block=False);
+	
+}
+
+def energiaMeccanica(t=[], a1=[], a2=[], v1=[], v2=[]){
+
+	EnergiaPotenziale = [];
+	EnergiaCinetica = [];
+
+	for i in range(len(t)){
+
+		dummyP1 = -(parameter_setter.MASSA_PARTICELLA_1+parameter_setter.MASSA_PARTICELLA_2) * GRAVITA * parameter_setter.LUNGHEZZA_ASTA_1 * np.cos(a1[i]);
+		dummyP2 = - parameter_setter.MASSA_PARTICELLA_2 * GRAVITA * parameter_setter.LUNGHEZZA_ASTA_2 * np.cos(a2[i]);
+		EnergiaPotenziale.append(dummyP1 + dummyP2);
+
+		dummyC1 = 0.5 * parameter_setter.MASSA_PARTICELLA_1 * (parameter_setter.LUNGHEZZA_ASTA_1**2) * (v1[i]**2);
+		dummyC2 = 0.5 * parameter_setter.MASSA_PARTICELLA_2 * ( (parameter_setter.LUNGHEZZA_ASTA_1*v1[i])**2 + (parameter_setter.LUNGHEZZA_ASTA_2*v2[i])**2 );
+		dummyC3 = parameter_setter.MASSA_PARTICELLA_2 * parameter_setter.LUNGHEZZA_ASTA_1 * parameter_setter.LUNGHEZZA_ASTA_2 * np.cos(a1[i]-a2[i]) * v1[i] * v2[i];
+		EnergiaCinetica.append(dummyC1 + dummyC2 + dummyC3);
+	}
+
+	EnergiaTotale = np.asarray(EnergiaPotenziale) + np.asarray(EnergiaCinetica);	
+
+
+	figure, ax = plt.subplots();
+	if(fontSetterFlag){
+		fontSetter();
+	}
+
+	ax.set_title("Energia meccanica in funzione del tempo (teoricamente conservata)");
+	ax.set_ylabel("Energia [J]");
+	ax.set_xlabel("Tempo [s]");
+
+	ax.plot(t, EnergiaTotale, linestyle="--", label="Energia totale");
+
+	sg.make_fine(ax);
+	plt.show(block=False);
+}

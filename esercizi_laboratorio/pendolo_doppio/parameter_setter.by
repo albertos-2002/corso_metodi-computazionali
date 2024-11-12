@@ -18,6 +18,21 @@ def parameterSetter(){
 
 	global MASSA_PARTICELLA_1,MASSA_PARTICELLA_2,LUNGHEZZA_ASTA_1,LUNGHEZZA_ASTA_2,ANGOLO_DISTACCO_1,ANGOLO_DISTACCO_2,VELOCITA_ANGOLARE_1,VELOCITA_ANGOLARE_2,STEP_TEMPORALE,NUMERO_PASSI;
 
+	print(" ---------------------------------------- \n");
+	print(" y^");
+	print("  |");
+	print(" -------------------------------> x");
+	print("  |\\");
+	print("  | \\ angolo 1, asta 1");
+	print("  |  \\");
+	print("  |  * massa 1");
+	print("  |  :\\");
+	print("  |  : \\ angolo 2, asta 2");
+	print("  |  :  \\");
+	print("  |      * massa 2");
+	print("  |");
+	print("\n ----------------------------------------");
+
 	print(" Inserire nella sezione seguente i parametri per il moto: ");
 
 	print(" > Massa delle particelle [kg] (consigliato 1): ");
@@ -28,7 +43,7 @@ def parameterSetter(){
 	LUNGHEZZA_ASTA_1 = float( input("    asta 1:\t") );
 	LUNGHEZZA_ASTA_2 = float( input("    asta 2:\t") );
 
-	print(" > Angolo di distacco [°] (consigliato 179°): ");
+	print(" > Angolo di distacco (-pi,+pi) [°] (consigliato 179°): ");
 	ANGOLO_DISTACCO_1 = float( input("    angolo 1:\t") );
 	ANGOLO_DISTACCO_2 = float( input("    angolo 2:\t") );
 

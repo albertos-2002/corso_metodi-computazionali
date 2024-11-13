@@ -1,0 +1,40 @@
+import numpy as np
+from scipy.constants import g as GRAVITA
+
+import parameter_setter
+
+class Conservatore{
+
+	def __init__(self, classeParametri = None){
+		self.classPar = classeParametri;
+
+		self.coordinateAngolo1 = [];
+		self.coordinateAngolo2 = [];
+		self.velocitaAngolari1 = [];
+		self.velocitaAngolari2 = [];
+		
+		self.coordinateTemporali = [];
+
+		self.cartesianoX1 = [];
+		self.cartesianoY1 = [];
+		self.cartesianoX2 = [];
+		self.cartesianoY2 = [];
+
+		self.energiaCinetica = [];
+		self.energiaPotenziale = [];
+		self.energiaTotale = [];
+	}
+
+	def appendCooedinateGeneralizzate(self, coord = None){
+
+		self.coordinateAngolo1.append( coord[0] );
+		self.coordinateAngolo2.append( coord[1] );
+		self.velocitaAngolari1.append( coord[2] );
+		self.velocitaAngolari2.append( coord[3] );
+	}
+
+	def appendTime(self, timeItem = None){
+		self.coordinateTemporali.append(timeItem);	
+	}
+	
+}#endclass

@@ -33,6 +33,7 @@ import numpy as np
 import parameter_setter
 import propagatore
 import data_plotter
+import conservatore
 
 
 #creiamo una instanza della classe che setta i parametri iniziali
@@ -40,14 +41,8 @@ SetOfPar1 = parameter_setter.ParameterSetter();
 SetOfPar1.parameterSetter();
 coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
 
+conservatore1 = conservatore.Conservatore( classeParametri=SetOfPar1 );
 
-##################################################################################################################################################
-#set dei parametri del moto ------------------------------------------------
-#parameter_setter.parameterSetter(); #per usare i default commentare la riga
-
-#definiamo il vettore di step zero
-#coordinateGeneralizzate0 = np.array([parameter_setter.ANGOLO_DISTACCO_1, parameter_setter.ANGOLO_DISTACCO_2, parameter_setter.VELOCITA_ANGOLARE_1, parameter_setter.VELOCITA_ANGOLARE_2]);
-###################################################################################################################################################
 
 
 #definiamo delle liste per la conservazione delle posizioni e dello step temporale
@@ -78,6 +73,9 @@ while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
 	indiceIterazione+=1;
 	
 }
+
+
+
 
 #plotting delle coordinate (punto4)
 data_plotter.plotAngolo(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2);

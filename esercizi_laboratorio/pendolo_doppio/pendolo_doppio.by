@@ -35,11 +35,22 @@ import propagatore
 import data_plotter
 
 
+#creiamo una instanza della classe che setta i parametri iniziali
+SetOfPar1 = parameter_setter.ParameterSetter();
+SetOfPar1.parameterSetter();
+coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
+
+
+##################################################################################################################################################
 #set dei parametri del moto ------------------------------------------------
 parameter_setter.parameterSetter(); #per usare i default commentare la riga
 
 #definiamo il vettore di step zero
 coordinateGeneralizzate0 = np.array([parameter_setter.ANGOLO_DISTACCO_1, parameter_setter.ANGOLO_DISTACCO_2, parameter_setter.VELOCITA_ANGOLARE_1, parameter_setter.VELOCITA_ANGOLARE_2]);
+###################################################################################################################################################
+
+
+
 
 #definiamo delle liste per la conservazione delle posizioni e dello step temporale
 coordinateAngolo1 = [];

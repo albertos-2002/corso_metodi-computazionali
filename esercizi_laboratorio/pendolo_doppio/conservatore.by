@@ -36,5 +36,31 @@ class Conservatore{
 	def appendTime(self, timeItem = None){
 		self.coordinateTemporali.append(timeItem);	
 	}
+
+	def cartesianatore(){
+
+		length = len(self.coordinateTemporali);
+
+		for i in range(length){
+
+			x1 = self.classPar.LUNGHEZZA_ASTA_1 *  np.sin( self.coordinateAngolo1[i] );
+			y1 = - self.classPar.LUNGHEZZA_ASTA_1 * np.cos( self.coordinateAngolo1[i] );
+
+			x2 = self.classPar.LUNGHEZZA_ASTA_2 * np.sin( self.coordinateAngolo2[i] );
+			y2 = - self.classPar.LUNGHEZZA_ASTA_2 * np.cos( self.coordinateAngolo2[i] );		
+
+			self.cartesianoX1.append(x1);
+			self.cartesianoY1.append(y1);
+			self.cartesianoX2.append(x1+x2);
+			self.cartesianoY2.append(y1+y2);
+		}
+		
+	}
+
+	def energiatore(){
+
+		
+		
+	}
 	
 }#endclass

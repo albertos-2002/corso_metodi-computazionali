@@ -12,6 +12,14 @@ import numpy as np
 
 import parameter_setter
 
+class Propagatore{
+
+	def __init__(self, classeParametri = None){
+		self.classPar = classeParametri;
+	}
+
+	
+}
 
 def accelerazioneAngolare(vecCoordGen){
 

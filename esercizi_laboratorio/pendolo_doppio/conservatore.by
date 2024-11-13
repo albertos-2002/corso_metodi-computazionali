@@ -57,10 +57,6 @@ class Conservatore{
 		
 	}
 
-	def energiatore(){
-
-		
-		
-	}
+#	def energiatore(){}
 	
 }#endclass

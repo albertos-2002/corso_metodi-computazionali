@@ -51,6 +51,8 @@ class Propagatore{
 	
 		dummyDen2 = self.classPar.LUNGHEZZA_ASTA_2 * ( self.classPar.MASSA_PARTICELLA_2 - ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse )*viola );
 		self.vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -self.classPar.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
+
+		return self.vettoreAccelerazioni
 	}
 
 	#calcola il vettore di forza, quello da moltiplicare per dt
@@ -62,6 +64,8 @@ class Propagatore{
 		self.vecForza[1] = argF[3];
 		self.vecForza[2] = self.vettoreAccelerazioni[0];
 		self.vecForza[3] = self.vettoreAccelerazioni[1];
+
+		return self.vecForza
 	}
 
 	#propagazione delle equazioni del moto con il metodo di runge kutta a 4 punti
@@ -87,6 +91,8 @@ class Propagatore{
 	
 		#step finale
 		self.nextStep = self.vecCoordGen + ( forza1 + 2*(forza2 + forza3) + self.forza(intermedio4) )*sixthTime;
+
+		return self.nextStep
 	}
 	
 }#endclass

@@ -43,13 +43,11 @@ coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
 
 ##################################################################################################################################################
 #set dei parametri del moto ------------------------------------------------
-parameter_setter.parameterSetter(); #per usare i default commentare la riga
+#parameter_setter.parameterSetter(); #per usare i default commentare la riga
 
 #definiamo il vettore di step zero
-coordinateGeneralizzate0 = np.array([parameter_setter.ANGOLO_DISTACCO_1, parameter_setter.ANGOLO_DISTACCO_2, parameter_setter.VELOCITA_ANGOLARE_1, parameter_setter.VELOCITA_ANGOLARE_2]);
+#coordinateGeneralizzate0 = np.array([parameter_setter.ANGOLO_DISTACCO_1, parameter_setter.ANGOLO_DISTACCO_2, parameter_setter.VELOCITA_ANGOLARE_1, parameter_setter.VELOCITA_ANGOLARE_2]);
 ###################################################################################################################################################
-
-
 
 
 #definiamo delle liste per la conservazione delle posizioni e dello step temporale
@@ -64,15 +62,17 @@ indiceIterazione = 0;
 stepN0 = coordinateGeneralizzate0;
 stepN1 = np.zeros(4);
 
-while( indiceIterazione <= parameter_setter.NUMERO_PASSI){
 
-	stepN1 = propagatore.propagatoreRungeKutta4(stepN0);
+while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
+
+	propagatoreMoto = propagatore.Propagatore( classeParametri = SetOfPar1, vettoreCoordinateSV = stepN0 );
+	stepN1 = propagatoreMoto.propagatoreRungeKutta4();
 
 	coordinateAngolo1.append( stepN1[0] );
 	coordinateAngolo2.append( stepN1[1] );
 	velocitaAngolari1.append( stepN1[2] );
 	velocitaAngolari2.append( stepN1[3] );
-	coordinateTemporali.append(indiceIterazione*parameter_setter.STEP_TEMPORALE);
+	coordinateTemporali.append(indiceIterazione*SetOfPar1.STEP_TEMPORALE);
 
 	stepN0 = stepN1;
 	indiceIterazione+=1;

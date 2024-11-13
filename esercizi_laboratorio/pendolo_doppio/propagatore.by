@@ -97,7 +97,8 @@ class Propagatore{
 	
 }#endclass
 
-
+#si potrebbero spostare le computazioni in una classe che conserva il risultato in modo
+#da ridurre il numero di calcoli totali
 
 
 

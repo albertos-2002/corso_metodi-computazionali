@@ -103,6 +103,7 @@ def energiaMeccanica(t=[], a1=[], a2=[], v1=[], v2=[], param=None){
 
 	ax.plot(t, EnergiaTotale, linestyle="--", label="Energia totale");
 
-	sg.make_fine(ax);
+	#sg.make_fine(ax);
+	plt.grid();
 	plt.show(block=False);
 }

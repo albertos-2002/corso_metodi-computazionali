@@ -2,6 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
+"""
+dt intervallo temporale
+t numero di grame in forma di lista 
+coord matrice 4 righe frame colonne
+"""
+
 def animazione(dt, t, coord, trail_length=50):
     fig, ax = plt.subplots()
     

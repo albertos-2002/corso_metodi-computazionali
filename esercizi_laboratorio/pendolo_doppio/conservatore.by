@@ -43,11 +43,15 @@ class Conservatore{
 
 		for i in range(length){
 
-			x1 = self.classPar.LUNGHEZZA_ASTA_1 *  np.sin( self.coordinateAngolo1[i] );
-			y1 = - self.classPar.LUNGHEZZA_ASTA_1 * np.cos( self.coordinateAngolo1[i] );
+			x1 = self.classPar.LUNGHEZZA_ASTA_1 \
+			     * np.sin( self.coordinateAngolo1[i] );
+			y1 = - self.classPar.LUNGHEZZA_ASTA_1 \
+			     * np.cos( self.coordinateAngolo1[i] );
 
-			x2 = self.classPar.LUNGHEZZA_ASTA_2 * np.sin( self.coordinateAngolo2[i] );
-			y2 = - self.classPar.LUNGHEZZA_ASTA_2 * np.cos( self.coordinateAngolo2[i] );		
+			x2 = self.classPar.LUNGHEZZA_ASTA_2 \
+			     * np.sin( self.coordinateAngolo2[i] );
+			y2 = - self.classPar.LUNGHEZZA_ASTA_2 \
+			     * np.cos( self.coordinateAngolo2[i] );		
 
 			self.cartesianoX1.append(x1);
 			self.cartesianoY1.append(y1);
@@ -63,17 +67,33 @@ class Conservatore{
 
 		for i in range(length){
 
-			dummyP1 = -(self.classPar.MASSA_PARTICELLA_1 + self.classPar.MASSA_PARTICELLA_2) * GRAVITA * self.classPar.LUNGHEZZA_ASTA_1 * np.cos( self.coordinateAngolo1[i] );
-			dummyP2 = - self.classPar.MASSA_PARTICELLA_2 * GRAVITA * self.classPar.LUNGHEZZA_ASTA_2 * np.cos( self.coordinateAngolo2[i] );
+			dummyP1 = - ( self.classPar.MASSA_PARTICELLA_1 + self.classPar.MASSA_PARTICELLA_2 ) \
+			          * GRAVITA \
+			          * self.classPar.LUNGHEZZA_ASTA_1 \
+			          * np.cos( self.coordinateAngolo1[i] );
+			dummyP2 = - self.classPar.MASSA_PARTICELLA_2 \
+			          * GRAVITA \
+			          * self.classPar.LUNGHEZZA_ASTA_2 \
+			          * np.cos( self.coordinateAngolo2[i] );
 			self.energiaPotenziale.append(dummyP1 + dummyP2);			
 
-			dummyC1 = 0.5 * self.classPar.MASSA_PARTICELLA_1 * (self.classPar.LUNGHEZZA_ASTA_1**2) * (self.velocitaAngolari1[i]**2);
-			dummyC2 = 0.5 * self.classPar.MASSA_PARTICELLA_2 * ( (self.classPar.LUNGHEZZA_ASTA_1 * self.velocitaAngolari1[i])**2 + (self.classPar.LUNGHEZZA_ASTA_2 * self.velocitaAngolari2[i])**2 );
-			dummyC3 = self.classPar.MASSA_PARTICELLA_2 * self.classPar.LUNGHEZZA_ASTA_1 * self.classPar.LUNGHEZZA_ASTA_2 * np.cos(self.coordinateAngolo1[i]-self.coordinateAngolo2[i]) * self.velocitaAngolari1[i] * self.velocitaAngolari2[i];
+			dummyC1 = 0.5 * self.classPar.MASSA_PARTICELLA_1 \
+			          * (self.classPar.LUNGHEZZA_ASTA_1**2) \
+			          * (self.velocitaAngolari1[i]**2);
+			dummyC2 = 0.5 * self.classPar.MASSA_PARTICELLA_2 \
+			          * ( (self.classPar.LUNGHEZZA_ASTA_1 * self.velocitaAngolari1[i])**2 
+			          + (self.classPar.LUNGHEZZA_ASTA_2 * self.velocitaAngolari2[i])**2 );
+			dummyC3 = self.classPar.MASSA_PARTICELLA_2 \
+			          * self.classPar.LUNGHEZZA_ASTA_1 \
+			          * self.classPar.LUNGHEZZA_ASTA_2 \
+			          * np.cos(self.coordinateAngolo1[i]-self.coordinateAngolo2[i]) \
+			          * self.velocitaAngolari1[i] \
+			          * self.velocitaAngolari2[i];
 			self.energiaCinetica.append(dummyC1 + dummyC2 + dummyC3);
 		}
 
-		self.energiaTotale = np.asarray(self.energiaPotenziale) + np.asarray(self.energiaCinetica);
+		self.energiaTotale = np.asarray(self.energiaPotenziale) \
+		                     + np.asarray(self.energiaCinetica);
 
 	}
 	

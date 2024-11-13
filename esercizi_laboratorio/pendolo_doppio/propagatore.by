@@ -28,28 +28,42 @@ class Propagatore{
 	#calcolatore delle accelerazioni
 	def accelerazioneAngolare(self, argA){
 
-		sommaMasse = self.classPar.MASSA_PARTICELLA_1 + self.classPar.MASSA_PARTICELLA_2;
+		sommaMasse = self.classPar.MASSA_PARTICELLA_1 \
+					 + self.classPar.MASSA_PARTICELLA_2;
 		deltaAngoli = argA[0] - argA[1];
 		deltaSeno = np.sin(deltaAngoli);
 		deltaCoseno = np.cos(deltaAngoli);
 		
 		viola     = deltaCoseno**2;
 		#m2*l2*sin(theta1-theta1)*vel2^2
-		rosso     = self.classPar.MASSA_PARTICELLA_2 * self.classPar.LUNGHEZZA_ASTA_2 * deltaSeno * (argA[3]**2);
+		rosso     = self.classPar.MASSA_PARTICELLA_2 \
+		            * self.classPar.LUNGHEZZA_ASTA_2 \
+		            * deltaSeno * (argA[3]**2);
 		#g*(m1+m2)*sin(theta1)
-		azzurro   = GRAVITA * sommaMasse * np.sin(argA[0]);
+		azzurro   = GRAVITA \
+		            * sommaMasse \
+		            * np.sin(argA[0]);
 		#m2*l1*sin(theta1-theta2)*vel1^2
-		blu       = self.classPar.MASSA_PARTICELLA_2 * self.classPar.LUNGHEZZA_ASTA_1 * deltaSeno * (argA[2]**2);
+		blu       = self.classPar.MASSA_PARTICELLA_2 \
+		            * self.classPar.LUNGHEZZA_ASTA_1 \
+		            * deltaSeno * (argA[2]**2);
 		#m2*g*sin(theta2)
-		giallo    = self.classPar.MASSA_PARTICELLA_2 * GRAVITA * np.sin(argA[1]);
+		giallo    = self.classPar.MASSA_PARTICELLA_2 \
+		            * GRAVITA \
+		            * np.sin(argA[1]);
 	
 		sommaRA = rosso + azzurro;
 		sommaBG = - blu + giallo;
 	
-		dummyDen1 = self.classPar.LUNGHEZZA_ASTA_1 * ( self.classPar.MASSA_PARTICELLA_1 + self.classPar.MASSA_PARTICELLA_2*(1-viola) );
+		dummyDen1 = self.classPar.LUNGHEZZA_ASTA_1 \
+		            * ( self.classPar.MASSA_PARTICELLA_1 
+		                + self.classPar.MASSA_PARTICELLA_2
+		                *(1-viola) );
 		self.vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - deltaCoseno*sommaBG );
 	
-		dummyDen2 = self.classPar.LUNGHEZZA_ASTA_2 * ( self.classPar.MASSA_PARTICELLA_2 - ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse )*viola );
+		dummyDen2 = self.classPar.LUNGHEZZA_ASTA_2 \
+		            * ( self.classPar.MASSA_PARTICELLA_2 
+		            - ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse ) * viola );
 		self.vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -self.classPar.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
 
 		return self.vettoreAccelerazioni

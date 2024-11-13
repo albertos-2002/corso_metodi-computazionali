@@ -81,7 +81,7 @@ while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
 
 #plotting delle coordinate (punto4)
 data_plotter.plotAngolo(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2);
-data_plotter.plotCartesiano(a1=coordinateAngolo1, a2=coordinateAngolo2);
-data_plotter.energiaMeccanica(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2, v1=velocitaAngolari1, v2=velocitaAngolari2);
+data_plotter.plotCartesiano(a1=coordinateAngolo1, a2=coordinateAngolo2, param=SetOfPar1);
+data_plotter.energiaMeccanica(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2, v1=velocitaAngolari1, v2=velocitaAngolari2, param=SetOfPar1);
 
 input("Enter to close plot and exit ....")

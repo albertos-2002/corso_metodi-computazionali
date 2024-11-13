@@ -41,16 +41,12 @@ SetOfPar1 = parameter_setter.ParameterSetter();
 SetOfPar1.parameterSetter();
 coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
 
+#classe per conservare le propagazioni
 conservatore1 = conservatore.Conservatore( classeParametri=SetOfPar1 );
 
+#classe per il plotting dei dati
+dataPlotter1 = data_plotter.DataPlotter( argConservatore=conservatore1 );
 
-
-#definiamo delle liste per la conservazione delle posizioni e dello step temporale
-coordinateAngolo1 = [];
-coordinateAngolo2 = [];
-velocitaAngolari1 = [];
-velocitaAngolari2 = [];
-coordinateTemporali = [];
 
 #propaghiamo le equazioni del moto
 indiceIterazione = 0;
@@ -63,23 +59,17 @@ while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
 	propagatoreMoto = propagatore.Propagatore( classeParametri = SetOfPar1, vettoreCoordinateSV = stepN0 );
 	stepN1 = propagatoreMoto.propagatoreRungeKutta4();
 
-	coordinateAngolo1.append( stepN1[0] );
-	coordinateAngolo2.append( stepN1[1] );
-	velocitaAngolari1.append( stepN1[2] );
-	velocitaAngolari2.append( stepN1[3] );
-	coordinateTemporali.append(indiceIterazione*SetOfPar1.STEP_TEMPORALE);
+	conservatore1.appendCooedinateGeneralizzate( coord = stepN1 );
+	conservatore1.appendTime( timeItem = indiceIterazione*SetOfPar1.STEP_TEMPORALE )
 
 	stepN0 = stepN1;
 	indiceIterazione+=1;
-	
 }
 
 
-
-
 #plotting delle coordinate (punto4)
-data_plotter.plotAngolo(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2);
-data_plotter.plotCartesiano(a1=coordinateAngolo1, a2=coordinateAngolo2, param=SetOfPar1);
-data_plotter.energiaMeccanica(t=coordinateTemporali, a1=coordinateAngolo1, a2=coordinateAngolo2, v1=velocitaAngolari1, v2=velocitaAngolari2, param=SetOfPar1);
+dataPlotter1.plotAngolo();
+dataPlotter1.plotCartesiano();
+dataPlotter1.plotEnergia();
 
 input("Enter to close plot and exit ....")

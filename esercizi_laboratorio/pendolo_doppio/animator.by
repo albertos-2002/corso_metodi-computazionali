@@ -1,0 +1,25 @@
+""" ---------------------------------------------------
+Classe per la gestione delle animazioni
+--------------------------------------------------- """
+
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+import conservatore
+
+class Animator{
+
+	def __init__(self, dataArg = None){
+		self.data = dataArg;
+	}
+
+	def init(self){
+		
+	}
+
+	def update(self){
+		
+	}
+
+	
+}#endclass

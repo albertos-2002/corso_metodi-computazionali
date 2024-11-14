@@ -83,4 +83,3 @@ coord = np.random.rand(4, 100) * 8 - 4  # Random coordinates within the plot ran
 
 # Execute the animation function
 animazione(dt, t, coord)
-

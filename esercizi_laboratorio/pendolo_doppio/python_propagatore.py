@@ -1,0 +1,120 @@
+""" -----------------------------------------------------------
+Definizione delle funzioni di forza 
+
+#La struttura vettoriale in cui conserviamo le variabili è:
+#[ ang_1, ang_2, (d/dt)ang_1, (d/dt)ang_2 ]
+# il vettore forza è composto da:
+#[ (d/dt)ang_1, (d/dt)ang_2, (d2/dt2)ang_1, (d2/dt2)ang_2 ]
+----------------------------------------------------------- """
+
+from scipy.constants import g as GRAVITA; #[m/s^2]
+import numpy as np
+
+import python_parameter_setter as parameter_setter
+
+#il vettore da passare è quello dello step t, il risultato è quello dello step t+1
+class Propagatore:
+    
+    def __init__(self, classeParametri = None, vettoreCoordinateSV = None):
+        self.classPar = classeParametri
+        self.vecCoordGen = vettoreCoordinateSV
+        
+        self.vettoreAccelerazioni = np.zeros(2)
+        self.vecForza = np.zeros(4)
+        
+        self.nextStep = np.zeros(4)
+    
+    
+    #calcolatore delle accelerazioni
+    def accelerazioneAngolare(self, argA):
+        
+        sommaMasse = self.classPar.MASSA_PARTICELLA_1 \
+        + self.classPar.MASSA_PARTICELLA_2
+        deltaAngoli = argA[0] - argA[1]
+        deltaSeno = np.sin(deltaAngoli)
+        deltaCoseno = np.cos(deltaAngoli)
+        
+        viola     = deltaCoseno**2
+        #m2*l2*sin(theta1-theta1)*vel2^2
+        rosso     = self.classPar.MASSA_PARTICELLA_2 \
+        * self.classPar.LUNGHEZZA_ASTA_2 \
+        * deltaSeno * (argA[3]**2)
+        #g*(m1+m2)*sin(theta1)
+        azzurro   = GRAVITA \
+        * sommaMasse \
+        * np.sin(argA[0])
+        #m2*l1*sin(theta1-theta2)*vel1^2
+        blu       = self.classPar.MASSA_PARTICELLA_2 \
+        * self.classPar.LUNGHEZZA_ASTA_1 \
+        * deltaSeno * (argA[2]**2)
+        #m2*g*sin(theta2)
+        giallo    = self.classPar.MASSA_PARTICELLA_2 \
+        * GRAVITA \
+        * np.sin(argA[1])
+        
+        sommaRA = rosso + azzurro
+        sommaBG = - blu + giallo
+        
+        dummyDen1 = self.classPar.LUNGHEZZA_ASTA_1 \
+        * ( self.classPar.MASSA_PARTICELLA_1 
+        + self.classPar.MASSA_PARTICELLA_2
+        *(1-viola) )
+        self.vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - deltaCoseno*sommaBG )
+        
+        dummyDen2 = self.classPar.LUNGHEZZA_ASTA_2 \
+        * ( self.classPar.MASSA_PARTICELLA_2 
+        - ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse ) * viola )
+        self.vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -self.classPar.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG )
+        
+        return self.vettoreAccelerazioni
+    
+    
+    #calcola il vettore di forza, quello da moltiplicare per dt
+    def forza(self, argF):
+        
+        self.accelerazioneAngolare(argF)
+        
+        self.vecForza[0] = argF[2]
+        self.vecForza[1] = argF[3]
+        self.vecForza[2] = self.vettoreAccelerazioni[0]
+        self.vecForza[3] = self.vettoreAccelerazioni[1]
+        
+        return self.vecForza
+    
+    
+    #propagazione delle equazioni del moto con il metodo di runge kutta a 4 punti
+    def propagatoreRungeKutta4(self):
+        
+        halfTime = self.classPar.STEP_TEMPORALE / 2
+        sixthTime = self.classPar.STEP_TEMPORALE / 6
+        
+        #intermedio 1
+        intermedio1 = self.vecCoordGen
+        
+        #intermedio 2
+        forza1 = self.forza(intermedio1)
+        intermedio2 = self.vecCoordGen + forza1*halfTime
+        
+        #intermedio 3
+        forza2 = self.forza(intermedio2)
+        intermedio3 = self.vecCoordGen + forza2*halfTime
+        
+        #intermedio 4
+        forza3 = self.forza(intermedio3)
+        intermedio4 = self.vecCoordGen + forza3*self.classPar.STEP_TEMPORALE
+        
+        #step finale
+        self.nextStep = self.vecCoordGen + ( forza1 + 2*(forza2 + forza3) + self.forza(intermedio4) )*sixthTime
+        
+        return self.nextStep
+    
+    
+#endclass
+
+#si potrebbero spostare le computazioni in una classe che conserva il risultato in modo
+#da ridurre il numero di calcoli totali
+
+
+
+
+

@@ -6,6 +6,11 @@ import numpy as np
 
 class ParameterSetter{
 
+	def StepZero(self){
+		#definiamo il vettore di step zero
+		self.coordinateGeneralizzate0 = np.array([self.ANGOLO_DISTACCO_1, self.ANGOLO_DISTACCO_2, self.VELOCITA_ANGOLARE_1, self.VELOCITA_ANGOLARE_2]);
+	}
+
 	def __init__(self){
 	
 		self.MASSA_PARTICELLA_1  = 1;
@@ -20,13 +25,9 @@ class ParameterSetter{
 		self.NUMERO_PASSI        = 10000;
 
 		self.coordinateGeneralizzate0 = None;
-	}
 
-	def StepZero(self){
-		#definiamo il vettore di step zero
-		self.coordinateGeneralizzate0 = np.array([self.ANGOLO_DISTACCO_1, self.ANGOLO_DISTACCO_2, self.VELOCITA_ANGOLARE_1, self.VELOCITA_ANGOLARE_2]);
+		self.StepZero();
 	}
-
 
 	def parameterSetter(self){
 	

@@ -141,9 +141,6 @@ class Animator{
 									interval = 1);
 
 		sg.make_fine(self.ax);
-
-		self.animazione.save("animation.gif", writer="imagemagick", fps=1000);
-		
 		plt.show(block=False);
 	}
 

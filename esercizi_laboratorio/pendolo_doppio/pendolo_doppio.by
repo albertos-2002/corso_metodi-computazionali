@@ -71,9 +71,9 @@ while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
 
 
 #plotting delle coordinate (punto4)
-#dataPlotter1.plotAngolo();
-#dataPlotter1.plotCartesiano();
-#dataPlotter1.plotEnergia();
+dataPlotter1.plotAngolo();
+dataPlotter1.plotCartesiano();
+dataPlotter1.plotEnergia();
 animator1.giveLife();
 
 input("Enter to close plot and exit ....")

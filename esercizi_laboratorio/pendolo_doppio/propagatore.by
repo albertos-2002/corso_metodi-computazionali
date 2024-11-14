@@ -57,14 +57,14 @@ class Propagatore{
 	
 		dummyDen1 = self.classPar.LUNGHEZZA_ASTA_1 \
 		            * ( self.classPar.MASSA_PARTICELLA_1 
-		                + self.classPar.MASSA_PARTICELLA_2
-		                *(1-viola) );
-		self.vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - deltaCoseno*sommaBG );
+		                + ( self.classPar.MASSA_PARTICELLA_2
+		                *(1-viola) ) );
+		self.vettoreAccelerazioni[0] = (-1/dummyDen1) * ( sommaRA - (deltaCoseno*sommaBG) );
 	
 		dummyDen2 = self.classPar.LUNGHEZZA_ASTA_2 \
 		            * ( self.classPar.MASSA_PARTICELLA_2 
-		            - ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse ) * viola );
-		self.vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( -self.classPar.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse )*sommaRA + sommaBG );
+		            - ( ( (self.classPar.MASSA_PARTICELLA_2**2)/sommaMasse )  * viola ) );
+		self.vettoreAccelerazioni[1] = (-1/dummyDen2) * ( ( (-self.classPar.MASSA_PARTICELLA_2*deltaCoseno/sommaMasse)*sommaRA ) + sommaBG );
 
 		return self.vettoreAccelerazioni
 	}
@@ -93,15 +93,15 @@ class Propagatore{
 		
 		#intermedio 2
 		forza1 = self.forza(intermedio1);
-		intermedio2 = self.vecCoordGen + forza1*halfTime;
+		intermedio2 = self.vecCoordGen + (forza1*halfTime);
 		
 		#intermedio 3
 		forza2 = self.forza(intermedio2);
-		intermedio3 = self.vecCoordGen + forza2*halfTime;
+		intermedio3 = self.vecCoordGen + (forza2*halfTime);
 		
 		#intermedio 4
 		forza3 = self.forza(intermedio3);
-		intermedio4 = self.vecCoordGen + forza3*self.classPar.STEP_TEMPORALE;
+		intermedio4 = self.vecCoordGen + (forza3*self.classPar.STEP_TEMPORALE);
 	
 		#step finale
 		self.nextStep = self.vecCoordGen + ( forza1 + 2*(forza2 + forza3) + self.forza(intermedio4) )*sixthTime;

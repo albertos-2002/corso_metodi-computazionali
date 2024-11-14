@@ -30,7 +30,7 @@ class ParameterSetter{
 
 	def parameterSetter(self){
 	
-		print(" ---------------------------------------- \n");
+		print(" ----------------------------------------");
 		print(" y^");
 		print("  |");
 		print(" -------------------------------> x");
@@ -43,7 +43,7 @@ class ParameterSetter{
 		print("  |  :  \\");
 		print("  |      * massa 2");
 		print("  |");
-		print("\n ----------------------------------------");
+		print("----------------------------------------");
 	
 		print(" Inserire nella sezione seguente i parametri per il moto: ");
 	

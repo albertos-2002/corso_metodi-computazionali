@@ -34,6 +34,7 @@ import parameter_setter
 import propagatore
 import data_plotter
 import conservatore
+import animator
 
 
 #creiamo una instanza della classe che setta i parametri iniziali
@@ -44,8 +45,9 @@ coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
 #classe per conservare le propagazioni
 conservatore1 = conservatore.Conservatore( classeParametri=SetOfPar1 );
 
-#classe per il plotting dei dati
+#classe per il plotting dei dati e animazione
 dataPlotter1 = data_plotter.DataPlotter( argConservatore=conservatore1 );
+animator1 = animator.Animator(dataArg = conservatore1);
 
 
 #propaghiamo le equazioni del moto
@@ -69,8 +71,9 @@ while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
 
 
 #plotting delle coordinate (punto4)
-dataPlotter1.plotAngolo();
-dataPlotter1.plotCartesiano();
-dataPlotter1.plotEnergia();
+#dataPlotter1.plotAngolo();
+#dataPlotter1.plotCartesiano();
+#dataPlotter1.plotEnergia();
+animator1.giveLife();
 
 input("Enter to close plot and exit ....")

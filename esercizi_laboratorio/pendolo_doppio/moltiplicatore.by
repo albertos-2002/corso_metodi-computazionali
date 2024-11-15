@@ -1,0 +1,108 @@
+import numpy as np
+
+import parameter_setter
+import propagatore
+import data_plotter
+import conservatore
+import animator
+
+class Moltiplicatore{
+
+	def __init__(self){
+	
+		self.Npendoli = None;
+		
+		self.listOfDictionaries = [];
+		self.classHolderDict = dict( class_ParameterSetter = None,
+									 class_Propagatore = None,
+									 class_Conservatore = None,
+									 class_DataPlotter = None,
+									 class_Animator = None);
+	}
+
+	def askNpendoli(self){
+		print(" Inserire di seguito il numero di simulazioni da eseguire:");
+		self.Npendoli = int( input("\t") );
+	}
+
+	def makeDictionaries(self){
+
+		for _ in range(self.Npendoli){
+			self.listOfDictionaries.append( self.classHolderDict.copy() );
+		}
+	}
+
+	def initClasses(self){
+
+		for i in range(self.Npendoli){
+            self.listOfDictionaries[i]["class_ParameterSetter"] = parameter_setter.ParameterSetter();
+            self.listOfDictionaries[i]["class_Propagatore"]     = propagatore.Propagatore( classeParametri = self.listOfDictionaries[i]["class_ParameterSetter"] );
+            self.listOfDictionaries[i]["class_Conservatore"]    = conservatore.Conservatore( classeParametri = self.listOfDictionaries[i]["class_ParameterSetter"], 
+																                             indexSim=(i+1) );
+            self.listOfDictionaries[i]["class_DataPlotter"]     = data_plotter.DataPlotter( argConservatore = self.listOfDictionaries[i]["class_Conservatore"] );
+            self.listOfDictionaries[i]["class_Animator"]        = animator.Animator(dataArg = self.listOfDictionaries[i]["class_Conservatore"]);
+		}	
+	}
+
+	def paramCaller(self){
+
+		for i in range(self.Npendoli){
+			print(" Valori per la simulazione " + str(i+1) + ": ");
+            self.listOfDictionaries[i]["class_ParameterSetter"].parameterSetter();
+		}	
+	}
+
+	def codeExecuter(self){
+
+		for i in range(self.Npendoli){
+
+			indiceIterazione = 0;
+            maxIteration = self.listOfDictionaries[i]["class_ParameterSetter"].NUMERO_PASSI;
+            timeStep = self.listOfDictionaries[i]["class_ParameterSetter"].STEP_TEMPORALE;
+            stepN0 = self.listOfDictionaries[i]["class_ParameterSetter"].coordinateGeneralizzate0;
+            stepN1 = np.zeros(4);
+
+			while( indiceIterazione <= maxIteration){
+			
+				stepN1 = self.listOfDictionaries[i]["class_Propagatore"].propagatoreRungeKutta4( argToProp = stepN0 );
+			
+				self.listOfDictionaries[i]["class_Conservatore"].appendCooedinateGeneralizzate( coord = stepN1 );
+				self.listOfDictionaries[i]["class_Conservatore"].appendTime( timeItem = indiceIterazione * timeStep );
+			
+				stepN0 = stepN1;
+				indiceIterazione+=1;
+			}
+		}
+	}
+
+	def plotThemAll(self){
+
+		for i in range(self.Npendoli){
+            self.listOfDictionaries[i]["class_DataPlotter"].plotAngolo();
+            self.listOfDictionaries[i]["class_DataPlotter"].plotCartesiano();
+            self.listOfDictionaries[i]["class_DataPlotter"].plotEnergia();
+            self.listOfDictionaries[i]["class_Animator"].giveLife();
+		}
+	}
+
+
+	def breakLoose(self){
+
+		self.askNpendoli();
+
+		self.makeDictionaries();
+
+		self.initClasses();
+
+		parameter_setter.ParameterSetter.printSDR();
+
+		self.paramCaller();
+
+		self.codeExecuter();
+
+		self.plotThemAll();
+
+		input("Enter to close plot and exit ....");
+	}
+	
+}#endclass

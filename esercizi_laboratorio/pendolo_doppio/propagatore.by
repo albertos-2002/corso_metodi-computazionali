@@ -15,9 +15,9 @@ import parameter_setter
 #il vettore da passare è quello dello step t, il risultato è quello dello step t+1
 class Propagatore{
 
-	def __init__(self, classeParametri = None, vettoreCoordinateSV = None){
+	def __init__(self, classeParametri = None){
 		self.classPar = classeParametri;
-		self.vecCoordGen = vettoreCoordinateSV;
+		self.vecCoordGen = None;
 
 		self.vettoreAccelerazioni = np.zeros(2);
 		self.vecForza = np.zeros(4);
@@ -83,8 +83,9 @@ class Propagatore{
 	}
 
 	#propagazione delle equazioni del moto con il metodo di runge kutta a 4 punti
-	def propagatoreRungeKutta4(self){
-	
+	def propagatoreRungeKutta4(self, argToProp = None){
+
+		self.vecCoordGen = argToProp;
 		halfTime = self.classPar.STEP_TEMPORALE / 2;
 		sixthTime = self.classPar.STEP_TEMPORALE / 6;
 	

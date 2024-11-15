@@ -31,21 +31,6 @@ class ParameterSetter{
 
 	def parameterSetter(self){
 	
-		print(" ----------------------------------------");
-		print(" y^");
-		print("  |");
-		print(" -------------------------------> x");
-		print("  |\\");
-		print("  | \\ angolo 1, asta 1");
-		print("  |  \\");
-		print("  |  * massa 1");
-		print("  |  :\\");
-		print("  |  : \\ angolo 2, asta 2");
-		print("  |  :  \\");
-		print("  |      * massa 2");
-		print("  |");
-		print("----------------------------------------");
-	
 		print(" Inserire nella sezione seguente i parametri per il moto: ");
 	
 		print(" > Massa delle particelle [kg] (consigliato 1): ");
@@ -75,6 +60,25 @@ class ParameterSetter{
 
 		self.StepZero();
 	
+	}
+
+	@staticmethod
+	def printSDR(){
+
+		print(" ----------------------------------------");
+		print(" y^");
+		print("  |");
+		print(" -------------------------------> x");
+		print("  |\\");
+		print("  | \\ angolo 1, asta 1");
+		print("  |  \\");
+		print("  |  * massa 1");
+		print("  |  :\\");
+		print("  |  : \\ angolo 2, asta 2");
+		print("  |  :  \\");
+		print("  |      * massa 2");
+		print("  |");
+		print("----------------------------------------");
 	}
 
 }#endclass

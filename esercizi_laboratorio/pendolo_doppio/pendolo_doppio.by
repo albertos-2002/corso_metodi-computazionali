@@ -24,56 +24,8 @@
 # il vettore forza è composto da: 
 #[ (d/dt)ang_1, (d/dt)ang_2, (d2/dt2)ang_1, (d2/dt2)ang_2 ]
 #----------------------------------------------------------------------- """
+import moltiplicatore
 
-import sys
-sys.path.append("../util/");
+dummy = moltiplicatore.Moltiplicatore();
+dummy.breakLoose();
 
-import numpy as np
-
-import parameter_setter
-import propagatore
-import data_plotter
-import conservatore
-import animator
-
-
-#creiamo una instanza della classe che setta i parametri iniziali
-SetOfPar1 = parameter_setter.ParameterSetter();
-SetOfPar1.parameterSetter();
-coordinateGeneralizzate0 = SetOfPar1.coordinateGeneralizzate0;
-
-#classe per conservare le propagazioni
-conservatore1 = conservatore.Conservatore( classeParametri=SetOfPar1 );
-
-#classe per il plotting dei dati e animazione
-dataPlotter1 = data_plotter.DataPlotter( argConservatore=conservatore1 );
-animator1 = animator.Animator(dataArg = conservatore1);
-
-
-#propaghiamo le equazioni del moto
-indiceIterazione = 0;
-stepN0 = coordinateGeneralizzate0;
-stepN1 = np.zeros(4);
-
-
-while( indiceIterazione <= SetOfPar1.NUMERO_PASSI){
-
-	propagatoreMoto = propagatore.Propagatore( classeParametri = SetOfPar1,
-											   vettoreCoordinateSV = stepN0 );
-	stepN1 = propagatoreMoto.propagatoreRungeKutta4();
-
-	conservatore1.appendCooedinateGeneralizzate( coord = stepN1 );
-	conservatore1.appendTime( timeItem = indiceIterazione*SetOfPar1.STEP_TEMPORALE )
-
-	stepN0 = stepN1;
-	indiceIterazione+=1;
-}
-
-
-#plotting delle coordinate (punto4)
-dataPlotter1.plotAngolo();
-dataPlotter1.plotCartesiano();
-dataPlotter1.plotEnergia();
-animator1.giveLife();
-
-input("Enter to close plot and exit ....")

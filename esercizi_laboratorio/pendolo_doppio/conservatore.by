@@ -5,7 +5,7 @@ import parameter_setter
 
 class Conservatore{
 
-	def __init__(self, classeParametri = None){
+	def __init__(self, classeParametri = None, indexSim = None){
 		self.classPar = classeParametri;
 
 		self.coordinateAngolo1 = [];
@@ -23,9 +23,24 @@ class Conservatore{
 		self.energiaCinetica = [];
 		self.energiaPotenziale = [];
 		self.energiaTotale = [];
+		self.energiaLagrangiana = [];
 
 		self.flagCartesiano = True;
 		self.flagEnergia = True;
+		self.flagSommaLunghezze = True;
+
+		self.whoami = indexSim;
+		self.sommaLunghezze = None;
+	}
+
+	def sommaLunghezzeF(self){
+
+		if(self.flagSommaLunghezze){
+			self.sommaLunghezze = self.classPar.LUNGHEZZA_ASTA_1 \
+					              + self.classPar.LUNGHEZZA_ASTA_2;
+					              
+			self.flagSommaLunghezze = False;
+		}
 	}
 
 	def appendCooedinateGeneralizzate(self, coord = None){
@@ -104,9 +119,11 @@ class Conservatore{
 			self.energiaTotale = np.asarray(self.energiaPotenziale) \
 			                     + np.asarray(self.energiaCinetica);
 
+			self.energiaLagrangiana = np.asarray(self.energiaCinetica) \
+									  - np.asarray(self.energiaPotenziale);
+
 			self.flagEnergia = False;
 		}
 	}
-	
 	
 }#endclass

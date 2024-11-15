@@ -12,15 +12,17 @@ import conservatore
 
 class Animator{
 
-	def __init__(self, dataArg = None){
+	def __init__(self, dataArg = None){ #prende come argomento la classe conservatore
 		self.data = dataArg;
 		self.frameN = 0;
 
 		self.figure, self.ax = plt.subplots()
 
-		self.ax.set_xlim(-2.5,2.5);
-		self.ax.set_ylim(-2.6,2.5);
-		self.ax.set_title("Animazione");
+		self.absBound = None;
+		self.absBoundL = None;
+		self.absBoundB = None;
+
+		self.ax.set_title("Animazione [sim: " + str(self.data.whoami) + "]");
 		self.ax.set_xlabel("Posizione X [m]");
 		self.ax.set_ylabel("Posizione Y [m]");
 
@@ -61,14 +63,31 @@ class Animator{
 		self.totalTraccia2Y = 0;
 
 		#progressbar
-		self.progressBar = plt.Rectangle( (-2, -2.3), 0, 0.06, color="dodgerblue", alpha=0.7, zorder=2);
-		self.ax.add_patch(self.progressBar);
+		self.progressBar = None;
 		self.progress = 0;
 
-		self.backgroundBar = plt.Rectangle( (-2, -2.3), 4, 0.06, color="slategray", alpha=0.6, zorder=1 );
-		self.ax.add_patch(self.backgroundBar);
+		self.backgroundBar = None;
 
 		self.animazione = None;
+	}
+
+	def toInitAfterDataInsetion(self){
+
+		self.data.sommaLunghezzeF();
+
+		self.absBound = self.data.sommaLunghezze + 0.5;
+		self.absBoundL = self.data.sommaLunghezze + 0.6;
+		self.absBoundB = self.data.sommaLunghezze + 0.3;
+
+		self.ax.set_xlim(-self.absBound, self.absBound);
+		self.ax.set_ylim(-self.absBoundL, self.absBound);
+
+		#progressbar
+		self.progressBar = plt.Rectangle( (-self.data.sommaLunghezze, -self.absBoundB), 0, 0.06, color="dodgerblue", alpha=0.7, zorder=2);
+		self.ax.add_patch(self.progressBar);
+
+		self.backgroundBar = plt.Rectangle( (-self.data.sommaLunghezze, -self.absBoundB), (2*self.data.sommaLunghezze), 0.06, color="slategray", alpha=0.6, zorder=1 );
+		self.ax.add_patch(self.backgroundBar);
 	}
 
 	def init(self){
@@ -122,13 +141,15 @@ class Animator{
 		self.rod2.set_data( [self.massa1X, self.massa2X], [self.massa1Y, self.massa2Y] );
 
 		#update per la progress bar
-		self.progressBar.set_width(4*self.progress);		
+		self.progressBar.set_width((self.data.sommaLunghezze*2)*self.progress);		
 
 		return self.pivot, self.massa1, self.massa2, self.rod1, self.rod2, self.traccia1, \
 			   self.traccia2, self.progressBar, self.totalTraccia1, self.totalTraccia2
 	}
 
 	def giveLife(self){
+
+		self.toInitAfterDataInsetion();
 
 		self.data.cartesianatore();
 		self.frameN = len(self.data.coordinateTemporali);

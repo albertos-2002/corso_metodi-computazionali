@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+
+class GraphAggregator{
+
+	def __init__(self){
+		self.figure = plt.figure();
+		self.gs = gridspec.GridSpec(2, 2, figure=self.figure);
+
+		self.axA = None;
+		self.axC = None;
+		self.axE = None;
+		self.axA = None;
+	}
+
+	def getGraphAngolo(self){
+		self.axA = self.figure.add_subplot( self.gs[0,0] ); # Row 0, columns 0
+		return self.axA
+	}
+
+	def getGraphCartesiano(self){
+		self.axC = self.figure.add_subplot( self.gs[0,1] ); # Row 0, columns 1
+		return self.axC
+	}
+
+	def getGraphEnergia(self){
+		self.axE = self.figure.add_subplot( self.gs[1,0] ); # Row 1, columns 0
+		return self.axE
+	}
+
+	def getAnimation(self){
+		self.axA = self.figure.add_subplot( self.gs[1,1] ); # Row 1, column 1
+		return self.axA
+	}
+
+}#endclass

@@ -1,22 +1,25 @@
 """ ---------------------------------------------------
 Classe per la gestione delle animazioni
 --------------------------------------------------- """
-import sys
+import  sys
 sys.path.append("../util/")
+import set_graph as sg
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-import set_graph as sg
 import conservatore
+import graph_aggregator
 
 class Animator{
 
-	def __init__(self, dataArg = None){ #prende come argomento la classe conservatore
+	def __init__(self, dataArg = None, graphArg = None){ #prende come argomento la classe conservatore e graphAggregator
 		self.data = dataArg;
+		self.graphArg = graphArg;
 		self.frameN = 0;
 
-		self.figure, self.ax = plt.subplots()
+		self.figure = self.graphArg.figure;
+		self.ax = self.graphArg.getAnimation();
 
 		self.absBound = None;
 		self.absBoundL = None;
@@ -161,8 +164,8 @@ class Animator{
 									blit = True,
 									interval = 1);
 
-		sg.make_fine(self.ax);
-		plt.show(block=False);
+		plt.grid();
+        sg.make_fine(self.ax);
 	}
 
 	

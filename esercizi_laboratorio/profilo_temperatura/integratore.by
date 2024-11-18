@@ -1,0 +1,38 @@
+""" ------------------------------------------
+Classe per l'integrazione del profilo di 
+temperatura
+L'algoritmo è stato adattato per lo 
+specifico esercizio
+------------------------------------------ """
+import numpy as np
+
+import parameter_setter
+
+
+class EdoCondizioniContorno{
+
+	def __init__(self, classPar = None){
+		self.dataPar = classPar
+		self.lunghezzaIntervallo = None
+
+		self.Y = [];
+		self.F = [];
+		self.M = None;
+		self.invertedM = None;
+	}
+
+	def breakTheY(self){
+		self.lunghezzaIntervallo = self.dataPar.LunghezzaAsta \
+									/ (self.dataPar.NumeroIntervalli -1);
+
+		for i in range(self.dataPar.NumeroIntervalli){
+			self.Y.append( i*self.lunghezzaIntervallo );
+		}
+		
+	}
+
+	def matrixBuilder(self){
+		
+	}
+	
+}#endclass

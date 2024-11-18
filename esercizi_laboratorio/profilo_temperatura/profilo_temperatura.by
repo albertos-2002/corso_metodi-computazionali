@@ -1,0 +1,20 @@
+""" -------------------------------------------------------
+Calcolo del profilo di temperatura di una asta metallica
+------------------------------------------------------- """
+import sys
+sys.path.append("../util/")
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+#import set_grahp as sg
+
+import parameter_setter
+import integratore
+
+SetOfPar = parameter_setter.ParameterSetter();
+Integratore = integratore.EdoCondizioniContorno( classPar = SetOfPar);
+
+SetOfPar.parameterSetter();
+
+Integratore.breakTheY();

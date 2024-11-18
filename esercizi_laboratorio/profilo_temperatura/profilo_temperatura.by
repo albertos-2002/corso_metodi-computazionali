@@ -20,3 +20,5 @@ SetOfPar.parameterSetter();
 Integratore.TheOneToCallToIntegrate();
 
 plt.plot( range(SetOfPar.NumeroIntervalli) , Integratore.Y );
+plt.grid();
+plt.show();

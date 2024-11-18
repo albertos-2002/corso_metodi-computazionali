@@ -19,20 +19,78 @@ class EdoCondizioniContorno{
 		self.F = [];
 		self.M = None;
 		self.invertedM = None;
+
+		#la nostra equazione differenziale presente dei coefficienti
+		#costanti che non dipendono da x
+		self.adix = None;
+		self.bdix = None;
+		self.cdix = None;
+		self.fdix = None;
+
+		#dai coefficienti costanti ricaviamo che anche le matrici L,D,U lo sono
+		self.LMatrix = None;
+		self.DMatrix = None;
+		self.UMatrix = None;
 	}
 
-	def breakTheY(self){
-		self.lunghezzaIntervallo = self.dataPar.LunghezzaAsta \
-									/ (self.dataPar.NumeroIntervalli -1);
-
-		for i in range(self.dataPar.NumeroIntervalli){
-			self.Y.append( i*self.lunghezzaIntervallo );
-		}
-		
+	def setCoeff(self){
+		self.adix = self.dataPar.ConducibilitaTermica / (self.dataPar.CapacitaTermica
+														 * self.dataPar.DensitaAcciaio);
+		self.bdix = 0;
+		self.cdix = - (2 * self.dataPar.constH) / (self.dataPar.CapacitaTermica
+													* self.dataPar.DensitaAcciaio
+													* self.dataPar.Raggio);
+		self.fdix = - (2 * self.dataPar.constH * self.dataPar.TemperaturaAmb) \
+		            / (self.dataPar.CapacitaTermica * self.dataPar.DensitaAcciaio
+													* self.dataPar.Raggio);
 	}
+
+	def setMatrixLDU(self){
+		self.LMatrix = (self.adix / (self.dataPar.constH**2) ) - (self.bdix / (2*self.dataPar.constH) );
+		self.DMatrix = - ( (2*self.adix) / (self.dataPar.constH**2) ) + self.cdix;
+		self.UMatrix = ( self.adix / (self.dataPar.constH**2) ) + ( self.bdix / (2*self.dataPar.constH) );
+	}
+
+
+#	def breakTheY(self){
+#		self.lunghezzaIntervallo = self.dataPar.LunghezzaAsta \
+#									/ (self.dataPar.NumeroIntervalli -1);
+#
+#		for i in range(self.dataPar.NumeroIntervalli){
+#			self.Y.append( i*self.lunghezzaIntervallo );
+#		}		
+#	}
 
 	def matrixBuilder(self){
-		
+		self.M = np.zeros((self.dataPar.NumeroIntervalli, self.dataPar.NumeroIntervalli));
+
+		self.M[0,0] = 1;
+		self.M[self.dataPar.NumeroIntervalli, self.dataPar.NumeroIntervalli] = 1;
+
+		for i in range(1, self.dataPar.NumeroIntervalli){
+			self.M[i,i-1] = self.LMatrix;
+			self.M[i,i]   = self.DMatrix;
+			self.M[i,i+1] = self.UMatrix;
+		}
+
+		self.invertedM = numpy.linalg.inv(self.M);
+	}
+
+	#si applicano a questa le condizioni di Dirichlet
+	def forceBuilder(self){
+		self.F.append(self.dataPar.TemperaturaA);
+		for i in range(1, self.dataPar.NumeroIntervalli){
+			self.F.append(self.fdix);
+		}
+		self.F.append(self.dataPar.TemperaturaB);
+	}
+
+	def TheOneToCallToIntegrate(self){
+		self.setCoeff();
+		self.setMatrixLDU();
+		self.matrixBuilder();
+
+		self.Y = np.dot(self.invertedM, self.F);
 	}
 	
 }#endclass

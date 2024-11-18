@@ -17,4 +17,6 @@ Integratore = integratore.EdoCondizioniContorno( classPar = SetOfPar);
 
 SetOfPar.parameterSetter();
 
-Integratore.breakTheY();
+Integratore.TheOneToCallToIntegrate();
+
+plt.plot( range(SetOfPar.NumeroIntervalli) , Integratore.Y );

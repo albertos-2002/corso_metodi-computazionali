@@ -1,1 +1,3 @@
 Occasionalmente la griglia non compare nel grafico dell'energia o nell'animazione
+
+https://github.com/albertos-2002/corso_metodi-computazionali/tree/main/esercizi_laboratorio/pendolo_doppio

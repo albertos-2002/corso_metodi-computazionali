@@ -56,6 +56,7 @@ class DataPlotter{
 	def plotEnergia(self, ax){
 
 		self.conservatore.energiatore();
+		self.conservatore.energiatoreCartesiano();
 
 		ax.set_title("Energia meccanica in funzione del tempo (teoricamente conservata) [sim: " + str(self.conservatore.whoami) + "]");
 		ax.set_ylabel("Energia [J]");
@@ -67,6 +68,9 @@ class DataPlotter{
 #		ax.plot(self.conservatore.coordinateTemporali,
 #				self.conservatore.energiaLagrangiana,
 #				linestyle="--", label="Lagrangiana");
+#		ax.plot(self.conservatore.coordinateTemporali, 
+#				self.conservatore.energiaTotaleCAR, 
+#				linestyle="--", label="Energia totale cartesiana");
 
 		ax.grid();
 		ax.legend();		

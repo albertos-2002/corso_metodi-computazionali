@@ -20,14 +20,25 @@ class Conservatore{
 		self.cartesianoX2 = [];
 		self.cartesianoY2 = [];
 
+		self.VcartesianoX1 = [];
+		self.VcartesianoY1 = [];
+		self.VcartesianoX2 = [];
+		self.VcartesianoY2 = [];
+
 		self.energiaCinetica = [];
 		self.energiaPotenziale = [];
 		self.energiaTotale = [];
 		self.energiaLagrangiana = [];
 
+		self.energiaCineticaCAR = [];
+		self.energiaPotenzialeCAR = [];
+		self.energiaTotaleCAR = [];
+		self.energiaLagrangianaCAR = [];
+
 		self.flagCartesiano = True;
 		self.flagEnergia = True;
 		self.flagSommaLunghezze = True;
+		self.flagEnergiaCartesiana = True;
 
 		self.whoami = indexSim;
 		self.sommaLunghezze = None;
@@ -77,6 +88,17 @@ class Conservatore{
 				self.cartesianoY1.append(y1);
 				self.cartesianoX2.append(x1+x2);
 				self.cartesianoY2.append(y1+y2);
+
+
+				vx1 = self.classPar.LUNGHEZZA_ASTA_1 * np.cos(self.coordinateAngolo1[i]) * self.velocitaAngolari1[i];
+				vy1 = self.classPar.LUNGHEZZA_ASTA_1 * np.sin(self.coordinateAngolo1[i]) * self.velocitaAngolari1[i];
+				vx2 = self.classPar.LUNGHEZZA_ASTA_2 * np.cos(self.coordinateAngolo2[i]) * self.velocitaAngolari2[i];
+				vy2 = self.classPar.LUNGHEZZA_ASTA_2 * np.sin(self.coordinateAngolo2[i]) * self.velocitaAngolari2[i];
+				
+				self.VcartesianoX1.append(vx1);
+				self.VcartesianoY1.append(vy2);
+				self.VcartesianoX2.append(vx1 + vx2);
+				self.VcartesianoY2.append(vy1 + vy2);
 			}
 
 			self.flagCartesiano = False;
@@ -123,6 +145,32 @@ class Conservatore{
 									  - np.asarray(self.energiaPotenziale);
 
 			self.flagEnergia = False;
+		}
+	}
+
+	def energiatoreCartesiano(self){
+
+		self.cartesianatore();
+		if(self.flagEnergiaCartesiana){
+	
+			length = len(self.coordinateTemporali);
+	
+			for i in range(length){
+				dummyC1 = 0.5 * self.classPar.MASSA_PARTICELLA_1 * (self.VcartesianoX1[i]**2 + self.VcartesianoY1[i]**2);
+				dummyC2 = 0.5 * self.classPar.MASSA_PARTICELLA_2 * (self.VcartesianoX2[i]**2 + self.VcartesianoY2[i]**2);
+				dummyC3 = dummyC1 + dummyC2;
+				self.energiaCineticaCAR.append(dummyC3);
+	
+				dummyP1 = self.classPar.MASSA_PARTICELLA_1 * GRAVITA * self.cartesianoY1[i];
+				dummyP2 = self.classPar.MASSA_PARTICELLA_2 * GRAVITA * self.cartesianoY2[i];
+				dummyP3 = dummyP1 + dummyP2;
+				self.energiaPotenzialeCAR.append(dummyP3);
+			}
+	
+			self.energiaTotaleCAR = np.asarray(self.energiaCineticaCAR) + np.asarray(self.energiaPotenzialeCAR);
+			self.energiaLagrangianaCAR = np.asarray(self.energiaCineticaCAR) - np.asarray(self.energiaPotenzialeCAR); 
+	
+			self.flagEnergiaCartesiana = False;
 		}
 	}
 	

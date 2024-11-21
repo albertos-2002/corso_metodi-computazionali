@@ -10,3 +10,7 @@ Problema: la perdita di energia dovuta al metodo di integrazione
 		  e conseguentemente un tempo totale di 1'000'000 (per 
 		  mantenere un tempo totale di 10 secondi), la variazione 
 		  si sposta alla terza cifra decimale
+
+Il grafico dell'energia totale usando le coordinate cartesiane, calcolate
+a partire da quelle angolari propagate, risulta completamente differente
+da quello prodotto dalle variabili angolari

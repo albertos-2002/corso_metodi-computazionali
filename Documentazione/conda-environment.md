@@ -80,6 +80,8 @@ conda activate $condaenv
 conda install -c conda-forge matplotlib
 conda install -c conda-forge scipy
 conda install -c conda-forge numpy
+
+pip install git+https://github.com/albertos-2002/braket-bython.git
 ```
 
 Nel caso matplotlib presenti problemi ad aprire una finestra grafica <>

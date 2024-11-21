@@ -94,7 +94,7 @@ class Animator{
 	}
 
 	def init(self){
-		self.pivot.set_data( self.pivotX, self.pivotY );
+		self.pivot.set_data( [self.pivotX], [self.pivotY] );
 		self.massa1.set_data([],[]);
 		self.massa2.set_data([],[]);
 		self.rod1.set_data([],[]);

@@ -42,6 +42,9 @@ class Conservatore{
 
 		self.whoami = indexSim;
 		self.sommaLunghezze = None;
+
+		#spostiamo lo zero dell'energia potenziale
+		self.nuovoZeroEnergiaPotenziale = None;
 	}
 
 	def sommaLunghezzeF(self){
@@ -107,9 +110,12 @@ class Conservatore{
 
 	def energiatore(self){
 
+#		self.sommaLunghezzeF();
 		if(self.flagEnergia){
 
 			length = len(self.coordinateTemporali);
+#			self.nuovoZeroEnergiaPotenziale = GRAVITA * ( self.classPar.LUNGHEZZA_ASTA_1 * self.classPar.MASSA_PARTICELLA_1
+#			                                             + self.sommaLunghezze * self.classPar.MASSA_PARTICELLA_2);
 
 			for i in range(length){
 
@@ -121,14 +127,14 @@ class Conservatore{
 				          * GRAVITA \
 				          * self.classPar.LUNGHEZZA_ASTA_2 \
 				          * np.cos( self.coordinateAngolo2[i] );
-				self.energiaPotenziale.append(dummyP1 + dummyP2);			
+				self.energiaPotenziale.append(dummyP1 + dummyP2 );			
 
 				dummyC1 = 0.5 * self.classPar.MASSA_PARTICELLA_1 \
 				          * (self.classPar.LUNGHEZZA_ASTA_1**2) \
 				          * (self.velocitaAngolari1[i]**2);
 				dummyC2 = 0.5 * self.classPar.MASSA_PARTICELLA_2 \
 				          * ( (self.classPar.LUNGHEZZA_ASTA_1 * self.velocitaAngolari1[i])**2 
-				          + (self.classPar.LUNGHEZZA_ASTA_2 * self.velocitaAngolari2[i])**2 );
+				          + (self.classPar.LUNGHEZZA_ASTA_2 * self.velocitaAngolari2[i])**2  );
 				dummyC3 = self.classPar.MASSA_PARTICELLA_2 \
 			          	  * self.classPar.LUNGHEZZA_ASTA_1 \
 			          	  * self.classPar.LUNGHEZZA_ASTA_2 \

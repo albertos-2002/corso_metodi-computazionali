@@ -1,3 +1,12 @@
 Occasionalmente la griglia non compare nel grafico dell'energia o nell'animazione
 
 https://github.com/albertos-2002/corso_metodi-computazionali/tree/main/esercizi_laboratorio/pendolo_doppio
+
+
+Problema: la perdita di energia dovuta al metodo di integrazione
+		  non simplettico è troppo elevata, prima cifra decimale
+
+		  Usado i parametri std con uno step temporale di 0.00001
+		  e conseguentemente un tempo totale di 1'000'000 (per 
+		  mantenere un tempo totale di 10 secondi), la variazione 
+		  si sposta alla terza cifra decimale

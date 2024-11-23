@@ -1,0 +1,41 @@
+""" ----------------------------------------------
+Classe per il plotting dei dati
+---------------------------------------------- """
+import sys
+sys.path.append("../util/")
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+import parameter_setter
+import integratore
+import SetGraph
+
+class DataPlotter(){
+
+	def __init__(self, param = None, integratore = None){
+
+		self.classSetGraph = SetGraph.SetGraph();
+		self.dataPar = param;
+		self.dataInt = integratore;
+	}#enddef
+
+	def plotTemp(self){
+
+		figure, ax = plt.subplots();
+
+		ax.set_title("Profilo temperatura asta metallica");
+		ax.set_ylabel("Temperatura $[°C]$");
+		ax.set_xlabel("Posizione relativa sull'asta");
+
+		posizioneRelativa = np.asarray( range(self.dataPar.NumeroIntervalli) ) / self.dataPar.NumeroIntervalli;
+		
+		ax.plot( posizioneRelativa, self.dataInt.Y,
+				 linestyle = "", marker = ".", label="T(x)")
+		
+		self.classSetGraph.makeFine(ax);
+		self.classSetGraph.setStyle(  markerSize=2 );
+		plt.show();
+	}#enddef
+	
+}#endclass

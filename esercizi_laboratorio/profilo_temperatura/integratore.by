@@ -12,8 +12,8 @@ import parameter_setter
 class EdoCondizioniContorno{
 
 	def __init__(self, classPar = None){
-		self.dataPar = classPar
-		self.lunghezzaIntervallo = None
+		self.dataPar = classPar;
+		self.lunghezzaIntervallo = None;
 
 		self.Y = [];
 		self.F = [];
@@ -40,15 +40,17 @@ class EdoCondizioniContorno{
 		self.cdix = - (2 * self.dataPar.constH) / (self.dataPar.CapacitaTermica
 													* self.dataPar.DensitaAcciaio
 													* self.dataPar.Raggio);
-		self.fdix = - (2 * self.dataPar.constH * self.dataPar.TemperaturaAmb) \
+		self.fdix = (2 * self.dataPar.constH * self.dataPar.TemperaturaAmb) \
 		            / (self.dataPar.CapacitaTermica * self.dataPar.DensitaAcciaio
 													* self.dataPar.Raggio);
 	}
 
 	def setMatrixLDU(self){
-		self.LMatrix = (self.adix / (self.dataPar.constH**2) ) - (self.bdix / (2*self.dataPar.constH) );
-		self.DMatrix = - ( (2*self.adix) / (self.dataPar.constH**2) ) + self.cdix;
-		self.UMatrix = ( self.adix / (self.dataPar.constH**2) ) + ( self.bdix / (2*self.dataPar.constH) );
+		self.lunghezzaIntervallo = self.dataPar.LunghezzaAsta / ( self.dataPar.NumeroIntervalli -1 );
+	
+		self.LMatrix = (self.adix / (self.lunghezzaIntervallo**2) ) - (self.bdix / (2*self.lunghezzaIntervallo) );
+		self.DMatrix = - ( (2*self.adix) / (self.lunghezzaIntervallo**2) ) + self.cdix;
+		self.UMatrix = ( self.adix / (self.lunghezzaIntervallo**2) ) + ( self.bdix / (2*self.lunghezzaIntervallo) );
 	}
 
 

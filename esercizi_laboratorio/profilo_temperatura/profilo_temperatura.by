@@ -11,14 +11,16 @@ import matplotlib.pyplot as plt
 
 import parameter_setter
 import integratore
+import data_plotter
 
 SetOfPar = parameter_setter.ParameterSetter();
 Integratore = integratore.EdoCondizioniContorno( classPar = SetOfPar);
+
 
 SetOfPar.parameterSetter();
 
 Integratore.TheOneToCallToIntegrate();
 
-plt.plot( range(SetOfPar.NumeroIntervalli) , Integratore.Y );
-plt.grid();
-plt.show();
+
+plotter = data_plotter.DataPlotter( param=SetOfPar, integratore=Integratore);
+plotter.plotTemp();

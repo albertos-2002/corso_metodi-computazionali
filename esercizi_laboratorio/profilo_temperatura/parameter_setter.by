@@ -11,9 +11,9 @@ class ParameterSetter{
 		self.LunghezzaAsta = 2 #[m]
 		self.Raggio = 0.001 #[m]
 
-		self.TemperaturaA   = -20 + 273.5 #[°K]
-		self.TemperaturaB   = 40 + 273.5  #[°K]
-		self.TemperaturaAmb = 20 + 273.5  #[°K]
+		self.TemperaturaA   = -20 #[°C] + 273.5 #[°K]
+		self.TemperaturaB   = 40 #[°C] + 273.5  #[°K]
+		self.TemperaturaAmb = 20 #[°C] + 273.5  #[°K]
 
 		self.NumeroIntervalli = None
 
@@ -35,15 +35,15 @@ class ParameterSetter{
 	
 		print(" > Temperatura estremo A [°C] (consigliato -20°C): ");
 		self.TemperaturaA = float( input("\t") );
-		self.TemperaturaA = self.TemperaturaA + 273.15;
+#		self.TemperaturaA = self.TemperaturaA + 273.15;
 
 		print(" > Temperatura estremo B [°C] (consigliato 40°C): ");
 		self.TemperaturaB = float( input("\t") );
-		self.TemperaturaB = self.TemperaturaB + 273.15;
+#		self.TemperaturaB = self.TemperaturaB + 273.15;
 
 		print(" > Temperatura ambiente [°C] (consigliato 20°C): ");
 		self.TemperaturaAmb = float( input("\t") );
-		self.TemperaturaAmb = self.TemperaturaAmb + 273.15;
+#		self.TemperaturaAmb = self.TemperaturaAmb + 273.15;
 
 		print(" > Numero di intervalli: ")
 		self.NumeroIntervalli = int( input("\t") );

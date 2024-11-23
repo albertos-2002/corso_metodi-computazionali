@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 class SetGraph{
 
 	def __init__(self){
-		
+		pass
 	}#enddef
 
 	@staticmethod
-	def makeFine(self, axObj){
+	def makeFine(axObj){
 
 		#disegno degli assi
 		axObj.axhline( 0, color='grey', linestyle=(0, (1, 3)) );  # Horizontal axis
@@ -25,11 +25,16 @@ class SetGraph{
 	}#enddef
 
 	@staticmethod
-	def setStyle(self, fontSize=10, markerSize=6){
+	def setStyle(fontSize=10, markerSize=6, smallLegend=False, bigAxT=False){
 
 		plt.rcParams['axes.titlesize']  = fontSize;      # Set title size
-		plt.rcParams['axes.labelsize']  = fontSize+7;    # Set label size
-		plt.rcParams['legend.fontsize'] = fontSize-4;
+
+		if bigAxT {
+			plt.rcParams['axes.labelsize']  = fontSize+7;    # Set label size	
+		}
+		if smallLegend{
+			plt.rcParams['legend.fontsize'] = fontSize-4;	
+		}
 		
 		plt.rcParams['lines.markersize'] = markerSize;  # Reset to the default value
 		

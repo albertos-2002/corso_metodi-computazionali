@@ -19,10 +19,10 @@ class Propagatore{
 		self.classPar = classeParametri;
 		self.vecCoordGen = None;
 
-		self.vettoreAccelerazioni = np.zeros(2);
-		self.vecForza = np.zeros(4);
+		self.vettoreAccelerazioni = np.zeros(2, dtype=np.float64);
+		self.vecForza = np.zeros(4, dtype=np.float64);
 		
-		self.nextStep = np.zeros(4);
+		self.nextStep = np.zeros(4, dtype=np.float64);
 	}
 
 	#calcolatore delle accelerazioni
@@ -85,7 +85,7 @@ class Propagatore{
 	#propagazione delle equazioni del moto con il metodo di runge kutta a 4 punti
 	def propagatoreRungeKutta4(self, argToProp = None){
 
-		self.vecCoordGen = argToProp;
+		self.vecCoordGen = np.asarray(argToProp);
 		halfTime = self.classPar.STEP_TEMPORALE / 2;
 		sixthTime = self.classPar.STEP_TEMPORALE / 6;
 	
@@ -105,7 +105,7 @@ class Propagatore{
 		intermedio4 = self.vecCoordGen + (forza3*self.classPar.STEP_TEMPORALE);
 	
 		#step finale
-		self.nextStep = self.vecCoordGen + ( forza1 + 2*(forza2 + forza3) + self.forza(intermedio4) )*sixthTime;
+		self.nextStep = np.asarray(self.vecCoordGen + ( forza1 + 2*(forza2 + forza3) + self.forza(intermedio4) )*sixthTime);
 
 		return self.nextStep
 	}

@@ -40,7 +40,7 @@ class EdoCondizioniContorno{
 		self.cdix = - (2 * self.dataPar.constH) / (self.dataPar.CapacitaTermica
 													* self.dataPar.DensitaAcciaio
 													* self.dataPar.Raggio);
-		self.fdix = (2 * self.dataPar.constH * self.dataPar.TemperaturaAmb) \
+		self.fdix = - (2 * self.dataPar.constH * self.dataPar.TemperaturaAmb) \
 		            / (self.dataPar.CapacitaTermica * self.dataPar.DensitaAcciaio
 													* self.dataPar.Raggio);
 	}

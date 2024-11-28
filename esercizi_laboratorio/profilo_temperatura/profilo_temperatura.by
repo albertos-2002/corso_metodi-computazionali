@@ -7,8 +7,6 @@ sys.path.append("../util/")
 import numpy as np
 import matplotlib.pyplot as plt
 
-#import set_grahp as sg
-
 import parameter_setter
 import integratore
 import data_plotter

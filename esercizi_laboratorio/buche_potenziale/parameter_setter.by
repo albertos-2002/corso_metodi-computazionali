@@ -1,0 +1,31 @@
+""" --------------------------------------------
+Classe per il setting dei parametri
+-------------------------------------------- """
+import conservatore
+
+class ParameterSetter{
+
+	def __init__(self){
+		self.NumeroPunti = 100; #valore consigliato
+		self.LarghezzaBuca = 10; #espresso in unità di raggio di bohr
+	}#enddef
+
+	def parameterSetter(){
+
+		print(" Inserire nella prossima sezione i parametri:");
+		
+		print(" > Inserire il numero di punti per la griglia:")
+		print("   (consigliato 100)")
+		self.NumeroPunti = int( input("\t") );
+		
+		print(" > Inserire la larghezza della buca in unità di raggio di Bohr:")
+		print("   (consigliato 10)")
+		self.LarghezzaBuca = int( input("\t") );
+
+		#inseriamo i dati nella classe conservatore
+		data.par_numeroPunti = self.NumeroPunti;
+		data.par_larghezzaBuca = self.LarghezzaBuca;
+		
+	}#enddef
+	
+}#endclass

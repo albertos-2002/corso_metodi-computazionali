@@ -7,9 +7,7 @@ import conservatore
 
 class Potenziale{
 
-	def __init__(self, classData = None){
-
-		self.data = classData;
+	def __init__(self){
 		
 		self.flagPotenzialeZero = True;
 		self.flagPotenzialeCoulombino = True;
@@ -27,7 +25,7 @@ class Potenziale{
 			}
 
 			self.flagPotenzialeZero = False;
-			self.data.inputPotential(vec = tmpList, name="z");
+			data.potenzialeZero = tmpList;
 			#return tmpList;
 		}
 		
@@ -44,7 +42,7 @@ class Potenziale{
 			}
 
 			self.flagPotenzialeCoulombino = False;
-			self.data.inputPotential(vec = tmpList, name="c");
+			data.potenzialeCoulomb = tmpList;
 			#return tmpList;
 		}
 		
@@ -62,7 +60,7 @@ class Potenziale{
 			}
 
 			self.flagPotenzialeYukawa = False;
-			self.data.inputPotential(vec = tmpList, name="y");
+			data.potenzialeYukawa = tmpList;
 			#return tmpList;
 		}
 		

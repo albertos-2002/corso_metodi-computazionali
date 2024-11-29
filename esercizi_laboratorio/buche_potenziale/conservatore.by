@@ -1,5 +1,5 @@
 """ -----------------------------------------------------------
-
+Classe per la conservazione dei dati
 ----------------------------------------------------------- """
 
 class Conservatore{
@@ -10,7 +10,8 @@ class Conservatore{
 		self.par_numeroPunti = 0;
 		self.par_numeroIntervalli = 0;
 		self.par_larghezzaIntervallo = 0;
-		self.par_gammaY = 0;
+		self.par_gammaY = [1,2,5];
+		self.par_larghezzaBuca = 0;
 
 		self.vettoreGriglia = [];
 
@@ -21,9 +22,7 @@ class Conservatore{
 		
 	}#enddef
 
-	def inputParameters(self, punti=0){
-		
-	}#enddef
+
 
 	def inputVecG(self, g=None){
 		self.vettoreGriglia = g;
@@ -42,3 +41,7 @@ class Conservatore{
 	}#enddef
 	
 }#endclass
+
+#creiamo una istanza che possiamo utilizzare in ogni file
+#che include questo script
+data = Conservatore();

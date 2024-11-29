@@ -1,0 +1,71 @@
+""" --------------------------------------------------------
+Classe per il calcolo del potenziale
+-------------------------------------------------------- """
+import numpy as np
+
+import conservatore
+
+class Potenziale{
+
+	def __init__(self, classData = None){
+
+		self.data = classData;
+		
+		self.flagPotenzialeZero = True;
+		self.flagPotenzialeCoulombino = True;
+		self.flagPotenzialeYukawa = True;
+		
+	}#enddef
+
+	def calcZero(self){
+
+		if(self.flagPotenzialeZero){
+
+			tmpList = [];
+			for r in self.data.vettoreGriglia{
+				tmpList.append(0);
+			}
+
+			self.flagPotenzialeZero = False;
+			self.data.inputPotential(vec = tmpList, name="z");
+			#return tmpList;
+		}
+		
+	}#enddef
+
+	def calcCoulomb(self){
+
+		if(self.flagPotenzialeCoulombino){
+
+			tmpList = [];
+			for r in self.data.vettoreGriglia{
+				dummy = -1 / r;
+				tmpList.append(dummy);			
+			}
+
+			self.flagPotenzialeCoulombino = False;
+			self.data.inputPotential(vec = tmpList, name="c");
+			#return tmpList;
+		}
+		
+	}#enddef
+
+	def calcYukawa(self){
+
+		if(self.flagPotenzialeYukawa){
+
+			tmpList = [];
+			for r in self.data.vettoreGriglia{
+				dummy1 = -1 / r ;
+				dummy2 = np.exp( -r / self.data.gammaY );
+				tmpList.append(dummy1*dummy2);			
+			}
+
+			self.flagPotenzialeYukawa = False;
+			self.data.inputPotential(vec = tmpList, name="y");
+			#return tmpList;
+		}
+		
+	}#enddef
+	
+}#endclass

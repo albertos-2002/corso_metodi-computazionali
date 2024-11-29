@@ -1,0 +1,44 @@
+""" -----------------------------------------------------------
+
+----------------------------------------------------------- """
+
+class Conservatore{
+
+	def __init__(self){
+
+		#parametri
+		self.par_numeroPunti = 0;
+		self.par_numeroIntervalli = 0;
+		self.par_larghezzaIntervallo = 0;
+		self.par_gammaY = 0;
+
+		self.vettoreGriglia = [];
+
+		#vettori del potenziale
+		self.potenzialeZero    = [];
+		self.potenzialeCoulomb = [];
+		self.potenzialeYukawa  = [];
+		
+	}#enddef
+
+	def inputParameters(self, punti=0){
+		
+	}#enddef
+
+	def inputVecG(self, g=None){
+		self.vettoreGriglia = g;
+	}#enddef
+
+	def inputPotential(self, vec = None, name = None){
+		if(name == "z"){
+			self.potenzialeZero = vec;
+		}
+		if(name == "c"){
+			self.potenzialeCoulomb = vec;
+		}
+		if(name == "y"){
+			self.potenzialeYukawa = vec;
+		}
+	}#enddef
+	
+}#endclass

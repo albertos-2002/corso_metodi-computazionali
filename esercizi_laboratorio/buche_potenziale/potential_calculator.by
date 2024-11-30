@@ -5,6 +5,7 @@ import numpy as np
 
 import conservatore
 
+data = conservatore.data;
 class Potenziale{
 
 	def __init__(self){
@@ -26,7 +27,6 @@ class Potenziale{
 
 			self.flagPotenzialeZero = False;
 			data.potenzialeZero = tmpList;
-			#return tmpList;
 		}
 		
 	}#enddef
@@ -43,7 +43,6 @@ class Potenziale{
 
 			self.flagPotenzialeCoulombino = False;
 			data.potenzialeCoulomb = tmpList;
-			#return tmpList;
 		}
 		
 	}#enddef
@@ -52,18 +51,22 @@ class Potenziale{
 
 		if(self.flagPotenzialeYukawa){
 
-			tmpList = [];
-			for r in self.data.vettoreGriglia{
-				dummy1 = -1 / r ;
-				dummy2 = np.exp( -r / self.data.gammaY );
-				tmpList.append(dummy1*dummy2);			
-			}
+			for gamma in data.gammaY{
 
+				tmpList = [];
+				for r in data.vettoreGriglia{
+					dummy1 = -1 / r ;
+					dummy2 = np.exp( -r / gamma ); 
+					tmpList.append(dummy1*dummy2);			
+				}
+				data.dictPotenzialeYukawa[str(gamma)] = tmpList;
+			}
 			self.flagPotenzialeYukawa = False;
-			data.potenzialeYukawa = tmpList;
-			#return tmpList;
 		}
-		
 	}#enddef
 	
 }#endclass
+
+#creiamo una istanza che possiamo utilizzare in ogni file
+#che include questo script
+potentialClass = Potenziale();

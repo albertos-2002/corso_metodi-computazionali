@@ -1,0 +1,12 @@
+""" ----------------------------------------------------------------------
+
+---------------------------------------------------------------------- """
+
+import parameter_setter
+import autovaloratore
+
+parSetter = parameter_setter.ParameterSetter();
+parSetter.parameterSetter();
+
+classAutovaloratore = autovaloratore.Autovaloratore();
+classAutovaloratore.autoCalculator();

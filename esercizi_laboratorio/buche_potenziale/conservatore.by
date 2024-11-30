@@ -6,41 +6,74 @@ class Conservatore{
 
 	def __init__(self){
 
-		#parametri
+		#parametri cambiabili
 		self.par_numeroPunti = 0;
+		self.par_larghezzaBuca = 0;
+		self.par_lquanticoMax = 0;
+		self.par_potentialSelector = None;
+
+		#parametri derivati
 		self.par_numeroIntervalli = 0;
 		self.par_larghezzaIntervallo = 0;
-		self.par_gammaY = [1,2,5];
-		self.par_larghezzaBuca = 0;
-
 		self.vettoreGriglia = [];
 
+		#parametri fissati
+		self.par_gammaY = [1,2,5];
+		
 		#vettori del potenziale
 		self.potenzialeZero    = [];
 		self.potenzialeCoulomb = [];
-		self.potenzialeYukawa  = [];
-		
+		self.dictPotenzialeYukawa = dict( [ ("1", None), ("2", None), ("5", None)] );
+#		self.potenzialeYukawa  = [];
+
+		#autovalori e autovettori
+		self.dictAVzero = dict( autov = None,
+								autof = None);
+		self.dictAVcoulomb = dict( autov = None,
+								   autof = None);
+		self.dictAVyukawa = dict( autov1 = None,
+		  					      autof1 = None,
+								  autov2 = None,
+								  autof2 = None,
+								  autov5 = None,
+								  autof5 = None);
+		self.ListdictAVzero = [];
+		self.ListdictAVcoulomb = []; 
+		self.ListdictAVyukawa = [];
 	}#enddef
 
 
+	def setVecG(self){
+		self.vettoreGriglia = range(0, self.par_larghezzaBuca, self.par_larghezzaIntervallo);
+	}#enddef			
 
-	def inputVecG(self, g=None){
-		self.vettoreGriglia = g;
+
+	def setParametriDerivati(self){
+		self.par_numeroIntervalli = self.par_numeroPunti -1 ;
+		self.par_larghezzaIntervallo = self.par_larghezzaBuca / self.par_numeroIntervalli;
 	}#enddef
 
-	def inputPotential(self, vec = None, name = None){
-		if(name == "z"){
-			self.potenzialeZero = vec;
+	def makeDictionaries(self){
+	
+		if( self.par_potentialSelector == "z"){
+			for _ in range(self.par_lquanticoMax+1){
+				self.ListdictAVzero.append( self.dictAVzero.copy() );
+			}
 		}
-		if(name == "c"){
-			self.potenzialeCoulomb = vec;
+		if( self.par_potentialSelector == "c"){
+			for _ in range(self.par_lquanticoMax+1){
+				self.ListdictAVcoulomb.append( self.dictAVcoulomb.copy() );
+			}
 		}
-		if(name == "y"){
-			self.potenzialeYukawa = vec;
+		if( self.par_potentialSelector == "y"){
+			for _ in range(self.par_lquanticoMax+1){
+				self.ListdictAVyukawa.append( self.dictAVyukawa.copy() );
+			}
 		}
 	}#enddef
 	
 }#endclass
+
 
 #creiamo una istanza che possiamo utilizzare in ogni file
 #che include questo script

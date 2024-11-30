@@ -1,6 +1,7 @@
 """ -----------------------------------------------------------
 Classe per la conservazione dei dati
 ----------------------------------------------------------- """
+import numpy as np
 
 class Conservatore{
 
@@ -44,7 +45,7 @@ class Conservatore{
 
 
 	def setVecG(self){
-		self.vettoreGriglia = range(0, self.par_larghezzaBuca, self.par_larghezzaIntervallo);
+		self.vettoreGriglia = np.arange(0, self.par_larghezzaBuca, self.par_larghezzaIntervallo);
 	}#enddef			
 
 

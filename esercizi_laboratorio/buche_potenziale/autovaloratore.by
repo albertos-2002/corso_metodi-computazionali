@@ -10,7 +10,7 @@ data = conservatore.data;
 potentialClass = potential_calculator.potentialClass;
 class Autovaloratore{
 
-	def __init__(){
+	def __init__(self){
 		self.M = np.zeros( (data.par_numeroPunti-2, data.par_numeroPunti-2) );
 
 		#l'equazione associta al problema presenta coefficienti costanti
@@ -33,17 +33,20 @@ class Autovaloratore{
 
 
 	def matrixBuilder(self, i){
+	#considerando le notazioni utilizzate si screano non pochi problemi con gli indici
+	#si passa da una matrice definita con indici che vanno da 1 a N 
+	#per arrivare ad una che parte da 0 fino a n-2
 		if( i == 1){
 			self.M[0,0] = self.Ddix;
 			self.M[0,1] = self.Udix;
 		}
 		if( i == data.par_numeroPunti-2){
-			self.M[data.par_numeroPunti-2,data.par_numeroPunti-2] = self.Ddix;
-			self.M[data.par_numeroPunti-2,data.par_numeroPunti-3] = self.Ldix;
+			self.M[data.par_numeroPunti-3,data.par_numeroPunti-3] = self.Ddix;
+			self.M[data.par_numeroPunti-3,data.par_numeroPunti-4] = self.Ldix;
 		}
-		self.M[i-1,i-1] = self.Ddix;
-		self.M[i-1,i]   = self.Udix;
-		self.M[i-1,i-2] = self.Ldix;
+		self.M[i-2,i-2] = self.Ddix;
+		self.M[i-2,i-1]   = self.Udix;
+		self.M[i-2,i-3] = self.Ldix;
 	}#enddef
 
 
@@ -57,13 +60,13 @@ class Autovaloratore{
 
 			for l in range(data.par_lquanticoMax+1){
 				for r in range(1, data.par_numeroPunti-1){
-					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / self.vettoreGriglia[r] );
+					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r] );
 					self.setD();
 					self.matrixBuilder(r);	
 				}
 			aval, avec = np.linalg.eigh(self.M);
-			self.ListdictAVzero[l]["autov"] = aval;
-			self.ListdictAVzero[l]["autof"] = avec;
+			data.ListdictAVzero[l]["autov"] = aval;
+			data.ListdictAVzero[l]["autof"] = avec;
 			}
 			
 		}
@@ -73,13 +76,13 @@ class Autovaloratore{
 
 			for l in range(data.par_lquanticoMax+1){
 				for r in range(1, data.par_numeroPunti-1){
-					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / self.vettoreGriglia[r] );
+					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r] );
 					self.setD();
 					self.matrixBuilder(r);	
 				}
 			aval, avec = np.linalg.eigh(self.M);
-			self.ListdictAVcoulomb[l]["autov"] = aval;
-			self.ListdictAVcoulomb[l]["autof"] = avec;
+			data.ListdictAVcoulomb[l]["autov"] = aval;
+			data.ListdictAVcoulomb[l]["autof"] = avec;
 			}
 			
 		}
@@ -90,15 +93,15 @@ class Autovaloratore{
 			for l in range(data.par_lquanticoMax+1){
 				for gamma in data.gammaY{
 					for r in range(1, data.par_numeroPunti-1){
-						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / self.vettoreGriglia[r] );
+						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r] );
 						self.setD();
 						self.matrixBuilder(r);	
 					}
 					aval, avec = np.linalg.eigh(self.M);
 					dictKey = "autov" + str(gamma);
-					self.ListdictAVyukawa[l][dictKey] = aval;
+					data.ListdictAVyukawa[l][dictKey] = aval;
 					dictKey = "autov" + str(gamma);
-					self.ListdictAVyukawa[l][dictKey] = avec;										
+					data.ListdictAVyukawa[l][dictKey] = avec;										
 				}
 			}
 

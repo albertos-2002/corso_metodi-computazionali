@@ -41,17 +41,24 @@ class Conservatore{
 		self.ListdictAVzero = [];
 		self.ListdictAVcoulomb = []; 
 		self.ListdictAVyukawa = [];
+
+		self.debugFlag = True;
 	}#enddef
 
 
 	def setVecG(self){
-		self.vettoreGriglia = np.arange(0, self.par_larghezzaBuca, self.par_larghezzaIntervallo);
+		self.vettoreGriglia = np.linspace(0, self.par_larghezzaBuca, num=self.par_numeroPunti);
+		if(self.debugFlag){ 
+			print("len of vettoreGriglia:  ", len(self.vettoreGriglia)) 
+			print(self.vettoreGriglia);
+		};
 	}#enddef			
 
 
 	def setParametriDerivati(self){
 		self.par_numeroIntervalli = self.par_numeroPunti -1 ;
-		self.par_larghezzaIntervallo = self.par_larghezzaBuca / self.par_numeroIntervalli;
+		self.setVecG();
+		self.par_larghezzaIntervallo = self.vettoreGriglia[1] - self.vettoreGriglia[0];
 	}#enddef
 
 	def makeDictionaries(self){

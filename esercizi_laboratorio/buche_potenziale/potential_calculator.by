@@ -13,7 +13,8 @@ class Potenziale{
 		self.flagPotenzialeZero = True;
 		self.flagPotenzialeCoulombino = True;
 		self.flagPotenzialeYukawa = True;
-		
+
+		self.debugFlag = True;		
 	}#enddef
 
 	def calcZero(self){
@@ -21,12 +22,16 @@ class Potenziale{
 		if(self.flagPotenzialeZero){
 
 			tmpList = [];
-			for r in data.vettoreGriglia{
+			for r in range(1, data.par_numeroPunti-1){
 				tmpList.append(0);
 			}
 
 			self.flagPotenzialeZero = False;
 			data.potenzialeZero = tmpList;
+			if(self.debugFlag){ 
+				print("len of potenziale z:  ", len(tmpList)) 
+				print(tmpList);
+			};
 		}
 		
 	}#enddef
@@ -36,13 +41,17 @@ class Potenziale{
 		if(self.flagPotenzialeCoulombino){
 
 			tmpList = [];
-			for r in data.vettoreGriglia{
+			for r in range(1, data.par_numeroPunti-1){
 				dummy = -1 / r;
 				tmpList.append(dummy);			
 			}
 
 			self.flagPotenzialeCoulombino = False;
 			data.potenzialeCoulomb = tmpList;
+			if(self.debugFlag){ 
+				print("len of potenziale c:  ", len(tmpList)) 
+				print(tmpList);
+			};
 		}
 		
 	}#enddef
@@ -51,15 +60,19 @@ class Potenziale{
 
 		if(self.flagPotenzialeYukawa){
 
-			for gamma in data.gammaY{
+			for gamma in data.par_gammaY{
 
 				tmpList = [];
-				for r in data.vettoreGriglia{
+				for r in range(1, data.par_numeroPunti-1){
 					dummy1 = -1 / r ;
 					dummy2 = np.exp( -r / gamma ); 
 					tmpList.append(dummy1*dummy2);			
 				}
 				data.dictPotenzialeYukawa[str(gamma)] = tmpList;
+				if(self.debugFlag){ 
+					print("len of potenziale y" + str(gamma) + ":  ", len(tmpList)) 
+					print(tmpList);
+				}
 			}
 			self.flagPotenzialeYukawa = False;
 		}

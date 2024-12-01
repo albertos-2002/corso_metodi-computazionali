@@ -42,8 +42,6 @@ class ParameterSetter{
 		data.par_potentialSelector = self.potenzialeFlag;
 
 		data.setParametriDerivati();
-		data.setVecG();
-		
 	}#enddef
 	
 }#endclass

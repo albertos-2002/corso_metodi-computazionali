@@ -36,17 +36,20 @@ class Autovaloratore{
 	#considerando le notazioni utilizzate si screano non pochi problemi con gli indici
 	#si passa da una matrice definita con indici che vanno da 1 a N 
 	#per arrivare ad una che parte da 0 fino a n-2
-		if( i == 1){
+	#questo spostamento di indici è implicito dato che il primo e l'ultimo punto del potenziale non sono presenti
+		if( i == 0){
 			self.M[0,0] = self.Ddix;
 			self.M[0,1] = self.Udix;
 		}
-		if( i == data.par_numeroPunti-2){
-			self.M[data.par_numeroPunti-3,data.par_numeroPunti-3] = self.Ddix;
-			self.M[data.par_numeroPunti-3,data.par_numeroPunti-4] = self.Ldix;
+		else if( i == data.par_numeroPunti-2){
+			self.M[data.par_numeroPunti-2,data.par_numeroPunti-2] = self.Ddix;
+			self.M[data.par_numeroPunti-2,data.par_numeroPunti-3] = self.Ldix;
 		}
-		self.M[i-2,i-2] = self.Ddix;
-		self.M[i-2,i-1]   = self.Udix;
-		self.M[i-2,i-3] = self.Ldix;
+		else{
+			self.M[i,i]   = self.Ddix;
+			self.M[i,i+1] = self.Udix;
+			self.M[i,i-1] = self.Ldix;
+		}
 	}#enddef
 
 
@@ -59,8 +62,8 @@ class Autovaloratore{
 			potentialClass.calcZero();
 
 			for l in range(data.par_lquanticoMax+1){
-				for r in range(1, data.par_numeroPunti-1){
-					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r] );
+				for r in range(data.par_numeroPunti-1){
+					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.matrixBuilder(r);	
 				}
@@ -75,8 +78,8 @@ class Autovaloratore{
 			potentialClass.calcCoulomb();
 
 			for l in range(data.par_lquanticoMax+1){
-				for r in range(1, data.par_numeroPunti-1){
-					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r] );
+				for r in range(data.par_numeroPunti-1){
+					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.matrixBuilder(r);	
 				}
@@ -91,9 +94,9 @@ class Autovaloratore{
 			potentialClass.calcYukawa();
 
 			for l in range(data.par_lquanticoMax+1){
-				for gamma in data.gammaY{
-					for r in range(1, data.par_numeroPunti-1){
-						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r] );
+				for gamma in data.par_gammaY{
+					for r in range(data.par_numeroPunti-1){
+						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 						self.setD();
 						self.matrixBuilder(r);	
 					}

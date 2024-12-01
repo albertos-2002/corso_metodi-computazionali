@@ -14,7 +14,7 @@ class Potenziale{
 		self.flagPotenzialeCoulombino = True;
 		self.flagPotenzialeYukawa = True;
 
-		self.debugFlag = True;		
+		self.debugFlag = False;		
 	}#enddef
 
 	def calcZero(self){

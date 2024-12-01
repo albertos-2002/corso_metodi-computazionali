@@ -22,7 +22,8 @@ class Autovaloratore{
 		self.Ldix = self.adix / data.par_larghezzaIntervallo**2 ;
 		self.Ddix = 0;
 		self.Udix = self.adix / data.par_larghezzaIntervallo**2 ;
-		
+
+		self.debugFlag = False;		
 	}#enddef
 	
 
@@ -41,9 +42,9 @@ class Autovaloratore{
 			self.M[0,0] = self.Ddix;
 			self.M[0,1] = self.Udix;
 		}
-		else if( i == data.par_numeroPunti-2){
-			self.M[data.par_numeroPunti-2,data.par_numeroPunti-2] = self.Ddix;
-			self.M[data.par_numeroPunti-2,data.par_numeroPunti-3] = self.Ldix;
+		else if( i == data.par_numeroPunti-3){
+			self.M[data.par_numeroPunti-3,data.par_numeroPunti-3] = self.Ddix;
+			self.M[data.par_numeroPunti-3,data.par_numeroPunti-4] = self.Ldix;
 		}
 		else{
 			self.M[i,i]   = self.Ddix;
@@ -57,12 +58,17 @@ class Autovaloratore{
 
 		data.makeDictionaries();
 
+		if(self.debugFlag){
+			print("Dimensione matrice:  ", self.M.shape);
+			print(self.M);
+		}
+
 		if( data.par_potentialSelector == "z"){
 
 			potentialClass.calcZero();
 
 			for l in range(data.par_lquanticoMax+1){
-				for r in range(data.par_numeroPunti-1){
+				for r in range(data.par_numeroPunti-2){
 					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.matrixBuilder(r);	
@@ -78,7 +84,7 @@ class Autovaloratore{
 			potentialClass.calcCoulomb();
 
 			for l in range(data.par_lquanticoMax+1){
-				for r in range(data.par_numeroPunti-1){
+				for r in range(data.par_numeroPunti-2){
 					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.matrixBuilder(r);	
@@ -95,7 +101,7 @@ class Autovaloratore{
 
 			for l in range(data.par_lquanticoMax+1){
 				for gamma in data.par_gammaY{
-					for r in range(data.par_numeroPunti-1){
+					for r in range(data.par_numeroPunti-2){
 						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 						self.setD();
 						self.matrixBuilder(r);	

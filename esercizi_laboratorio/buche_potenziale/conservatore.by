@@ -42,7 +42,7 @@ class Conservatore{
 		self.ListdictAVcoulomb = []; 
 		self.ListdictAVyukawa = [];
 
-		self.debugFlag = True;
+		self.debugFlag = False;
 	}#enddef
 
 

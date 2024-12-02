@@ -50,7 +50,7 @@ class DataPlotter{
                 self.axList[l].set_xlabel( "Unità di raggio di Bohr" );
 
 				for k in range(data.par_nAutofunzioniPlot){
-					autovector = data.ListdictAVzero[l]["autof"][k];
+					autovector = data.ListdictAVzero[l]["autof"][:,k];
 					dummy = np.concatenate(( [0], autovector**2, [0] ));
 					self.axList[l].plot( data.vettoreGriglia, dummy, label="autofunzione " + str(k) );
 				}
@@ -65,7 +65,7 @@ class DataPlotter{
                 self.axList[l].set_xlabel( "Unità di raggio di Bohr" );
 				
 				for k in range(data.par_nAutofunzioniPlot){
-					autovector = data.ListdictAVcoulomb[l]["autof"][k]
+					autovector = data.ListdictAVcoulomb[l]["autof"][:,k]
 					dummy = np.concatenate(( [0], autovector**2, [0] ));
 					self.axList[l].plot( data.vettoreGriglia, dummy, label="autofunzione " + str(k) )
 				}
@@ -91,15 +91,15 @@ class DataPlotter{
 								
 				for k in range(data.par_nAutofunzioniPlot){
 				
-					autovector = data.ListdictAVyukawa[l]["autof1"][k]
+					autovector = data.ListdictAVyukawa[l]["autof1"][:,k]
 					dummy = np.concatenate(( [0], autovector**2, [0] ));
 					self.axList[l][0].plot( data.vettoreGriglia, dummy, label="autofunzione " + str(k) );
 
-					autovector = data.ListdictAVyukawa[l]["autof2"][k]
+					autovector = data.ListdictAVyukawa[l]["autof2"][:,k]
 					dummy = np.concatenate(( [0], autovector**2, [0] ));
 					self.axList[l][1].plot( data.vettoreGriglia, dummy, label="autofunzione " + str(k) );
 
-					autovector = data.ListdictAVyukawa[l]["autof5"][k]
+					autovector = data.ListdictAVyukawa[l]["autof5"][:,k]
 					dummy = np.concatenate(( [0], autovector**2, [0] ));
 					self.axList[l][2].plot( data.vettoreGriglia, dummy, label="autofunzione " + str(k) );
 				}
@@ -240,7 +240,7 @@ class DataPlotter{
             self.RaxList[l].set_xlabel( "Unità di raggio di Bohr" );
 
 			for k in range(data.par_nAutofunzioniPlot){
-				autovector = data.ListdictAVzero[l]["autof"][k];
+				autovector = data.ListdictAVzero[l]["autof"][:,k];
 				dummy = np.concatenate(( [0], autovector, [0] ));
 				self.RaxList[l].plot( data.vettoreGriglia, dummy*data.vettoreGriglia, label="parte radiale " + str(k) );
 			}

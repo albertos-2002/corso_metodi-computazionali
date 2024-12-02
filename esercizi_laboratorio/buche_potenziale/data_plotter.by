@@ -22,7 +22,9 @@ class DataPlotter{
 		self.VfigureList = [];
 		self.VaxList = [];
 		self.RfigureList = [];
-		self.RaxList = [];		
+		self.RaxList = [];
+		self.HfigureList = [];
+		self.HaxList = [];		
 	}#enddef
 	
 
@@ -248,6 +250,34 @@ class DataPlotter{
 		}	
 	}#enddef
 
+	def confrontoH(self){
+
+		for _ in range(data.par_lquanticoMax+1){
+			figure, ax = plt.subplots();
+			self.HfigureList.append(figure);
+			self.HaxList.append(ax);	
+		}
+
+		negIndex = int(-(data.par_numeroPunti) / 10);
+		energiaH = [];
+
+		for element in range(data.par_numeroPunti-1)[negIndex:]{
+			energiaH.append(element**2);	
+		}
+
+		for l in range(data.par_lquanticoMax+1){
+			self.HaxList[l].set_title( "Confronto con energie H, l = " + str(l) );
+            self.HaxList[l].set_ylabel( "Energia " + r"$[Ry]$" );
+            self.HaxList[l].set_xlabel( "Indice" );
+
+			dummy = data.ListdictAVcoulomb[l]["autov"];
+			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , dummy[negIndex:]*2, label="autoenergia", linestyle=":");
+			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , energiaH, label="energia H", linestyle=":");
+			sg.makeFine( self.HaxList[l] );
+		}		
+		
+	}#enddef
+
 	def plotData(self){
 	
 		self.plotAutoFunc();
@@ -274,6 +304,14 @@ class DataPlotter{
 			print(" Premete Enter per chiudere i grafici e passare ai successivi")
 			input();
 			plt.close("all");
+		}
+
+		if(data.par_potentialSelector == "c"){
+			self.confrontoH();
+			plt.show(block=False);
+			print(" Premete Enter per chiudere i grafici e passare ai successivi")
+			input();
+			plt.close("all");			
 		}
 	}#enddef
 	

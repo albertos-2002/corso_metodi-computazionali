@@ -21,6 +21,8 @@ class DataPlotter{
 		self.EaxList = [];
 		self.VfigureList = [];
 		self.VaxList = [];
+		self.RfigureList = [];
+		self.RaxList = [];		
 	}#enddef
 	
 
@@ -224,12 +226,35 @@ class DataPlotter{
 		
 	}#enddef
 
+	def autofRadiali(self){
+
+		for _ in range(data.par_lquanticoMax+1){
+			figure, ax = plt.subplots();
+			self.RfigureList.append(figure);
+			self.RaxList.append(ax);	
+		}
+
+		for l in range(data.par_lquanticoMax+1){
+			self.RaxList[l].set_title( "Potenziale zero (z), l = " + str(l) );
+            self.RaxList[l].set_ylabel( "Parte radiale autofunzione" );
+            self.RaxList[l].set_xlabel( "Unità di raggio di Bohr" );
+
+			for k in range(data.par_nAutofunzioniPlot){
+				autovector = data.ListdictAVzero[l]["autof"][k];
+				dummy = np.concatenate(( [0], autovector, [0] ));
+				self.RaxList[l].plot( data.vettoreGriglia, dummy*data.vettoreGriglia, label="parte radiale " + str(k) );
+			}
+			sg.makeFine( self.RaxList[l] );
+		}	
+	}#enddef
+
 	def plotData(self){
 #		self.plotAutoFunc();		
 #		self.plotAutoEner();
 
 		if(data.par_potentialSelector == "z"){
-			self.verificaBessel();
+#			self.verificaBessel();
+			self.autofRadiali();
 		}
 	}#enddef
 	

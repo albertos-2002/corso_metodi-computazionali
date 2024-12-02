@@ -17,10 +17,12 @@ class DataPlotter{
 	def __init__(self){
 		self.figureList = [];
 		self.axList = [];
+		self.EfigureList = [];
+		self.EaxList = [];
 	}#enddef
 	
 
-	def plotData(self){
+	def plotAutoFunc(self){
 
 		for _ in range(data.par_lquanticoMax+1){
 
@@ -105,6 +107,49 @@ class DataPlotter{
 			}
 		}
 		
+	}#enddef
+
+	def plotAutoEner(self){
+
+		for _ in range(data.par_lquanticoMax+1){
+
+			if(data.par_potentialSelector == "y"){
+				figure, ax = plt.subplots(1,3);
+				self.EfigureList.append(figure);
+				self.EaxList.append(ax);
+			}
+			else{
+				figure, ax = plt.subplots();
+				self.EfigureList.append(figure);
+				self.EaxList.append(ax);	
+			}
+		}
+
+
+		if(data.par_potentialSelector == "z"){
+
+			for l in range(data.par_lquanticoMax+1){
+				self.EaxList[l].set_title( "Potenziale zero (z), l = " + str(l) );
+                self.EaxList[l].set_ylabel( "Autoenergia" );
+                self.EaxList[l].set_xlabel( "Indice" );
+
+				dummy = data.ListdictAVzero[l]["autov"];
+                self.EaxList[l].plot( range(len(dummy)), dummy, label="autoenergia", linestyle=":", marker=".");
+				sg.makeFine( self.EaxList[l] );
+			}
+		}
+		if(data.par_potentialSelector == "c"){
+			pass
+		}
+		if(data.par_potentialSelector == "y"){
+			pass
+		}
+		
+	}#enddef
+
+	def plotData(self){
+		self.plotAutoFunc();		
+		self.plotAutoEner();
 	}#enddef
 	
 }#endclass

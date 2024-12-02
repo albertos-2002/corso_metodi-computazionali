@@ -262,7 +262,7 @@ class DataPlotter{
 		energiaH = [];
 
 		for element in range(data.par_numeroPunti-1)[negIndex:]{
-			energiaH.append(element**2);	
+			energiaH.append( 1/ (element**2) );	
 		}
 
 		for l in range(data.par_lquanticoMax+1){
@@ -273,7 +273,7 @@ class DataPlotter{
 			dummy = data.ListdictAVcoulomb[l]["autov"];
 			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , dummy[negIndex:]*2, label="autoenergia", linestyle=":");
 			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , energiaH, label="energia H", linestyle=":");
-			sg.makeFine( self.HaxList[l] );
+			#sg.makeFine( self.HaxList[l] );
 		}		
 		
 	}#enddef

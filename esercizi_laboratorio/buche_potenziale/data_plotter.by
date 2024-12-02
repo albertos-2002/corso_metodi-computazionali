@@ -139,16 +139,55 @@ class DataPlotter{
 			}
 		}
 		if(data.par_potentialSelector == "c"){
-			pass
-		}
+
+			for l in range(data.par_lquanticoMax+1){
+				self.EaxList[l].set_title( "Potenziale Coulomb (c), l = " + str(l) );
+                self.EaxList[l].set_ylabel( "Autoenergia" );
+                self.EaxList[l].set_xlabel( "Indice" );
+
+				dummy = data.ListdictAVcoulomb[l]["autov"];
+                self.EaxList[l].plot( range(len(dummy)), dummy, label="autoenergia", linestyle=":", marker=".");
+				sg.makeFine( self.EaxList[l] );                
+			}
+		}		
 		if(data.par_potentialSelector == "y"){
-			pass
+
+			sg.setStyle();
+
+			for l in range(data.par_lquanticoMax+1){
+                self.EaxList[l][0].set_title( "Potenziale Yukawa (y) " + r"$\gamma$ = 1" );
+                self.EaxList[l][0].set_ylabel( "Autoenergia" );
+                self.EaxList[l][0].set_xlabel( "Indice" );
+
+                self.EaxList[l][1].set_title( "Potenziale Yukawa (y), " + r"$\gamma$ = 2" );
+                self.EaxList[l][1].set_ylabel( "Autoenergia" );
+                self.EaxList[l][1].set_xlabel( "Indice" );
+
+                self.EaxList[l][2].set_title( "Potenziale Yukawa (y), " + r"$\gamma$ = 5" );
+                self.EaxList[l][2].set_ylabel( "Autoenergia" );
+                self.EaxList[l][2].set_xlabel( "Indice" );
+								
+				dummy = data.ListdictAVyukawa[l]["autov1"]
+				self.EaxList[l][0].plot( range(len(dummy)), dummy, label="autoenergia");
+					
+				dummy = data.ListdictAVyukawa[l]["autov2"]
+				self.EaxList[l][1].plot( range(len(dummy)), dummy, label="autoenergia");
+				
+				dummy = data.ListdictAVyukawa[l]["autov5"]
+				self.EaxList[l][2].plot( range(len(dummy)), dummy, label="autoenergia");
+				
+				sg.makeFine( self.EaxList[l][0] );
+				sg.makeFine( self.EaxList[l][1] );
+				sg.makeFine( self.EaxList[l][2] );
+
+				self.EfigureList[l].suptitle("l = " + str(l));
+			}
 		}
 		
 	}#enddef
 
 	def plotData(self){
-		self.plotAutoFunc();		
+#		self.plotAutoFunc();		
 		self.plotAutoEner();
 	}#enddef
 	

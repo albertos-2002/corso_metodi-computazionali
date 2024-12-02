@@ -19,6 +19,8 @@ class DataPlotter{
 		self.axList = [];
 		self.EfigureList = [];
 		self.EaxList = [];
+		self.VfigureList = [];
+		self.VaxList = [];
 	}#enddef
 	
 
@@ -130,7 +132,7 @@ class DataPlotter{
 
 			for l in range(data.par_lquanticoMax+1){
 				self.EaxList[l].set_title( "Potenziale zero (z), l = " + str(l) );
-                self.EaxList[l].set_ylabel( "Autoenergia" );
+                self.EaxList[l].set_ylabel( "Autoenergia" + r"$[Hr]$" );
                 self.EaxList[l].set_xlabel( "Indice" );
 
 				dummy = data.ListdictAVzero[l]["autov"];
@@ -142,7 +144,7 @@ class DataPlotter{
 
 			for l in range(data.par_lquanticoMax+1){
 				self.EaxList[l].set_title( "Potenziale Coulomb (c), l = " + str(l) );
-                self.EaxList[l].set_ylabel( "Autoenergia" );
+                self.EaxList[l].set_ylabel( "Autoenergia" + r"$[Hr]$" );
                 self.EaxList[l].set_xlabel( "Indice" );
 
 				dummy = data.ListdictAVcoulomb[l]["autov"];
@@ -156,15 +158,15 @@ class DataPlotter{
 
 			for l in range(data.par_lquanticoMax+1){
                 self.EaxList[l][0].set_title( "Potenziale Yukawa (y) " + r"$\gamma$ = 1" );
-                self.EaxList[l][0].set_ylabel( "Autoenergia" );
+                self.EaxList[l][0].set_ylabel( "Autoenergia" + r"$[Hr]$" );
                 self.EaxList[l][0].set_xlabel( "Indice" );
 
                 self.EaxList[l][1].set_title( "Potenziale Yukawa (y), " + r"$\gamma$ = 2" );
-                self.EaxList[l][1].set_ylabel( "Autoenergia" );
+                self.EaxList[l][1].set_ylabel( "Autoenergia" + r"$[Hr]$" );
                 self.EaxList[l][1].set_xlabel( "Indice" );
 
                 self.EaxList[l][2].set_title( "Potenziale Yukawa (y), " + r"$\gamma$ = 5" );
-                self.EaxList[l][2].set_ylabel( "Autoenergia" );
+                self.EaxList[l][2].set_ylabel( "Autoenergia" + r"$[Hr]$" );
                 self.EaxList[l][2].set_xlabel( "Indice" );
 								
 				dummy = data.ListdictAVyukawa[l]["autov1"]
@@ -186,9 +188,49 @@ class DataPlotter{
 		
 	}#enddef
 
+	def verificaBessel(self){
+
+		dummyL = data.par_lquanticoMax
+		if(dummyL > 4){
+			dummyL = 4;
+		}
+
+		for _ in range(dummyL+1){
+			figure, ax = plt.subplots();
+			self.VfigureList.append(figure);
+			self.VaxList.append(ax);
+		}
+
+		constB = 1 / (2 * data.par_larghezzaBuca**2);
+	
+		bessel0 = constB * np.asarray( [3.141593, 6.283185, 9.424778, 12.566371, 15.707963] )**2;
+		bessel1 = constB * np.asarray( [4.493409, 7.725252, 10.904122, 14.066194, 17.220755] )**2;
+		bessel2 = constB * np.asarray( [5.763459, 9.095011, 12.322941, 15.514603, 18.689036] )**2;
+		bessel3 = constB * np.asarray( [6.987932, 10.417119, 13.698023, 16.923621, 20.121806] )**2;
+		bessel4 = constB * np.asarray( [8.182561, 11.704907, 15.039665, 18.301256, 21.525418] )**2;
+
+		besselArray = [bessel0, bessel1, bessel2, bessel3, bessel4];
+
+		for l in range(dummyL+1){
+			self.VaxList[l].set_title( "Verifica andamento autoenergie, l = " + str(l) );
+            self.VaxList[l].set_ylabel( "Autoenergia" + r"$[Hr]$" );
+            self.VaxList[l].set_xlabel( "Indice" );
+
+			dummy = data.ListdictAVzero[l]["autov"];
+            self.VaxList[l].plot( range(len(dummy[:5])), dummy[:5], label="autoenergia calcolata", linestyle=":", marker=".");
+            self.VaxList[l].plot( range(len(dummy[:5])), besselArray[l], label="autoenergia teorica", linestyle=":", marker=".");
+			sg.makeFine( self.VaxList[l] );
+		}
+		
+	}#enddef
+
 	def plotData(self){
 #		self.plotAutoFunc();		
-		self.plotAutoEner();
+#		self.plotAutoEner();
+
+		if(data.par_potentialSelector == "z"){
+			self.verificaBessel();
+		}
 	}#enddef
 	
 }#endclass

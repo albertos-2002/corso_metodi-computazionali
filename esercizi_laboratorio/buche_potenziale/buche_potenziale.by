@@ -1,12 +1,19 @@
 """ ----------------------------------------------------------------------
 
 ---------------------------------------------------------------------- """
-
 import parameter_setter
 import autovaloratore
+import data_plotter
+
+import matplotlib.pyplot as plt
 
 parSetter = parameter_setter.ParameterSetter();
 parSetter.parameterSetter();
 
 classAutovaloratore = autovaloratore.Autovaloratore();
 classAutovaloratore.autoCalculator();
+
+classDataPlotter = data_plotter.DataPlotter();
+classDataPlotter.plotData();
+
+plt.show();

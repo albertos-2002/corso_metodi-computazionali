@@ -12,6 +12,7 @@ class Conservatore{
 		self.par_larghezzaBuca = 0;
 		self.par_lquanticoMax = 0;
 		self.par_potentialSelector = None;
+		self.par_nAutofunzioniPlot = 0;
 
 		#parametri derivati
 		self.par_numeroIntervalli = 0;
@@ -38,6 +39,7 @@ class Conservatore{
 								  autof2 = None,
 								  autov5 = None,
 								  autof5 = None);
+		#indicizzati da l
 		self.ListdictAVzero = [];
 		self.ListdictAVcoulomb = []; 
 		self.ListdictAVyukawa = [];

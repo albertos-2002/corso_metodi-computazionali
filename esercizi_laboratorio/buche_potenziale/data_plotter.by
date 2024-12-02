@@ -1,0 +1,107 @@
+""" -------------------------------------------------------
+
+------------------------------------------------------- """
+import sys
+sys.path.append("../util/")
+
+import conservatore
+data = conservatore.data;
+import SetGraph as sgs
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+class DataPlotter{
+
+	def __init__(self){
+		self.figureList = [];
+		self.axList = [];
+	}#enddef
+	
+
+	def plotData(self){
+
+		for _ in range(data.par_lquanticoMax){
+
+			if(data.par_potentialSelector == "y"){
+				figure, ax = plt.subplot(1,3);
+				self.figureList.append(figure);
+				self.axList.append(ax);
+			}
+			else{
+				figure, ax = plt.subplots();
+				self.figureList.append(figure);
+				self.axList.append(ax);	
+			}
+		}
+
+		if(data.par_potentialSelector == "z"){
+
+			for l in range(data.par_lquanticoMax+1){
+				self.axList[l].set_title( "Potenziale zero (z), l = " + str(l) );
+				self.axList[l].set_ylabel( "Modulo quadro di $\psi$" );
+				self.axList[l].set_xlabel( "Unità di raggio di Bohr" );
+
+				for k in range(data.par_nAutofunzioniPlot){
+					autovector = data.ListdictAVzero[l]["autof"][k]
+					dummy = np.concatenate( [0], autovector**2, [0]);
+					self.axList[l].plot( data.vettoreGriglia, dummy)
+				}
+				sg.make_fine( self.axList[l] );
+			}
+		}
+		if(data.par_potentialSelector == "c"){
+
+			for l in range(data.par_lquanticoMax+1){
+				self.axList[l].set_title( "Potenziale Coulomb (c), l = " + str(l) );
+				self.axList[l].set_ylabel( "Modulo quadro di $\psi$" );
+				self.axList[l].set_xlabel( "Unità di raggio di Bohr" );
+				
+				for k in range(data.par_nAutofunzioniPlot){
+					autovector = data.ListdictAVCoulomb[l]["autof"][k]
+					dummy = np.concatenate( [0], autovector**2, [0]);
+					self.axList[l].plot( data.vettoreGriglia, dummy)
+				}
+				sg.make_fine( self.axList[l] );
+			}
+		}
+		if(data.par_potentialSelector == "y"){
+
+			for l in range(data.par_lquanticoMax+1){
+				self.axList[l][0].set_title( "Potenziale Yukawa (y), $\gamma$ = 1" );
+				self.axList[l][0].set_ylabel( "Modulo quadro di $\psi$" );
+				self.axList[l][0].set_xlabel( "Unità di raggio di Bohr" );
+
+				self.axList[l][1].set_title( "Potenziale Yukawa (y), $\gamma$ = 2" );
+				self.axList[l][1].set_ylabel( "Modulo quadro di $\psi$" );
+				self.axList[l][1].set_xlabel( "Unità di raggio di Bohr" );
+
+				self.axList[l][2].set_title( "Potenziale Yukawa (y), $\gamma$ = 5" );
+				self.axList[l][2].set_ylabel( "Modulo quadro di $\psi$" );
+				self.axList[l][2].set_xlabel( "Unità di raggio di Bohr" );
+								
+				for k in range(data.par_nAutofunzioniPlot){
+				
+					autovector = data.ListdictAVyukawa[l]["autof1"][k]
+					dummy = np.concatenate( [0], autovector**2, [0]);
+					self.axList[l][0].plot( data.vettoreGriglia, dummy);
+
+					autovector = data.ListdictAVyukawa[l]["autof2"][k]
+					dummy = np.concatenate( [0], autovector**2, [0]);
+					self.axList[l][1].plot( data.vettoreGriglia, dummy);
+
+					autovector = data.ListdictAVyukawa[l]["autof5"][k]
+					dummy = np.concatenate( [0], autovector**2, [0]);
+					self.axList[l][2].plot( data.vettoreGriglia, dummy);
+				}
+				sg.make_fine( self.axList[l][0] );
+				sg.make_fine( self.axList[l][1] );
+				sg.make_fine( self.axList[l][2] );
+
+				self.figureList[l].suptitle("l = " + str(l));
+			}
+		}
+		
+	}#enddef
+	
+}#endclass

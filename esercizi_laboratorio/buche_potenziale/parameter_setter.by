@@ -11,6 +11,7 @@ class ParameterSetter{
 		self.LarghezzaBuca = 10; #espresso in unità di raggio di bohr
 		self.lquanticoMax = 2;
 		self.potenzialeFlag = None;
+		self.nAutofunzioni = 0;
 	}#enddef
 
 	def parameterSetter(self){
@@ -33,6 +34,9 @@ class ParameterSetter{
 		print("   c : potenziale di Coulomb");
 		print("   y : potenziale di Yukawa");
 		self.potenzialeFlag = str( input("\t") );
+
+		print(" > Inserire il numero di autofunzioni da plottare:");
+		self.nAutofunzioni = int( input("\t") );
 		
 
 		#inseriamo i dati nella classe conservatore
@@ -40,6 +44,7 @@ class ParameterSetter{
 		data.par_larghezzaBuca = self.LarghezzaBuca;
 		data.par_lquanticoMax = self.lquanticoMax;
 		data.par_potentialSelector = self.potenzialeFlag;
+		data.par_nAutofunzioniPlot = self.nAutofunzioni;
 
 		data.setParametriDerivati();
 	}#enddef

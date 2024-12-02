@@ -16,4 +16,5 @@ classAutovaloratore.autoCalculator();
 classDataPlotter = data_plotter.DataPlotter();
 classDataPlotter.plotData();
 
-plt.show();
+plt.show(block=False);
+input(" Press Enter to exit ... ");

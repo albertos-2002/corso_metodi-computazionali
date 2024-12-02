@@ -109,7 +109,7 @@ class Autovaloratore{
 					aval, avec = np.linalg.eigh(self.M);
 					dictKey = "autov" + str(gamma);
 					data.ListdictAVyukawa[l][dictKey] = aval;
-					dictKey = "autov" + str(gamma);
+					dictKey = "autof" + str(gamma);
 					data.ListdictAVyukawa[l][dictKey] = avec;										
 				}
 			}

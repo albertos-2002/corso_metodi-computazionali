@@ -249,12 +249,31 @@ class DataPlotter{
 	}#enddef
 
 	def plotData(self){
-#		self.plotAutoFunc();		
-#		self.plotAutoEner();
+	
+		self.plotAutoFunc();
+		plt.show(block=False);
+		print(" Premete Enter per chiudere i grafici e passare ai successivi")
+		input();
+		plt.close("all");		
+		
+		self.plotAutoEner();
+		plt.show(block=False);
+		print(" Premete Enter per chiudere i grafici e passare ai successivi")
+		input();
+		plt.close("all");
 
 		if(data.par_potentialSelector == "z"){
-#			self.verificaBessel();
+			self.verificaBessel();
+			plt.show(block=False);
+			print(" Premete Enter per chiudere i grafici e passare ai successivi")
+			input();
+			plt.close("all");
+
 			self.autofRadiali();
+			plt.show(block=False);
+			print(" Premete Enter per chiudere i grafici e passare ai successivi")
+			input();
+			plt.close("all");
 		}
 	}#enddef
 	

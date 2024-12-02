@@ -7,14 +7,21 @@ import data_plotter
 
 import matplotlib.pyplot as plt
 
-parSetter = parameter_setter.ParameterSetter();
-parSetter.parameterSetter();
+iterator = None
 
-classAutovaloratore = autovaloratore.Autovaloratore();
-classAutovaloratore.autoCalculator();
+while( iterator != "q"){
+	parSetter = parameter_setter.ParameterSetter();
+	parSetter.parameterSetter();
 
-classDataPlotter = data_plotter.DataPlotter();
-classDataPlotter.plotData();
+	classAutovaloratore = autovaloratore.Autovaloratore();
+	classAutovaloratore.autoCalculator();
 
-plt.show(block=False);
-input(" Press Enter to exit ... ");
+	classDataPlotter = data_plotter.DataPlotter();
+	classDataPlotter.plotData();
+
+	print("\n > Inserire q per uscire dal codice");
+	print(" > Inserire c per ricominciare");
+	iterator = str( input("\t") );
+	print();
+
+}

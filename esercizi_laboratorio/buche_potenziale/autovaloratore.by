@@ -78,11 +78,13 @@ class Autovaloratore{
 					self.MainDiagonale.append( self.Ddix );
 					self.SubDiagonale.append( self.Ldix );	
 				}
-			aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
-			data.ListdictAVzero[l]["autov"] = aval;
-			data.ListdictAVzero[l]["autof"] = avec;
+				aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale[1:], check_finite=False );
+				data.ListdictAVzero[l]["autov"] = aval;
+				data.ListdictAVzero[l]["autof"] = avec;
+
+				self.MainDiagonale = [];
+				self.SubDiagonale = [];
 			}
-			
 		}
 		if( data.par_potentialSelector == "c"){
 
@@ -95,11 +97,12 @@ class Autovaloratore{
 					self.MainDiagonale.append( self.Ddix );
 					self.SubDiagonale.append( self.Ldix );	
 				}
-			aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
-			data.ListdictAVcoulomb[l]["autov"] = aval;
-			data.ListdictAVcoulomb[l]["autof"] = avec;
-			}
-			
+				aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale[1:], check_finite=False);
+				data.ListdictAVcoulomb[l]["autov"] = aval;
+				data.ListdictAVcoulomb[l]["autof"] = avec;
+				self.MainDiagonale = [];
+				self.SubDiagonale = [];
+			}	
 		}
 		if( data.par_potentialSelector == "y"){
 
@@ -113,15 +116,18 @@ class Autovaloratore{
 						self.MainDiagonale.append( self.Ddix );
 						self.SubDiagonale.append( self.Ldix );	
 					}
-					aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
+					aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale[1:], check_finite=False);
 					dictKey = "autov" + str(gamma);
 					data.ListdictAVyukawa[l][dictKey] = aval;
 					dictKey = "autof" + str(gamma);
-					data.ListdictAVyukawa[l][dictKey] = avec;										
+					data.ListdictAVyukawa[l][dictKey] = avec;
+
+					self.MainDiagonale = [];
+					self.SubDiagonale = [];										
 				}
 			}
-
 		}
+		
 	}#enddef
 	
 	

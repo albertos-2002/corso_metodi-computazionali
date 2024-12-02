@@ -20,6 +20,7 @@ class ParameterSetter{
 		
 		print(" > Inserire il numero di punti per la griglia:")
 		print("   (consigliato 100)")
+		print("   (per confronto atomo idrogeno servono n grandi)")
 		self.NumeroPunti = int( input("\t") );
 		
 		print(" > Inserire la larghezza della buca in unità di raggio di Bohr:")

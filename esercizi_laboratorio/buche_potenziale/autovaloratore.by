@@ -2,6 +2,7 @@
 Classe per il calcolo degli autovalori e autovettori
 ----------------------------------------------------- """
 import numpy as np
+import scipy
 
 import conservatore
 import potential_calculator
@@ -11,7 +12,7 @@ potentialClass = potential_calculator.potentialClass;
 class Autovaloratore{
 
 	def __init__(self){
-		self.M = np.zeros( (data.par_numeroPunti-2, data.par_numeroPunti-2) );
+#		self.M = np.zeros( (data.par_numeroPunti-2, data.par_numeroPunti-2) );
 
 		#l'equazione associta al problema presenta coefficienti costanti
 		self.adix = -1;
@@ -23,6 +24,9 @@ class Autovaloratore{
 		self.Ddix = 0;
 		self.Udix = self.adix / data.par_larghezzaIntervallo**2 ;
 
+		self.MainDiagonale = [];
+		self.SubDiagonale = [];
+
 		self.debugFlag = False;		
 	}#enddef
 	
@@ -33,35 +37,35 @@ class Autovaloratore{
 	}#enddef
 
 
-	def matrixBuilder(self, i){
+#	def matrixBuilder(self, i){
 	#considerando le notazioni utilizzate si screano non pochi problemi con gli indici
 	#si passa da una matrice definita con indici che vanno da 1 a N 
 	#per arrivare ad una che parte da 0 fino a n-2
 	#questo spostamento di indici è implicito dato che il primo e l'ultimo punto del potenziale non sono presenti
-		if( i == 0){
-			self.M[0,0] = self.Ddix;
-			self.M[0,1] = self.Udix;
-		}
-		else if( i == data.par_numeroPunti-3){
-			self.M[data.par_numeroPunti-3,data.par_numeroPunti-3] = self.Ddix;
-			self.M[data.par_numeroPunti-3,data.par_numeroPunti-4] = self.Ldix;
-		}
-		else{
-			self.M[i,i]   = self.Ddix;
-			self.M[i,i+1] = self.Udix;
-			self.M[i,i-1] = self.Ldix;
-		}
-	}#enddef
+#		if( i == 0){
+#			self.M[0,0] = self.Ddix;
+#			self.M[0,1] = self.Udix;
+#		}
+#		else if( i == data.par_numeroPunti-3){
+#			self.M[data.par_numeroPunti-3,data.par_numeroPunti-3] = self.Ddix;
+#			self.M[data.par_numeroPunti-3,data.par_numeroPunti-4] = self.Ldix;
+#		}
+#		else{
+#			self.M[i,i]   = self.Ddix;
+#			self.M[i,i+1] = self.Udix;
+#			self.M[i,i-1] = self.Ldix;
+#		}
+#	}#enddef
 
 
 	def autoCalculator(self){
 
 		data.makeDictionaries();
 
-		if(self.debugFlag){
-			print("Dimensione matrice:  ", self.M.shape);
-			print(self.M);
-		}
+#		if(self.debugFlag){
+#			print("Dimensione matrice:  ", self.M.shape);
+#			print(self.M);
+#		}
 
 		if( data.par_potentialSelector == "z"){
 
@@ -71,9 +75,10 @@ class Autovaloratore{
 				for r in range(data.par_numeroPunti-2){
 					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
-					self.matrixBuilder(r);	
+					self.MainDiagonale.append( self.Ddix );
+					self.SubDiagonale.append( self.Ldix );	
 				}
-			aval, avec = np.linalg.eigh(self.M);
+			aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
 			data.ListdictAVzero[l]["autov"] = aval;
 			data.ListdictAVzero[l]["autof"] = avec;
 			}
@@ -87,9 +92,10 @@ class Autovaloratore{
 				for r in range(data.par_numeroPunti-2){
 					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
-					self.matrixBuilder(r);	
+					self.MainDiagonale.append( self.Ddix );
+					self.SubDiagonale.append( self.Ldix );	
 				}
-			aval, avec = np.linalg.eigh(self.M);
+			aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
 			data.ListdictAVcoulomb[l]["autov"] = aval;
 			data.ListdictAVcoulomb[l]["autof"] = avec;
 			}
@@ -104,9 +110,10 @@ class Autovaloratore{
 					for r in range(data.par_numeroPunti-2){
 						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
 						self.setD();
-						self.matrixBuilder(r);	
+						self.MainDiagonale.append( self.Ddix );
+						self.SubDiagonale.append( self.Ldix );	
 					}
-					aval, avec = np.linalg.eigh(self.M);
+					aval, avec = scipy.linalg.eigh_tridiagonal(self.MainDiagonale, self.SubDiagonale, check_finite=False);
 					dictKey = "autov" + str(gamma);
 					data.ListdictAVyukawa[l][dictKey] = aval;
 					dictKey = "autof" + str(gamma);

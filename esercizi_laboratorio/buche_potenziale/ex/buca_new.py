@@ -34,6 +34,7 @@ def main():
 
     nump=int(input("Numeri di auto-funzioni da stampare"))
     fig, ax = plt.subplots()
+    fig2, ax2 = plt.subplots()
     lx=np.zeros((n,nump),dtype=np.float64)
     ly=np.zeros((n,nump),dtype=np.float64)
     for i in range(n):
@@ -49,6 +50,10 @@ def main():
    
     ax.set( xlabel='X [Bohr]')
     ax.legend()
+
+    ax2.set_title("Autoenergie")
+    ax2.plot(range(len(e)), e)
+    
     plt.show()
 
 

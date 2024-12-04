@@ -258,10 +258,10 @@ class DataPlotter{
 			self.HaxList.append(ax);	
 		}
 
-		negIndex = int(-(data.par_numeroPunti) / 10);
+		negIndex = int((data.par_numeroPunti) / 10);
 		energiaH = [];
 
-		for element in range(data.par_numeroPunti-1)[negIndex:]{
+		for element in range(data.par_numeroPunti-1)[1:negIndex]{
 			energiaH.append( 1/ (element**2) );	
 		}
 
@@ -271,9 +271,9 @@ class DataPlotter{
             self.HaxList[l].set_xlabel( "Indice" );
 
 			dummy = data.ListdictAVcoulomb[l]["autov"];
-			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , dummy[negIndex:]*2, label="autoenergia", linestyle=":");
-			self.HaxList[l].plot( range(data.par_numeroPunti-1)[negIndex:] , energiaH, label="energia H", linestyle=":");
-			#sg.makeFine( self.HaxList[l] );
+			self.HaxList[l].plot( range(data.par_numeroPunti-1)[1:negIndex] , dummy[1:negIndex]*2, label="autoenergia", linestyle=":");
+			self.HaxList[l].plot( range(data.par_numeroPunti-1)[1:negIndex] , energiaH, label="energia H", linestyle=":");
+			sg.makeFine( self.HaxList[l] );
 		}		
 		
 	}#enddef

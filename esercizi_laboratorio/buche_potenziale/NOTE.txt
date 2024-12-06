@@ -1,0 +1,5 @@
+la verifica delle autoenergie per il potenziale di coulomb non è riuscito
+
+la verifica di bessel funziona solo per l = 0
+
+https://github.com/albertos-2002/corso_metodi-computazionali/tree/main/esercizi_laboratorio/buche_potenziale

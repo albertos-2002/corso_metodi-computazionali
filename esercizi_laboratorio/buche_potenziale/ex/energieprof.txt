@@ -1,0 +1,130 @@
+Parametri della run:
+larghezza della buca in bohr:  10.0
+numero di punti di griglia:   100
+tipologia di potenziale:  1
+
+
+Energia calcolata (Hr)	0.04934388102399468
+Energia calcolata (Hr)	0.19732583899059852
+Energia calcolata (Hr)	0.44379686861195533
+Energia calcolata (Hr)	0.7885087944537386
+Energia calcolata (Hr)	1.231114520826572
+Energia calcolata (Hr)	1.7711683812821015
+Energia calcolata (Hr)	2.4081265873612483
+Energia calcolata (Hr)	3.1413477761430992
+Energia calcolata (Hr)	3.970093656043103
+Energia calcolata (Hr)	4.893529750209924
+Energia calcolata (Hr)	5.910726236773103
+Energia calcolata (Hr)	7.020658885094718
+Energia calcolata (Hr)	8.222210087082843
+Energia calcolata (Hr)	9.514169982528259
+Energia calcolata (Hr)	10.89523767733095
+Energia calcolata (Hr)	12.364022553390365
+Energia calcolata (Hr)	13.919045668839901
+Energia calcolata (Hr)	15.55874124721592
+Energia calcolata (Hr)	17.281458254062073
+Energia calcolata (Hr)	19.08546205938093
+Energia calcolata (Hr)	20.96893618425939
+Energia calcolata (Hr)	22.929984129908956
+Energia calcolata (Hr)	24.966631287279284
+Energia calcolata (Hr)	27.076826925322067
+Energia calcolata (Hr)	29.258446255903444
+Energia calcolata (Hr)	31.50929257328547
+Energia calcolata (Hr)	33.827099466022624
+Energia calcolata (Hr)	36.20953309904598
+Energia calcolata (Hr)	38.654194563637326
+Energia calcolata (Hr)	41.1586222929269
+Energia calcolata (Hr)	43.720294540482556
+Energia calcolata (Hr)	46.33663191949468
+Energia calcolata (Hr)	49.005000000000024
+Energia calcolata (Hr)	51.72271196152937
+Energia calcolata (Hr)	54.48703129850808
+Energia calcolata (Hr)	57.2951745756851
+Energia calcolata (Hr)	60.144314230816455
+Energia calcolata (Hr)	63.03158142178063
+Energia calcolata (Hr)	65.95406891525948
+Energia calcolata (Hr)	68.90883401407578
+Energia calcolata (Hr)	71.89290152023966
+Energia calcolata (Hr)	74.90326673072104
+Energia calcolata (Hr)	77.93689846293067
+Energia calcolata (Hr)	80.99074210686416
+Energia calcolata (Hr)	84.06172270083533
+Energia calcolata (Hr)	87.1467480277019
+Energia calcolata (Hr)	90.2427117284662
+Energia calcolata (Hr)	93.34649643011502
+Energia calcolata (Hr)	96.45497688455048
+Energia calcolata (Hr)	99.56502311544952
+Energia calcolata (Hr)	102.67350356988496
+Energia calcolata (Hr)	105.7772882715338
+Energia calcolata (Hr)	108.87325197229806
+Energia calcolata (Hr)	111.95827729916465
+Energia calcolata (Hr)	115.02925789313582
+Energia calcolata (Hr)	118.08310153706931
+Energia calcolata (Hr)	121.11673326927894
+Energia calcolata (Hr)	124.12709847976032
+Energia calcolata (Hr)	127.11116598592422
+Energia calcolata (Hr)	130.06593108474053
+Energia calcolata (Hr)	132.9884185782194
+Energia calcolata (Hr)	135.87568576918355
+Energia calcolata (Hr)	138.7248254243149
+Energia calcolata (Hr)	141.53296870149194
+Energia calcolata (Hr)	144.2972880384706
+Energia calcolata (Hr)	147.015
+Energia calcolata (Hr)	149.6833680805053
+Energia calcolata (Hr)	152.29970545951747
+Energia calcolata (Hr)	154.86137770707316
+Energia calcolata (Hr)	157.3658054363627
+Energia calcolata (Hr)	159.81046690095403
+Energia calcolata (Hr)	162.1929005339774
+Energia calcolata (Hr)	164.51070742671456
+Energia calcolata (Hr)	166.76155374409655
+Energia calcolata (Hr)	168.94317307467796
+Energia calcolata (Hr)	171.05336871272075
+Energia calcolata (Hr)	173.09001587009107
+Energia calcolata (Hr)	175.05106381574063
+Energia calcolata (Hr)	176.93453794061904
+Energia calcolata (Hr)	178.7385417459379
+Energia calcolata (Hr)	180.4612587527841
+Energia calcolata (Hr)	182.10095433116012
+Energia calcolata (Hr)	183.65597744660965
+Energia calcolata (Hr)	185.12476232266906
+Energia calcolata (Hr)	186.50583001747177
+Energia calcolata (Hr)	187.79778991291715
+Energia calcolata (Hr)	188.9993411149053
+Energia calcolata (Hr)	190.1092737632269
+Energia calcolata (Hr)	191.12647024979006
+Energia calcolata (Hr)	192.0499063439569
+Energia calcolata (Hr)	192.8786522238569
+Energia calcolata (Hr)	193.61187341263874
+Energia calcolata (Hr)	194.24883161871784
+Energia calcolata (Hr)	194.78888547917342
+Energia calcolata (Hr)	195.2314912055463
+Energia calcolata (Hr)	195.57620313138804
+Energia calcolata (Hr)	195.82267416100945
+Energia calcolata (Hr)	195.970656118976
+
+
+Print degli autovalori:
+[[ 0.00450961 -0.00901468 -0.01351068 ...  0.01351068  0.00901468
+  -0.00450961]
+ [ 0.00901468 -0.01799307 -0.026899   ... -0.026899   -0.01799307
+   0.00901468]
+ [ 0.01351068 -0.026899   -0.04004372 ...  0.04004372  0.026899
+  -0.01351068]
+ ...
+ [ 0.01351068  0.026899   -0.04004372 ... -0.04004372  0.026899
+   0.01351068]
+ [ 0.00901468  0.01799307 -0.026899   ...  0.026899   -0.01799307
+  -0.00901468]
+ [ 0.00450961  0.00901468 -0.01351068 ... -0.01351068  0.00901468
+   0.00450961]]
+
+
+Valori del grafico di bessel:
+
+0.049348032888245
+0.19739206872112497
+0.44413220174642
+0.7895684005482051
+1.233700508046845
+

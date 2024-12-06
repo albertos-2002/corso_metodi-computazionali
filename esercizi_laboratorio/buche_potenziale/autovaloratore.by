@@ -15,7 +15,7 @@ class Autovaloratore{
 #		self.M = np.zeros( (data.par_numeroPunti-2, data.par_numeroPunti-2) );
 
 		#l'equazione associta al problema presenta coefficienti costanti
-		self.adix = -1;
+		self.adix = -0.5;
 #		self.bdix = 0;
 		self.cdix = 0;
 
@@ -32,7 +32,7 @@ class Autovaloratore{
 	
 
 	def setD(self){
-		dummy1 = 2 / data.par_larghezzaIntervallo**2
+		dummy1 = -2*self.adix / data.par_larghezzaIntervallo**2
 		self.Ddix = dummy1 + self.cdix;
 	}#enddef
 
@@ -73,7 +73,7 @@ class Autovaloratore{
 
 			for l in range(data.par_lquanticoMax+1){
 				for r in range(data.par_numeroPunti-2){
-					self.cdix = data.potenzialeZero[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
+					self.cdix = data.potenzialeZero[r] + ( 0.5*l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.MainDiagonale.append( self.Ddix );
 					self.SubDiagonale.append( self.Ldix );	
@@ -92,7 +92,7 @@ class Autovaloratore{
 
 			for l in range(data.par_lquanticoMax+1){
 				for r in range(data.par_numeroPunti-2){
-					self.cdix = data.potenzialeCoulomb[r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
+					self.cdix = data.potenzialeCoulomb[r] + ( 0.5*l*(l+1) / data.vettoreGriglia[r+1] );
 					self.setD();
 					self.MainDiagonale.append( self.Ddix );
 					self.SubDiagonale.append( self.Ldix );	
@@ -111,7 +111,7 @@ class Autovaloratore{
 			for l in range(data.par_lquanticoMax+1){
 				for gamma in data.par_gammaY{
 					for r in range(data.par_numeroPunti-2){
-						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( l*(l+1) / data.vettoreGriglia[r+1] );
+						self.cdix = data.dictPotenzialeYukawa[str(gamma)][r] + ( 0.5*l*(l+1) / data.vettoreGriglia[r+1] );
 						self.setD();
 						self.MainDiagonale.append( self.Ddix );
 						self.SubDiagonale.append( self.Ldix );	

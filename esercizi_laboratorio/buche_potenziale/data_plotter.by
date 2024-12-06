@@ -142,6 +142,14 @@ class DataPlotter{
 				dummy = data.ListdictAVzero[l]["autov"];
                 self.EaxList[l].plot( range(len(dummy)), dummy, label="autoenergia", linestyle=":", marker=".");
 				sg.makeFine( self.EaxList[l] );
+
+				with open("autoenergie.txt", "a") as file{
+					file.write("Potenziale == z \n")
+					file.write("Numero quantico: " + str(l) + "\n")
+					for i in range(len(dummy)){
+						file.write("Autoenergia in Hr: \t" + str(dummy[i]) + "\n")
+					}
+				}
 			}
 		}
 		if(data.par_potentialSelector == "c"){
@@ -224,6 +232,15 @@ class DataPlotter{
             self.VaxList[l].plot( range(len(dummy[:5])), dummy[:5], label="autoenergia calcolata", linestyle=":", marker=".");
             self.VaxList[l].plot( range(len(dummy[:5])), besselArray[l], label="autoenergia teorica", linestyle=":", marker=".");
 			sg.makeFine( self.VaxList[l] );
+
+			with open("autoenergie.txt", "a") as file{
+				file.write("\n");
+				file.write("Numero quantico: " + str(l) + "\n");
+				file.write("Valori delle energie ottenuti da bessel: \n");
+				for i in range(dummyL+1){
+					file.write("Valore \t" + str(besselArray[l][i]) +"\n");
+				}
+			}
 		}
 		
 	}#enddef
@@ -279,6 +296,12 @@ class DataPlotter{
 	}#enddef
 
 	def plotData(self){
+
+		with open("autoenergie.txt", "w") as file{
+			file.write("Parametri di simulazione \n");
+			file.write("Larghezza buca in bohr: " + str(data.par_larghezzaBuca) +"\n");
+			file.write("Numero punti: " + str(data.par_numeroPunti) +"\n");
+		}
 	
 		self.plotAutoFunc();
 		plt.show(block=False);

@@ -38,8 +38,28 @@ def main() {
 #    print(e);
 #    print(w);
 
-   for i in range(n-2){
-       print("Energia calcolata (eV)\t"+str(e[i]*ry2eV ),"\t e quella di una buca piatta (ev)\t"+str(np.pi**2/(2*a**2)*(i+1)**2*ry2eV))
+#   for i in range(n-2){
+#       print("Energia calcolata (eV)\t"+str(e[i]*ry2eV ),"\t e quella di una buca piatta (ev)\t"+str(np.pi**2/(2*a**2)*(i+1)**2*ry2eV))
+#   }
+
+   with open("energieprof.txt", "w") as file{
+
+      file.write("Parametri della run:\n");
+      file.write("larghezza della buca in bohr:  " + str(a)+"\n");
+      file.write("numero di punti di griglia:   "+ str(n)+"\n");
+      file.write("tipologia di potenziale:  "+ str(vk)+"\n");
+      file.write("\n");
+      file.write("\n");
+   
+      for i in range(n-2){
+          file.write("Energia calcolata (Hr)\t"+str(e[i])+"\n" );
+      }
+
+      file.write("\n");
+      file.write("\n");
+      file.write("Print degli autovalori:\n");
+      file.write(str(w)+"\n");
+      file.write("\n");
    }
 
     nump=int(input("Numeri di auto-funzioni da stampare"))
@@ -77,6 +97,16 @@ def main() {
     ax3.plot( range(len(e[:5])), e[:5], label="calcolata")
     ax3.legend()
     ax3.grid()
+
+    with open("energieprof.txt", "a") as file{
+        file.write("\n");
+        file.write("Valori del grafico di bessel:\n");
+        file.write("\n");
+        for i in range(len(bessel0)){
+            file.write(str(bessel0[i])+"\n");    
+        }
+        file.write("\n");        
+    }
 
     plt.show()
 }

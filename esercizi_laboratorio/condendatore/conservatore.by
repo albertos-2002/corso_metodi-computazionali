@@ -1,0 +1,51 @@
+""" -----------------------------------------------------------------
+SDR usato per posizionare gli indici
+
+  y^
+   |
+   |........................... cella
+   |     _              _     :
+   |    | |+V        -V| |    :
+   |    | |            | |    :
+   |    | |            | |    :
+   |    | |            | |    :
+   |    | |            | |    :
+   |    | |            | |    :
+   |    |_|            |_|    :
+   |         piastre          :
+ --|---------------------------------------------->x
+   |
+   
+----------------------------------------------------------------- """
+
+class Conservatore{
+
+	def __init__(self){
+
+		#parametri per la costruzione della simulazione
+		self.par_latoCella = 1; #[m]
+		self.par_puntiPerLato = 100;
+		self.par_lunghezzaPiastre = 0.7; #[m]
+		self.par_larghezzaPiastre = 0.1; #[m]
+		self.par_distanzaPiastre = 0.5; #[m]
+		self.par_potenzialePiastra1 = 100; #[V]
+		self.par_potenzialePiastra2 = -100; #[V]
+		self.par_potenzialeBordo = 0; #[V]
+
+		self.coordinataXcentro = 0;
+		self.coordinataYcentro = 0;
+	}#enddef
+
+
+	def indicizzatorePiastre(self){
+
+		self.coordinataXcentro = self.par_latoCella / 2;
+		self.coordinataYcentro = self.par_latoCella / 2;
+		
+	}#enddef
+	
+}#endclass
+
+
+#creazione istanza disponibile dopo aver importato lo script
+data = Conservatore();

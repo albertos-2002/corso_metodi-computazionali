@@ -89,15 +89,16 @@ class Conservatore{
 			self.f[i, self.par_puntiPerLato-1] = self.par_potenzialeBordo;
 		}
 
+		#qualche problema nell'indicizzazione delle piastre 
 		for i in range( (self.nx_p1-self.nspessore), self.nx_p1+1 ){
 			for j in range(self.ny_p1, self.ny_p2+1){
-				self.f[i,j] = self.par_potenzialePiastra1;
+				self.f[j,i] = -self.par_potenzialePiastra1;
 			}
 		}
 
 		for i in range( self.nx_p2, (self.nx_p2+self.nspessore)+1 ){
 			for j in range(self.ny_p1, self.ny_p2+1){
-				self.f[i,j] = self.par_potenzialePiastra2;
+				self.f[j,i] = -self.par_potenzialePiastra2;
 			}
 		}
 """		

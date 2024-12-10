@@ -3,6 +3,7 @@
 ------------------------------------------------------- """
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 
 import conservatore
 data = conservatore.data;
@@ -14,20 +15,42 @@ class DataPlotter{
 
 		self.x = np.linspace(0, data.par_latoCella, data.par_puntiPerLato);
 		self.y = np.linspace(0, data.par_latoCella, data.par_puntiPerLato);
+		self.X, self.Y = np.meshgrid(self.x, self.y);
 	}#enddef
 
 
 	def plot2D(self){
 
 		X, Y = np.meshgrid(self.x, self.y);
-		contour = plt.contourf(X, Y, data.NewShapePhi, 100, cmap="cividis");
-		plt.colorbar(contour, label="Potenziale Elettrico [V]");
+		contour = plt.contourf(self.X, self.Y, data.NewShapePhi, 120, cmap="viridis");
+		plt.contour(self.X, self.Y, data.NewShapePhi, 120, colors="gray", linewidths=0.1);
+		plt.colorbar(contour, label="Valore del Potenziale Elettrico [V]");
 
 		plt.title("Potenziale elettrico");
 		plt.xlabel("Coordinata x [m]");
 		plt.ylabel("Coordinata y [m]");
 
-		plt.show();
+		plt.show(block=False);
+		input(" > Premere invio per chiudere e proseguire");
+		plt.close();
+	}#enddef
+
+	def plot3D(self){
+
+		fig = plt.figure();
+		ax = fig.add_subplot(111, projection="3d");
+		surf = ax.plot_surface(self.X, self.Y, data.NewShapePhi, cmap="viridis", edgecolor="none");
+		fig.colorbar(surf, ax=ax);
+
+		ax.set_title("Potenziale Elettrico");
+		ax.set_xlabel("Coordinata x [m]");
+		ax.set_ylabel("Coordinata y [m]");
+		ax.set_zlabel("Potenziale elettrico [V]");
+		ax.view_init(elev=20, azim=55);
+	
+		plt.show(block=False);
+		input(" > Premere invio per chiudere e proseguire");
+		plt.close();
 	}#enddef
 	
 }#endclass

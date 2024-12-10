@@ -19,6 +19,7 @@ def main(){
 	data.solver();
 
 	dp.plot2D();
+	dp.plot3D();
 }#enddef
 
 

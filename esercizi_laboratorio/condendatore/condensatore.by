@@ -22,6 +22,7 @@ def main(){
 
 	dp.plot2D();
 	dp.plot3D();
+	dp.plotDensitaCarica();
 }#enddef
 
 

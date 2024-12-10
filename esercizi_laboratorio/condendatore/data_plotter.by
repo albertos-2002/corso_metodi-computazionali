@@ -21,7 +21,6 @@ class DataPlotter{
 
 	def plot2D(self){
 
-		X, Y = np.meshgrid(self.x, self.y);
 		contour = plt.contourf(self.X, self.Y, data.NewShapePhi, 120, cmap="viridis");
 		plt.contour(self.X, self.Y, data.NewShapePhi, 120, colors="gray", linewidths=0.1);
 		plt.colorbar(contour, label="Valore del Potenziale Elettrico [V]");
@@ -54,8 +53,19 @@ class DataPlotter{
 	}#enddef
 
 	def plotDensitaCarica(self){
-		
-	}
+
+		contour = plt.contourf(self.X, self.Y, data.matDensitaCarica, 120, cmap="viridis");
+		plt.contour(self.X, self.Y, data.matDensitaCarica, 120, colors="gray", linewidths=0.1);
+		plt.colorbar(contour, label="Densitaà di carica");
+
+		plt.title("Distribuzione densità di carica");
+		plt.xlabel("Coordinata x [m]");
+		plt.ylabel("Coordinata y [m]");
+
+		plt.show(block=False);
+		input(" > Premere invio per chiudere e proseguire");
+		plt.close();		
+	}#enddef
 	
 }#endclass
 

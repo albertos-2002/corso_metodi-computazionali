@@ -2,6 +2,7 @@
 
 ---------------------------------------------- """
 from scipy.constants import epsilon_0
+import numpy as np
 
 import conservatore
 data = conservatore.data;

@@ -87,24 +87,32 @@ def main():
               X[i,j]=h*i
               Y[i,j]=h*j
               
+    contour = plt.contourf(X, Y, phi, 50, cmap="viridis");
+    plt.colorbar(contour, label="Potenziale Elettrico [V]");
 
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    ax.plot_surface(X, Y, charge, vmin=charge.min() * 2, cmap=cm.Blues)
+    plt.title("Potenziale elettrico");
+    plt.xlabel("Coordinata x [m]");
+    plt.ylabel("Coordinata y [m]");
 
-    ax.set(xticklabels=[],
-       yticklabels=[],
-       zticklabels=[])
+    plt.show();
 
-    plt.show()
-
-    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
-    ax.plot_surface(X, Y, phi, vmin=phi.min() * 2, cmap=cm.Blues)
-
-    ax.set(xticklabels=[],
-       yticklabels=[],
-       zticklabels=[])
-
-    plt.show()
+#    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+#    ax.plot_surface(X, Y, charge, vmin=charge.min() * 2, cmap=cm.Blues)
+#
+#    ax.set(xticklabels=[],
+#       yticklabels=[],
+#       zticklabels=[])
+#
+#   plt.show()
+#
+#    fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+#    ax.plot_surface(X, Y, phi, vmin=phi.min() * 2, cmap=cm.Blues)
+#
+#    ax.set(xticklabels=[],
+#       yticklabels=[],
+#       zticklabels=[])
+#
+#    plt.show()
 
 
 if __name__ == "__main__":

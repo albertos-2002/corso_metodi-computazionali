@@ -5,6 +5,8 @@ import conservatore
 data = conservatore.data;
 import parameter_setter
 par = parameter_setter.par;
+import data_plotter
+dp = data_plotter.dp;
 
 
 def main(){
@@ -15,6 +17,8 @@ def main(){
 	data.setEqData();
 	data.reshaper();
 	data.solver();
+
+	dp.plot2D();
 }#enddef
 
 

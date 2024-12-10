@@ -1,0 +1,37 @@
+""" -------------------------------------------------------
+
+------------------------------------------------------- """
+import matplotlib.pyplot as plt
+import numpy as np
+
+import conservatore
+data = conservatore.data;
+
+
+class DataPlotter{
+
+	def __init__(self){
+
+		self.x = np.linspace(0, data.par_latoCella, data.par_puntiPerLato);
+		self.y = np.linspace(0, data.par_latoCella, data.par_puntiPerLato);
+	}#enddef
+
+
+	def plot2D(self){
+
+		X, Y = np.meshgrid(self.x, self.y);
+		contour = plt.contourf(X, Y, data.NewShapePhi, 100, cmap="cividis");
+		plt.colorbar(contour, label="Potenziale Elettrico [V]");
+
+		plt.title("Potenziale elettrico");
+		plt.xlabel("Coordinata x [m]");
+		plt.ylabel("Coordinata y [m]");
+
+		plt.show();
+	}#enddef
+	
+}#endclass
+
+
+#istanza disponibile in ogni script che import questo file
+dp = DataPlotter();

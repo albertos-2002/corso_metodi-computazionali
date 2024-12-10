@@ -87,10 +87,13 @@ class Conservatore{
 		}
 
 		for i in range(self.ny_p1, self.ny_p2+1){
-			#set del potenziale piastra sinistra
-			self.f[self.nx_p1, i] = self.par_potenzialePiastra1;
-			#set del potenziale piastra destra
-			self.f[self.nx_p2, i] = self.par_potenzialePiastra2;				
+
+			for j in range(self.nx_p1, self.nx_p2+1){
+				#set del potenziale piastra sinistra
+				self.f[self.nx_p1, i] = self.par_potenzialePiastra1;
+				#set del potenziale piastra destra
+				self.f[self.nx_p2, i] = self.par_potenzialePiastra2;				
+			}
 		} 
 		
 	}#enddef

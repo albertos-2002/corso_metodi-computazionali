@@ -15,8 +15,12 @@ SDR usato per posizionare gli indici
    |         piastre          :
  --|---------------------------------------------->x
    |
-   
+
+
+Forma dell'equazione che vogliamo risolvere
+ M * phi = f   
 ----------------------------------------------------------------- """
+import numpy as np
 
 class Conservatore{
 
@@ -25,24 +29,114 @@ class Conservatore{
 		#parametri per la costruzione della simulazione
 		self.par_latoCella = 1; #[m]
 		self.par_puntiPerLato = 100;
-		self.par_lunghezzaPiastre = 0.7; #[m]
+		self.par_lunghezzaPiastre = 0.7; #[m] #la considero lunghezza sull'asse z
 		self.par_larghezzaPiastre = 0.1; #[m]
 		self.par_distanzaPiastre = 0.5; #[m]
 		self.par_potenzialePiastra1 = 100; #[V]
 		self.par_potenzialePiastra2 = -100; #[V]
 		self.par_potenzialeBordo = 0; #[V]
+		self.par_larghezzaIntervallo = 0; 
+		self.par_larghezzaIntervalloQuadro = 0;
 
-		self.coordinataXcentro = 0;
-		self.coordinataYcentro = 0;
+		self.coordinataCentro = 0;
+		self.nx_p1 = 0;
+		self.nx_p2 = 0;
+		self.ny_p1 = 0;
+		self.ny_p2 = 0;
+
+		#pesante dal punto di vista della memoria
+		self.M = np.zeros( (self.par_puntiPerLato, self.par_puntiPerLato, self.par_puntiPerLato, self.par_puntiPerLato), dtype=np.float64);
+		self.phi = 0;
+		self.f = np.zeros( (self.par_puntiPerLato, self.par_puntiPerLato), dtype=np.float64);
+
+		self.NewShapeM = 0;
+		self.NewShapePhi = 0;
+		self.NewShapeF = 0;
 	}#enddef
 
+	def setLarghezzaIntervallo(self){
+		self.par_larghezzaIntervallo = self.par_latoCella / (self.par_puntiPerLato-1);
+		self.par_larghezzaIntervalloQuadro = self.par_larghezzaIntervallo**2;
+	}#enddef
 
 	def indicizzatorePiastre(self){
 
-		self.coordinataXcentro = self.par_latoCella / 2;
-		self.coordinataYcentro = self.par_latoCella / 2;
+		self.coordinataCentro = self.par_latoCella / 2;
+
+		#distanza tra le piastre in x
+		self.nx_p1 = int( (self.coordinataCentro - self.par_distanzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );
+		self.nx_p2 = int( (self.coordinataCentro + self.par_distanzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );
+
+		#distanza tra le piastre in y
+		#elongazione della pistra, ogni piastra si trova poi a x pari a nx_p1 e nx_p2
+		self.ny_p1 = int( (self.coordinataCentro - self.par_larghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );
+		self.ny_p2 = int( (self.coordinataCentro + self.par_larghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );		
+	}#enddef
+
+
+	def setTermineNoto(self){
+
+		#set per il potenziale sul bordo
+		for i in range(self.par_puntiPerLato){
+			#lato sinistro e destro
+			self.f[0,i] = self.par_potenzialeBordo;
+			self.f[self.par_puntiPerLato-1, i] = self.par_potenzialeBordo;
+			#lato inferiore e superiore
+			self.f[i,0] = self.par_potenzialeBordo;
+			self.f[i, self.par_puntiPerLato-1] = self.par_potenzialeBordo;
+		}
+
+		for i in range(self.ny_p1, self.ny_p2+1){
+			#set del potenziale piastra sinistra
+			self.f[self.nx_p1, i] = self.par_potenzialePiastra1;
+			#set del potenziale piastra destra
+			self.f[self.nx_p2, i] = self.par_potenzialePiastra2;				
+		} 
 		
 	}#enddef
+
+	def setMatrice(self){
+
+		for i in range(1, self.par_puntiPerLato-1){
+			for j in range(1, self.par_puntiPerLato-1){
+				self.M[i,j,i,j] = -2 * (2 / self.par_larghezzaIntervalloQuadro);
+
+				self.M[i,j,i+1,j] = 1 / self.par_larghezzaIntervalloQuadro;
+				self.M[i,j,i-1,j] = 1 / self.par_larghezzaIntervalloQuadro;
+				self.M[i,j,i,j+1] = 1 / self.par_larghezzaIntervalloQuadro;
+				self.M[i,j,i,j-1] = 1 / self.par_larghezzaIntervalloQuadro;
+			}
+		}
+
+		for i in range(self.par_puntiPerLato){
+			nm1 = self.par_puntiPerLato-1;
+			self.M[0,i,0,i] = 1;
+			self.M[i,0,i,0] = 1;
+			self.M[nm1,i,nm1,i] = 1;
+			self.M[i,nm1,i,nm1] = 1;
+		}
+		
+	}#enddef
+
+	def setEqData(self){
+		self.setLarghezzaIntervallo();
+		self.indicizzatorePiastre();
+		self.setTermineNoto();
+		self.setMatrice();
+	}#enddef
+
+	def reshaper(self){
+		n2 = self.par_puntiPerLato**2;
+		self.NewShapeM = self.M.reshape( (n2,n2) );
+		self.NewShapeF = self.f.reshape( (n2) );
+	}#enddef
+
+	def solver(self){
+		n = self.par_puntiPerLato;
+		self.phi = np.linalg.solve( self.NewShapeM, self.NewShapeF);
+		self.NewShapePhi = self.phi.reshape(n,n);
+	}#enddef
+
 	
 }#endclass
 

@@ -1,0 +1,18 @@
+""" ------------------------------------------------
+------------------------------------------------ """
+
+import conservatore
+data = conservatore.data;
+
+
+def main(){
+
+	data.setEqData();
+	data.reshaper();
+	data.solver();
+}#enddef
+
+
+if (__name__ == "__main__"){
+	main();
+}

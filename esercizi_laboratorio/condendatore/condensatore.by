@@ -3,9 +3,14 @@
 
 import conservatore
 data = conservatore.data;
+import parameter_setter
+par = parameter_setter.par;
 
 
 def main(){
+
+	par.printSDR();
+	par.parameterSetter();
 
 	data.setEqData();
 	data.reshaper();

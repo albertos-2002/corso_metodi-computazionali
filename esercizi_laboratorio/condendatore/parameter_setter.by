@@ -1,0 +1,48 @@
+""" ---------------------------------------------------------
+
+--------------------------------------------------------- """
+import conservatore
+data = conservatore.data;
+
+class ParameterSetter{
+
+	def __init__(self){
+		self.tmpVar = 0;
+	}#enddef
+
+	def printSDR(self){
+
+		print()
+		print("  y^ 											")
+		print("   | 											")
+		print("   |........................... cella 			")
+		print("   |     _              _     : 					")
+		print("   |    | |+V        -V| |    : 					")
+		print("   |    | |            | |    : 					")
+		print("   |    | |            | |    : 					")
+		print("   |    | |            | |    : 					")
+		print("   |    | |            | |    : 					")
+		print("   |    | |            | |    : 					")
+		print("   |    |_|            |_|    : 					")
+		print("   |         piastre          : 					")
+		print(" --|------------------------------------------>x ")
+		print("   | 											")
+		print()
+	}#enddef
+
+	def parameterSetter(self){
+
+		print(" Inserire di seguito i parametri per la simulazione:");
+		print(" > Potenziale piastre [V]:");
+		print("   (consigliato 100)");
+		self.tmpVar = int( input("\t") );
+
+		data.par_potenzialePiastra1 = self.tmpVar;
+		data.par_potenzialePiastra2 = -self.tmpVar;
+	}#enddef
+	
+}#endclass
+
+
+#creazione istanza disponibile dopo aver importato lo script
+par = ParameterSetter();

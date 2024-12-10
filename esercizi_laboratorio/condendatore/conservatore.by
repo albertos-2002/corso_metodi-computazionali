@@ -43,6 +43,7 @@ class Conservatore{
 		self.nx_p2 = 0;
 		self.ny_p1 = 0;
 		self.ny_p2 = 0;
+		self.nspessore = 0;
 
 		#pesante dal punto di vista della memoria
 		self.M = np.zeros( (self.par_puntiPerLato, self.par_puntiPerLato, self.par_puntiPerLato, self.par_puntiPerLato), dtype=np.float64);
@@ -69,8 +70,10 @@ class Conservatore{
 
 		#distanza tra le piastre in y
 		#elongazione della pistra, ogni piastra si trova poi a x pari a nx_p1 e nx_p2
-		self.ny_p1 = int( (self.coordinataCentro - self.par_larghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );
-		self.ny_p2 = int( (self.coordinataCentro + self.par_larghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );		
+		self.ny_p1 = int( (self.coordinataCentro - self.par_lunghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );
+		self.ny_p2 = int( (self.coordinataCentro + self.par_lunghezzaPiastre/2) / self.par_latoCella * self.par_puntiPerLato );		
+
+		self.nspessore = int( self.par_larghezzaPiastre / self.par_latoCella * self.par_puntiPerLato );
 	}#enddef
 
 
@@ -85,27 +88,26 @@ class Conservatore{
 			self.f[i,0] = self.par_potenzialeBordo;
 			self.f[i, self.par_puntiPerLato-1] = self.par_potenzialeBordo;
 		}
-"""
-		for i in range(self.ny_p1, self.ny_p2+1){
 
-			for j in range(self.nx_p1, self.nx_p2+1){
-				#set del potenziale piastra sinistra
-				self.f[j, i] = self.par_potenzialePiastra1;
-				#set del potenziale piastra destra
-				self.f[j, i] = self.par_potenzialePiastra2;				
+		for i in range( (self.nx_p1-self.nspessore), self.nx_p1+1 ){
+			for j in range(self.ny_p1, self.ny_p2+1){
+				self.f[i,j] = self.par_potenzialePiastra1;
 			}
-			#poca coerenza con gli indici
-		} 
-"""
+		}
+
+		for i in range( self.nx_p2, (self.nx_p2+self.nspessore)+1 ){
+			for j in range(self.ny_p1, self.ny_p2+1){
+				self.f[i,j] = self.par_potenzialePiastra2;
+			}
+		}
+"""		
 		for i in range(self.nx_p1, self.nx_p2+1){
-		
 			#set del potenziale piastra sinistra
 			self.f[i, self.ny_p1] = self.par_potenzialePiastra1;
 			#set del potenziale piastra destra
 			self.f[i, self.ny_p2] = self.par_potenzialePiastra2;				
 		}
-			#poca coerenza con gli indici
-		
+"""		
 	}#enddef
 
 	def setMatrice(self){

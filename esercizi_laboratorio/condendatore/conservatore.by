@@ -85,16 +85,26 @@ class Conservatore{
 			self.f[i,0] = self.par_potenzialeBordo;
 			self.f[i, self.par_puntiPerLato-1] = self.par_potenzialeBordo;
 		}
-
+"""
 		for i in range(self.ny_p1, self.ny_p2+1){
 
 			for j in range(self.nx_p1, self.nx_p2+1){
 				#set del potenziale piastra sinistra
-				self.f[self.nx_p1, i] = self.par_potenzialePiastra1;
+				self.f[j, i] = self.par_potenzialePiastra1;
 				#set del potenziale piastra destra
-				self.f[self.nx_p2, i] = self.par_potenzialePiastra2;				
+				self.f[j, i] = self.par_potenzialePiastra2;				
 			}
+			#poca coerenza con gli indici
 		} 
+"""
+		for i in range(self.nx_p1, self.nx_p2+1){
+		
+			#set del potenziale piastra sinistra
+			self.f[i, self.ny_p1] = self.par_potenzialePiastra1;
+			#set del potenziale piastra destra
+			self.f[i, self.ny_p2] = self.par_potenzialePiastra2;				
+		}
+			#poca coerenza con gli indici
 		
 	}#enddef
 

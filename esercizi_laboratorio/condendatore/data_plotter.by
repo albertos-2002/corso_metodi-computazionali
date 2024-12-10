@@ -52,6 +52,10 @@ class DataPlotter{
 		input(" > Premere invio per chiudere e proseguire");
 		plt.close();
 	}#enddef
+
+	def plotDensitaCarica(self){
+		
+	}
 	
 }#endclass
 

@@ -1,0 +1,54 @@
+""" ----------------------------------------------
+
+---------------------------------------------- """
+from scipy.constants import epsilon_0
+
+import conservatore
+data = conservatore.data;
+
+class Calcolatore{
+
+	def __init__(self){
+		pass
+	}#enddef
+
+
+	def setEqData(self){
+		data.setLarghezzaIntervallo();
+		data.indicizzatorePiastre();
+		data.setTermineNoto();
+		data.setMatrice();
+	}#enddef
+
+	def reshaper(self){
+		n2 = data.par_puntiPerLato**2;
+		data.NewShapeM = data.M.reshape( (n2,n2) );
+		data.NewShapeF = data.f.reshape( (n2) );
+	}#enddef
+
+	def solver(self){
+		n = data.par_puntiPerLato;
+		data.phi = np.linalg.solve( data.NewShapeM, data.NewShapeF);
+		data.NewShapePhi = data.phi.reshape(n,n);
+	}#enddef
+
+	def densitaCarica(self){
+		#la densità di carica è il laplaciano del potenziale
+		for i in range(1, data.par_puntiPerLato-1){
+			for j in range(1, data.par_puntiPerLato-1){
+			
+				laplaciano = ( data.NewShapePhi[i+1, j] 
+								+ data.NewShapePhi[i-1, j] 
+								+ data.NewShapePhi[i, j+1] 
+								+ data.NewShapePhi[i, j-1] 
+								- 4*data.NewShapePhi[i, j] ) / data.par_larghezzaIntervalloQuadro ;
+
+				data.matDensitaCarica[i,j] = -epsilon_0 * laplaciano;
+			}
+		}
+	}#enddef
+	
+}#endclass
+
+#istanza disponibile per ogni script che importa questo script
+calc = Calcolatore(); 

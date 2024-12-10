@@ -7,16 +7,18 @@ import parameter_setter
 par = parameter_setter.par;
 import data_plotter
 dp = data_plotter.dp;
-
+import calcolatore
+calc = calcolatore.calc;
 
 def main(){
 
 	par.printSDR();
 	par.parameterSetter();
 
-	data.setEqData();
-	data.reshaper();
-	data.solver();
+	calc.setEqData();
+	calc.reshaper();
+	calc.solver();
+	calc.densitaCarica();
 
 	dp.plot2D();
 	dp.plot3D();

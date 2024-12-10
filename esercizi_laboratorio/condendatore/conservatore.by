@@ -53,6 +53,8 @@ class Conservatore{
 		self.NewShapeM = 0;
 		self.NewShapePhi = 0;
 		self.NewShapeF = 0;
+
+		self.matDensitaCarica = np.zeros( (self.par_puntiPerLato, self.par_puntiPerLato), dtype=np.float64 );
 	}#enddef
 
 	def setLarghezzaIntervallo(self){
@@ -101,14 +103,7 @@ class Conservatore{
 				self.f[j,i] = -self.par_potenzialePiastra2;
 			}
 		}
-"""		
-		for i in range(self.nx_p1, self.nx_p2+1){
-			#set del potenziale piastra sinistra
-			self.f[i, self.ny_p1] = self.par_potenzialePiastra1;
-			#set del potenziale piastra destra
-			self.f[i, self.ny_p2] = self.par_potenzialePiastra2;				
-		}
-"""		
+	
 	}#enddef
 
 	def setMatrice(self){
@@ -133,26 +128,6 @@ class Conservatore{
 		}
 		
 	}#enddef
-
-	def setEqData(self){
-		self.setLarghezzaIntervallo();
-		self.indicizzatorePiastre();
-		self.setTermineNoto();
-		self.setMatrice();
-	}#enddef
-
-	def reshaper(self){
-		n2 = self.par_puntiPerLato**2;
-		self.NewShapeM = self.M.reshape( (n2,n2) );
-		self.NewShapeF = self.f.reshape( (n2) );
-	}#enddef
-
-	def solver(self){
-		n = self.par_puntiPerLato;
-		self.phi = np.linalg.solve( self.NewShapeM, self.NewShapeF);
-		self.NewShapePhi = self.phi.reshape(n,n);
-	}#enddef
-
 	
 }#endclass
 

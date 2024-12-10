@@ -52,16 +52,34 @@ class DataPlotter{
 		plt.close();
 	}#enddef
 
-	def plotDensitaCarica(self){
+	def plotDensitaCarica2D(self){
 
 		contour = plt.contourf(self.X, self.Y, data.matDensitaCarica, 120, cmap="viridis");
 		plt.contour(self.X, self.Y, data.matDensitaCarica, 120, colors="gray", linewidths=0.1);
-		plt.colorbar(contour, label="Densitaà di carica");
+		plt.colorbar(contour, label="Densita di carica");
 
 		plt.title("Distribuzione densità di carica");
 		plt.xlabel("Coordinata x [m]");
 		plt.ylabel("Coordinata y [m]");
 
+		plt.show(block=False);
+		input(" > Premere invio per chiudere e proseguire");
+		plt.close();		
+	}#enddef
+
+	def plotDensitaCarica3D(self){
+
+		fig = plt.figure();
+		ax = fig.add_subplot(111, projection="3d");
+		surf = ax.plot_surface(self.X, self.Y, data.matDensitaCarica, cmap="viridis", edgecolor="none");
+		fig.colorbar(surf, ax=ax);
+
+		ax.set_title("Distribuzione densità di carica");
+		ax.set_xlabel("Coordinata x [m]");
+		ax.set_ylabel("Coordinata y [m]");
+		ax.set_zlabel("Densità di carica");
+		ax.view_init(elev=20, azim=55);
+	
 		plt.show(block=False);
 		input(" > Premere invio per chiudere e proseguire");
 		plt.close();		

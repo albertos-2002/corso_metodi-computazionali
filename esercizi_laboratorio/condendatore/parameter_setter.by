@@ -35,10 +35,26 @@ class ParameterSetter{
 		print(" Inserire di seguito i parametri per la simulazione:");
 		print(" > Potenziale piastre [V]:");
 		print("   (consigliato 100)");
-		self.tmpVar = int( input("\t") );
+		self.tmpVar = float( input("\t") );
 
 		data.par_potenzialePiastra1 = self.tmpVar;
 		data.par_potenzialePiastra2 = -self.tmpVar;
+
+		print(" > Lato cella di simulazione [m]:")
+		print("   (consigliato 1)")
+		self.tmpVar = float( input("\t") )
+		data.par_latoCella = self.tmpVar
+
+		print(" > Distanza tra le piastre [m]:")
+		print("   (consigliato 0.5)")
+		self.tmpVar = float( input("\t") )
+		data.par_distanzaPiastre = self.tmpVar
+
+		print(" > Numero di punti per lato di cella:")
+		print("   (attenzione, essere cauti nel superare i 100)")
+		self.tmpVar = int( input("\t") )
+		data.par_puntiPerLato = self.tmpVar
+		
 	}#enddef
 	
 }#endclass

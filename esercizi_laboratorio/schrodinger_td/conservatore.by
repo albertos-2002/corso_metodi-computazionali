@@ -1,0 +1,41 @@
+""" ----------------------------------------------------------------------
+---------------------------------------------------------------------- """
+
+class Conservatore{
+
+	def __init__(self){
+
+		#parametri della cella
+		self.par_lunghezza = 500; #[m]
+		self.par_stepSpaziale = 1000;
+		self.par_intervalloSpaziale = 0;
+
+		#parametri temporali
+		self.par_stepTemporale = 2000;
+		self.par_intervalloTemporale = 0.1; #[s]
+
+		#parametri funzione d'onda 
+		self.par_xcon0 = 200; #[m]
+		self.par_q = 2;
+		self.par_sigma = 20;
+
+		#parametri del potenziale
+		self.par_potenzialeLowerBound = 250; #[m]
+		self.par_potenzialeUpperBound = 260; #[m]
+		self.par_potenziale = 1.7; #[V]
+		
+
+		#liste vettori calcolati
+		self.vettorePotenziale = [];
+		self.vettoreSpaziale = [];
+		self.vettoreFunzioneOndaSpaziale = [];
+		
+		
+		self.par_
+		self.par_
+	}
+	
+}
+
+#creazione di una istanza comune
+data = Conservatore();

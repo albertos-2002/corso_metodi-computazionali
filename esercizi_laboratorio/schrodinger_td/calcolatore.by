@@ -1,0 +1,41 @@
+""" ----------------------------------------------------------------
+---------------------------------------------------------------- """
+import numpy as np
+
+import conservatore
+data = conservatore.data;
+
+class Calcolatore{
+
+	def __init__(self){
+		pass
+	}
+
+	#nella sezione seguente sono definite delle funzioni per il setup del problema
+	def calcIntSpazio(self){
+		data.vettoreSpaziale = np.linspace(0, data.par_lunghezza, data.par_stepSpaziale);
+	}
+
+	def calcPotenziale(self){
+		for i in data.vettoreSpaziale{
+			if i <= data.par_potenzialeUpperBound and i >= data.par_potenzialeLowerBound{
+				data.vettorePotenziale.append(data.par_potenziale);
+			}
+			else{
+				data.vettorePotenziale.append(0);
+			}		
+		}
+	}
+	
+
+	def SetUpProblem(self){
+		self.calcIntSpazio
+		self.calcPotenziale
+		self.
+	}
+
+	#------------------------------------------------------------------------------------------------------------
+	
+}
+
+calc = Calcolatore();

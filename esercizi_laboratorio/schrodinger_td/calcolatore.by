@@ -8,13 +8,23 @@ data = conservatore.data;
 class Calcolatore{
 
 	def __init__(self){
-		pass
-	}
+		self.matM = np.zeros( (data.par_stepSpaziale-2, data.par_stepSpaziale-2), dtype=float64);
+		self.vecF = np.zeros( data.par_stepSpaziale-2, dtype=float64);
+		self.vecpsi = np.zeros( data.par_stepSpaziale-2, dtype=float64);
+	}#enddef
 
-	#nella sezione seguente sono definite delle funzioni per il setup del problema
+
+#nella sezione seguente sono definite delle funzioni per il setup del problema
 	def calcIntSpazio(self){
 		data.vettoreSpaziale = np.linspace(0, data.par_lunghezza, data.par_stepSpaziale);
-	}
+		data.par_intervalloSpaziale = data.vettoreSpaziale[1] - data.vettoreSpaziale[0];
+	}#enddef
+
+	def calcIntTempo(self){
+		for i in range(data.stepTemporale){
+			data.vettoreTemporale.append(data.par_intervalloTemporale * i);
+		}
+	}#enddef
 
 	def calcPotenziale(self){
 		for i in data.vettoreSpaziale{
@@ -25,17 +35,32 @@ class Calcolatore{
 				data.vettorePotenziale.append(0);
 			}		
 		}
-	}
+	}#enddef
+
+	def funzioneDonda(self){
+		for x in data.vettoreSpaziale{
+			fattoreGaussiano  = np.exp( -((x-data.par_xcon0)**2) / (2* data.par_sigma**2));
+			fattoreOscillante = np.exp( 1j * data.par_q * x);
+			psi_spaziale = fattoreGaussiano * fattoreOscillante; 
+			data.vettoreFunzioneOndaSpaziale.append(psi_spaziale); 
+		}
+	}#enddef
 	
 
 	def SetUpProblem(self){
-		self.calcIntSpazio
-		self.calcPotenziale
-		self.
-	}
+		self.calcIntSpazio();
+		self.calcIntTempo();
+		self.calcPotenziale();
+		data.par_fattoreNormalizzazione = np.sqrt(np.pi * data.par_sigma);
+		self.funzioneDonda();
+	}#enddef
 
-	#------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------------------------
+#nella seguente sezione è definito e risolto il problema matriciale 
+
+
+#------------------------------------------------------------------------------------------------------------
 	
-}
+}#endclass
 
 calc = Calcolatore();

@@ -1,5 +1,6 @@
 """ ----------------------------------------------------------------------
 ---------------------------------------------------------------------- """
+from collections import defaultdict
 
 class Conservatore{
 
@@ -28,11 +29,14 @@ class Conservatore{
 		#liste vettori calcolati
 		self.vettorePotenziale = [];
 		self.vettoreSpaziale = [];
+		self.vettoreTemporale = [];
 		self.vettoreFunzioneOndaSpaziale = [];
-		
-		
-		self.par_
-		self.par_
+
+		#funzione d'onda
+		self.par_fattoreNormalizzazione = 0;
+		self.dictFunzioneOndaTempo = defaultdict(list);
+		#dizionario di liste, la stringa è data dal timestep
+		#la lista contiene il valore della funzione d'onda
 	}
 	
 }

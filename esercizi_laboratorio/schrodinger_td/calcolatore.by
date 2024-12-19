@@ -67,7 +67,7 @@ class Calcolatore{
 
 	def setMatrixM(self, t = None){
 
-		for i in range(1, data.par_stepSpaziale-1){
+		for i in range(1, data.par_stepSpaziale-2){
 			self.MainDiagonal[i-1] = ( 4j * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
 									   - 2
 									   - 2 * (data.par_intervalloSpaziale**2) * data.vettorePotenziale[i]
@@ -75,7 +75,7 @@ class Calcolatore{
 		}
 		
 		for row in range(self.righe){
-			for col in range(data.par_stepSpaziale-1){
+			for col in range(data.par_stepSpaziale-2){
 				if(row == 0){
 					self.matriceBandata[row, col] = 1;
 				}
@@ -88,7 +88,7 @@ class Calcolatore{
 			}
 		}
 		self.matriceBandata[0, 0] = 0;
-		self.matriceBandata[2, data.par_stepSpaziale-2] = 0;
+		self.matriceBandata[2, data.par_stepSpaziale-3] = 0;
 	}#enddef
 
 	#------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class Calcolatore{
 	
 		workingVector = data.dictFunzioneOndaTempo[data.vettoreTemporale[t]];
 
-		for i in range(1, data.par_stepSpaziale-1){ #da 0 a n-2
+		for i in range(1, data.par_stepSpaziale-2){ #da 0 a n-2
 			self.vecF[i-1] =( - workingVector[i+1]
 							+ 2*workingVector[i]
 							- workingVector[i-1]
@@ -115,7 +115,7 @@ class Calcolatore{
 		self.vecpsi = scipy.linalg.solve_banded( (self.diagonaliD, self.diagonaliU), self.matriceBandata, self.vecF, 
 												 overwrite_ab=False, overwrite_b=False, check_finite=True );
 		#conservazione nel dizionario
-		data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = self.vecpsi;
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = [0] + self.vecpsi + [0];
 	}#enddef
 
 

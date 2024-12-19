@@ -10,7 +10,7 @@ import animatore
 def main(){
 
 	calc.SetUpProblem();
-	calc.problemSolver();
+	calc.problemSolver(t = 2);
 }#enddef
 
 if (__name__ == "__main__"){

@@ -1,6 +1,7 @@
 """ ----------------------------------------------------------------
 ---------------------------------------------------------------- """
 import numpy as np
+import scipy
 
 import conservatore
 data = conservatore.data;
@@ -8,20 +9,25 @@ data = conservatore.data;
 class Calcolatore{
 
 	def __init__(self){
-		self.matM = np.zeros( (data.par_stepSpaziale-2, data.par_stepSpaziale-2), dtype=float64);
-		self.vecF = np.zeros( data.par_stepSpaziale-2, dtype=float64);
-		self.vecpsi = np.zeros( data.par_stepSpaziale-2, dtype=float64);
+		self.MainDiagonal = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
+		self.vecF = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
+		self.vecpsi = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
+
+		self.diagonaliD = 1;
+		self.diagonaliU = 1;
+		self.righe = self.diagonaliD + self.diagonaliU + 1
+		self.matriceBandata = np.zeros( (self.righe, data.par_stepSpaziale-2) );
 	}#enddef
 
 
-#nella sezione seguente sono definite delle funzioni per il setup del problema
+	#nella sezione seguente sono definite delle funzioni per il setup del problema
 	def calcIntSpazio(self){
 		data.vettoreSpaziale = np.linspace(0, data.par_lunghezza, data.par_stepSpaziale);
 		data.par_intervalloSpaziale = data.vettoreSpaziale[1] - data.vettoreSpaziale[0];
 	}#enddef
 
 	def calcIntTempo(self){
-		for i in range(data.stepTemporale){
+		for i in range(data.par_stepTemporale){
 			data.vettoreTemporale.append(data.par_intervalloTemporale * i);
 		}
 	}#enddef
@@ -45,7 +51,75 @@ class Calcolatore{
 			data.vettoreFunzioneOndaSpaziale.append(psi_spaziale); 
 		}
 	}#enddef
+
+	def firstDictOnda(self){
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
+		for element in data.vettoreFunzioneOndaSpaziale{
+			data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(element);	
+		}
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
+	}#enddef
+
+
+	#------------------------------------------------------------------------------------------------------------
+	#nella seguente sezione è definito e risolto il problema matriciale 
+	# t: indice di tempo
+
+	def setMatrixM(self, t = None){
+
+		for i in range(1, data.par_stepSpaziale-1){
+			self.MainDiagonal[i-1] = ( 4j * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
+									   - 2
+									   - 2 * (data.par_intervalloSpaziale**2) * data.vettorePotenziale[i]
+									 );
+		}
+		
+		for row in range(self.righe){
+			for col in range(data.par_stepSpaziale-1){
+				if(row == 0){
+					self.matriceBandata[row, col] = 1;
+				}
+				if(row == 1){
+					self.matriceBandata[row, col] = self.MainDiagonal[col];	
+				}
+				if(row == 2){
+					self.matriceBandata[row, col] = 1;
+				}
+			}
+		}
+		self.matriceBandata[0, 0] = 0;
+		self.matriceBandata[2, data.par_stepSpaziale-2] = 0;
+	}#enddef
+
+	#------------------------------------------------------------------------------------------------------------------------------
+
+	def setVectorF(self, t = None){
 	
+		workingVector = data.dictFunzioneOndaTempo[data.vettoreTemporale[t]];
+
+		for i in range(1, data.par_stepSpaziale-1){ #da 0 a n-2
+			self.vecF[i-1] =( - workingVector[i+1]
+							+ 2*workingVector[i]
+							- workingVector[i-1]
+							+ 4j * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
+							+ 2 * (data.par_intervalloSpaziale**2) * data.vettorePotenziale[i] * workingVector[i]
+							);
+		}
+	}#enddef
+
+
+	def problemSolver(self, t = None){
+
+		self.setVectorF(t);
+	
+		self.vecpsi = scipy.linalg.solve_banded( (self.diagonaliD, self.diagonaliU), self.matriceBandata, self.vecF, 
+												 overwrite_ab=False, overwrite_b=False, check_finite=True );
+		#conservazione nel dizionario
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = self.vecpsi;
+	}#enddef
+
+
+#------------------------------------------------------------------------------------------------------------
 
 	def SetUpProblem(self){
 		self.calcIntSpazio();
@@ -53,14 +127,15 @@ class Calcolatore{
 		self.calcPotenziale();
 		data.par_fattoreNormalizzazione = np.sqrt(np.pi * data.par_sigma);
 		self.funzioneDonda();
+		self.firstDictOnda();
+			
+		self.setMatrixM();
 	}#enddef
+		
+#-------------------------------------------------------------------------------------------------------------
 
-#------------------------------------------------------------------------------------------------------------
-#nella seguente sezione è definito e risolto il problema matriciale 
-
-
-#------------------------------------------------------------------------------------------------------------
 	
 }#endclass
 
+#creazione di una istanza comune
 calc = Calcolatore();

@@ -29,9 +29,9 @@ class Conservatore{
 		#parametri per la costruzione della simulazione
 		self.par_latoCella = 1; #[m]
 		self.par_puntiPerLato = 100;
-		self.par_lunghezzaPiastre = 0.7; #[m] #la considero lunghezza sull'asse z
-		self.par_larghezzaPiastre = 0.1; #[m]
-		self.par_distanzaPiastre = 0.5; #[m]
+		self.par_lunghezzaPiastre = 0.7; #[m] #dimensione lungo asse y
+		self.par_larghezzaPiastre = 0.1; #[m] #dimensione lungo asse x
+		self.par_distanzaPiastre = 0.5; #[m]  #distanza lungo asse x
 		self.par_potenzialePiastra1 = 100; #[V]
 		self.par_potenzialePiastra2 = -100; #[V]
 		self.par_potenzialeBordo = 0; #[V]

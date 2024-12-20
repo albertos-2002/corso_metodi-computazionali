@@ -16,7 +16,7 @@ class Calcolatore{
 		self.diagonaliD = 1;
 		self.diagonaliU = 1;
 		self.righe = self.diagonaliD + self.diagonaliU + 1
-		self.matriceBandata = np.zeros( (self.righe, data.par_stepSpaziale-2) );
+		self.matriceBandata = np.zeros( (self.righe, data.par_stepSpaziale-2), dtype=np.complex64 );
 	}#enddef
 
 
@@ -53,11 +53,12 @@ class Calcolatore{
 	}#enddef
 
 	def firstDictOnda(self){
-		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
+		#data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
 		for element in data.vettoreFunzioneOndaSpaziale{
 			data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(element);	
 		}
-		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
+		#data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
+
 	}#enddef
 
 
@@ -97,7 +98,8 @@ class Calcolatore{
 	
 		workingVector = data.dictFunzioneOndaTempo[data.vettoreTemporale[t]];
 
-		for i in range(1, data.par_stepSpaziale-2){ #da 0 a n-2
+		#strano problema con gli indici 
+		for i in range(1, data.par_stepSpaziale-3){ #da 0 a n-3
 			self.vecF[i-1] =( - workingVector[i+1]
 							+ 2*workingVector[i]
 							- workingVector[i-1]
@@ -110,22 +112,31 @@ class Calcolatore{
 
 	def problemSolver(self, t = None){
 
-		self.setVectorF(t);
+		self.setVectorF(t = t);
 	
 		self.vecpsi = scipy.linalg.solve_banded( (self.diagonaliD, self.diagonaliU), self.matriceBandata, self.vecF, 
 												 overwrite_ab=False, overwrite_b=False, check_finite=True );
+												 
 		#conservazione nel dizionario
-		data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = [0] + self.vecpsi + [0];
+		if( t+1 < len(data.vettoreTemporale) ){
+			tmpA =  self.vecpsi/data.par_fattoreNormalizzazione
+			tmpA = np.insert(tmpA, 0, 0);
+			tmpA = np.insert(tmpA, 0, 0);
+			tmpA = np.append(tmpA, 0);
+			tmpA = np.append(tmpA, 0);
+			data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = tmpA;	
+		}
+		#probabilmente un discard di un ultimo conto
 	}#enddef
 
 
 #------------------------------------------------------------------------------------------------------------
 
 	def SetUpProblem(self){
+		data.par_fattoreNormalizzazione = np.sqrt(np.pi * data.par_sigma);
 		self.calcIntSpazio();
 		self.calcIntTempo();
 		self.calcPotenziale();
-		data.par_fattoreNormalizzazione = np.sqrt(np.pi * data.par_sigma);
 		self.funzioneDonda();
 		self.firstDictOnda();
 			

@@ -6,11 +6,18 @@ data = conservatore.data
 import calcolatore
 calc = calcolatore.calc
 import animatore
+anim = animatore.anim
 
 def main(){
 
 	calc.SetUpProblem();
-	calc.problemSolver(t = 2);
+
+	for index in range( len(data.vettoreTemporale) ){
+		calc.problemSolver(t = index);	
+	}
+
+	anim.giveLife();
+	
 }#enddef
 
 if (__name__ == "__main__"){

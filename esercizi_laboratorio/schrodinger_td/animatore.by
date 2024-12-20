@@ -1,0 +1,79 @@
+""" -------------------------------------------------------------------------------
+------------------------------------------------------------------------------- """
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from matplotlib.gridspec import GridSpec
+import numpy as np
+
+import conservatore
+data = conservatore.data
+
+class Animatore{
+
+	def __init__(self){
+		self.fig = plt.figure();
+		self.gs = GridSpec(2,2, height_ratios=[2,1], figure=self.fig)
+
+		self.line_reale = None
+		self.line_immaginaria = None
+		self.line_modulo = None	
+	}#enddef
+
+	def configuratore(self){
+		ax_modulo = self.fig.add_subplot(self.gs[0, :])  # Prima riga, occupa entrambe le colonne
+		ax_modulo.set_title("Modulo di $\psi(x, t)$")
+		ax_modulo.grid()
+		self.line_modulo, = ax_modulo.plot([], [])
+		
+		ax_reale = self.fig.add_subplot(self.gs[1, 0])  # Seconda riga, prima colonna
+		ax_reale.set_title("Parte Reale di $\psi(x, t)$")
+		ax_reale.grid()
+		self.line_reale, = ax_reale.plot([], [])
+		
+		ax_immaginaria = self.fig.add_subplot(self.gs[1, 1])  # Seconda riga, seconda colonna
+		ax_immaginaria.set_title("Parte Immaginaria di $\psi(x, t)$")
+		ax_immaginaria.grid()
+		self.line_immaginaria, = ax_immaginaria.plot([], [])
+		
+	}#enddef
+
+
+	def anInit(self){
+	
+	    self.line_modulo.set_data     ([], [])
+    	self.line_reale.set_data      ([], [])
+    	self.line_immaginaria.set_data([], [])
+    	
+    	return self.line_modulo, self.line_reale, self.line_immaginaria
+	}#enddef
+
+	def anUpdate(self, frame){
+
+		psiFunc = data.dictFunzioneOndaTempo[data.vettoreTemporale[frame]];
+    	modulo = np.abs(psiFunc)
+    	reale = np.real(psiFunc)
+    	immaginaria = np.imag(psiFunc)
+
+    	self.line_modulo.set_data     (data.vettoreSpaziale, modulo)
+    	self.line_reale.set_data      (data.vettoreSpaziale, reale)
+    	self.line_immaginaria.set_data(data.vettoreSpaziale, immaginaria)
+    	
+    	return self.line_modulo, self.line_reale, self.line_immaginaria
+	}#enddef
+
+
+	def giveLife(self){
+
+		self.configuratore();		
+		self.anInit();
+
+		ani = FuncAnimation(self.fig, self.anUpdate, frames=len(data.vettoreTemporale), init_func=self.anInit, blit=True);
+		
+		plt.tight_layout()
+		plt.show()
+	}#enddef
+	
+}#endclass
+
+#istanza comune
+anim = Animatore();

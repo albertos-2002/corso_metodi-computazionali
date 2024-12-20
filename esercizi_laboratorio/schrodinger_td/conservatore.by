@@ -12,7 +12,7 @@ class Conservatore{
 		self.par_intervalloSpaziale = 0;
 
 		#parametri temporali
-		self.par_stepTemporale = 200 #2000;
+		self.par_stepTemporale = 20 #2000;
 		self.par_intervalloTemporale = 0.1; #[s]
 
 		#parametri funzione d'onda 

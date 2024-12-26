@@ -7,12 +7,16 @@ import calcolatore
 calc = calcolatore.calc
 import animatore
 anim = animatore.anim
+import parameter_setter
+parSet = parameter_setter.parSet
 
 def main(){
 
+	parSet.parameterSetter();
+
 	calc.SetUpProblem();
 
-	for index in range( len(data.vettoreTemporale) ){
+	for index in range( len(data.vettoreTemporale)-1 ){ #perche index=0 crea index=1 -> index=n-2 crea index=n-1 che l'ultimo step
 		calc.problemSolver(t = index);	
 	}
 

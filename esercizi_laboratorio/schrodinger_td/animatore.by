@@ -17,24 +17,66 @@ class Animatore{
 		self.line_reale = None
 		self.line_immaginaria = None
 		self.line_modulo = None	
+
+		self.progressBar = None
+		self.progressBarI = None
+		self.progressBarR = None
+		
+		self.progress = None
+		
+		self.backgroundBar = None
+		self.backgroundBarI = None
+		self.backgroundBarR = None
 	}#enddef
 
 	def configuratore(self){
+
+		#asse modulo ----------------------------------------------------------------------------------------------------------------
 		ax_modulo = self.fig.add_subplot(self.gs[0, :])  # Prima riga, occupa entrambe le colonne
-		ax_modulo.set_title("Modulo di $\psi(x, t)$")
+		ax_modulo.set_title("Modulo quadro di $\psi(x, t)$")
+
+		ax_modulo.set_xlim(-10, data.par_lunghezza+10);
+		ax_modulo.set_ylim(-0.05,0.08);
+
 		ax_modulo.grid()
-		self.line_modulo, = ax_modulo.plot([], [])
-		
+		self.line_modulo, = ax_modulo.plot([], [], color="purple")
+
+		#asse reale ------------------------------------------------------------------------------------------------------------------
 		ax_reale = self.fig.add_subplot(self.gs[1, 0])  # Seconda riga, prima colonna
 		ax_reale.set_title("Parte Reale di $\psi(x, t)$")
+
+		ax_reale.set_xlim(-10, data.par_lunghezza+10);
+		ax_reale.set_ylim(-1.8,1.8);
+
 		ax_reale.grid()
-		self.line_reale, = ax_reale.plot([], [])
-		
+		self.line_reale, = ax_reale.plot([], [], color="red")
+
+		#asse immaginario ------------------------------------------------------------------------------------------------------------------
 		ax_immaginaria = self.fig.add_subplot(self.gs[1, 1])  # Seconda riga, seconda colonna
 		ax_immaginaria.set_title("Parte Immaginaria di $\psi(x, t)$")
-		ax_immaginaria.grid()
-		self.line_immaginaria, = ax_immaginaria.plot([], [])
 		
+		ax_immaginaria.set_xlim(-10, data.par_lunghezza+10);
+		ax_immaginaria.set_ylim(-1.8,1.8);
+
+		ax_immaginaria.grid()
+		self.line_immaginaria, = ax_immaginaria.plot([], [], color="blue")
+
+		#progressbar -----------------------------------------------------------------------------------------------------------------------------------------------------------
+		self.progressBar = plt.Rectangle( (-0.04, -0.04), 0, 0.001, color="dodgerblue", alpha=0.7, zorder=2);
+		self.progressBarR = plt.Rectangle( (-1.45, -1.45), 0, 0.06, color="dodgerblue", alpha=0.7, zorder=2);
+		self.progressBarI = plt.Rectangle( (-1.45, -1.45), 0, 0.06, color="dodgerblue", alpha=0.7, zorder=2);
+		
+		ax_modulo.add_patch(self.progressBar);
+		ax_reale.add_patch(self.progressBarR);
+		ax_immaginaria.add_patch(self.progressBarI);
+		
+		self.backgroundBar = plt.Rectangle( (-0.04, -0.04), (data.par_lunghezza), 0.001, color="slategray", alpha=0.6, zorder=1 );
+		self.backgroundBarR = plt.Rectangle( (-1.45, -1.45), (data.par_lunghezza), 0.06, color="slategray", alpha=0.6, zorder=1 );
+		self.backgroundBarI = plt.Rectangle( (-1.45, -1.45), (data.par_lunghezza), 0.06, color="slategray", alpha=0.6, zorder=1 );
+
+		ax_modulo.add_patch(self.backgroundBar);
+		ax_reale.add_patch(self.backgroundBarR);
+		ax_immaginaria.add_patch(self.backgroundBarI);
 	}#enddef
 
 
@@ -54,11 +96,16 @@ class Animatore{
     	reale = np.real(psiFunc)
     	immaginaria = np.imag(psiFunc)
 
-    	self.line_modulo.set_data     (data.vettoreSpaziale, modulo)
+    	self.line_modulo.set_data     (data.vettoreSpaziale, modulo**2 / data.par_fattoreNormalizzazione)
     	self.line_reale.set_data      (data.vettoreSpaziale, reale)
     	self.line_immaginaria.set_data(data.vettoreSpaziale, immaginaria)
+
+    	#progress
+    	self.progressBar.set_width( data.par_lunghezza * frame / len(data.vettoreTemporale) );
+    	self.progressBarR.set_width( data.par_lunghezza * frame / len(data.vettoreTemporale) );
+    	self.progressBarI.set_width( data.par_lunghezza * frame / len(data.vettoreTemporale) );
     	
-    	return self.line_modulo, self.line_reale, self.line_immaginaria
+    	return self.line_modulo, self.line_reale, self.line_immaginaria, self.progressBar, self.progressBarR, self.progressBarI
 	}#enddef
 
 
@@ -67,7 +114,13 @@ class Animatore{
 		self.configuratore();		
 		self.anInit();
 
-		ani = FuncAnimation(self.fig, self.anUpdate, frames=len(data.vettoreTemporale), init_func=self.anInit, blit=True);
+		ani = FuncAnimation(self.fig, 
+							self.anUpdate, 
+							frames=len(data.vettoreTemporale), 
+							init_func=self.anInit, 
+							blit=True,
+							interval=1
+							);
 		
 		plt.tight_layout()
 		plt.show()

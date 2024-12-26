@@ -20,7 +20,7 @@ class Calcolatore{
 	}#enddef
 
 
-	#nella sezione seguente sono definite delle funzioni per il setup del problema
+#---nella sezione seguente sono definite delle funzioni per il setup del problema-----------------------------------------------------------------
 	def calcIntSpazio(self){
 		data.vettoreSpaziale = np.linspace(0, data.par_lunghezza, data.par_stepSpaziale);
 		data.par_intervalloSpaziale = data.vettoreSpaziale[1] - data.vettoreSpaziale[0];
@@ -53,22 +53,22 @@ class Calcolatore{
 	}#enddef
 
 	def firstDictOnda(self){
-		#data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
 		for element in data.vettoreFunzioneOndaSpaziale{
 			data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(element);	
 		}
-		#data.dictFunzioneOndaTempo[data.vettoreTemporale[0]].append(0);
-
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]][0] = 0;
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[0]][-1] = 0;
+		#funzione nulla ai bordi
 	}#enddef
 
 
-	#------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------------------
 	#nella seguente sezione è definito e risolto il problema matriciale 
 	# t: indice di tempo
 
 	def setMatrixM(self, t = None){
 
-		for i in range(1, data.par_stepSpaziale-2){
+		for i in range(1, data.par_stepSpaziale-1){
 			self.MainDiagonal[i-1] = ( 4j * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
 									   - 2
 									   - 2 * (data.par_intervalloSpaziale**2) * data.vettorePotenziale[i]
@@ -88,22 +88,23 @@ class Calcolatore{
 				}
 			}
 		}
+		#corregge il primo e ultimo coefficiente della matricie per le sup e sub diagonali
 		self.matriceBandata[0, 0] = 0;
 		self.matriceBandata[2, data.par_stepSpaziale-3] = 0;
 	}#enddef
 
-	#------------------------------------------------------------------------------------------------------------------------------
+	#----------------------------------------------------------------------------------------------------------------------------------------------
 
 	def setVectorF(self, t = None){
 	
 		workingVector = data.dictFunzioneOndaTempo[data.vettoreTemporale[t]];
 
 		#strano problema con gli indici 
-		for i in range(1, data.par_stepSpaziale-3){ #da 0 a n-3
+		for i in range(1, data.par_stepSpaziale-1){ #da 1 a n-2 (per escludere i bordi) -> indicizza f da 0 a n-3
 			self.vecF[i-1] =( - workingVector[i+1]
 							+ 2*workingVector[i]
 							- workingVector[i-1]
-							+ 4j * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
+							+ 4j * workingVector[i] * (data.par_intervalloSpaziale**2) / data.par_intervalloTemporale
 							+ 2 * (data.par_intervalloSpaziale**2) * data.vettorePotenziale[i] * workingVector[i]
 							);
 		}
@@ -118,22 +119,16 @@ class Calcolatore{
 												 overwrite_ab=False, overwrite_b=False, check_finite=True );
 												 
 		#conservazione nel dizionario
-		if( t+1 < len(data.vettoreTemporale) ){
-			tmpA =  self.vecpsi/data.par_fattoreNormalizzazione
-			tmpA = np.insert(tmpA, 0, 0);
-			tmpA = np.insert(tmpA, 0, 0);
-			tmpA = np.append(tmpA, 0);
-			tmpA = np.append(tmpA, 0);
-			data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = tmpA;	
-		}
-		#probabilmente un discard di un ultimo conto
+		tmpA =  self.vecpsi
+		tmpA = np.insert(tmpA, 0, 0);
+		tmpA = np.append(tmpA, 0);
+		data.dictFunzioneOndaTempo[data.vettoreTemporale[t+1]] = tmpA;	
 	}#enddef
 
-
-#------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	def SetUpProblem(self){
-		data.par_fattoreNormalizzazione = np.sqrt(np.pi * data.par_sigma);
+		data.par_fattoreNormalizzazione = np.pi * data.par_sigma;
 		self.calcIntSpazio();
 		self.calcIntTempo();
 		self.calcPotenziale();
@@ -143,9 +138,7 @@ class Calcolatore{
 		self.setMatrixM();
 	}#enddef
 		
-#-------------------------------------------------------------------------------------------------------------
-
-	
+#---------------------------------------------------------------------------------------------------------------------------------------------------------
 }#endclass
 
 #creazione di una istanza comune

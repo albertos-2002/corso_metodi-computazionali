@@ -1,0 +1,57 @@
+""" ----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------- """
+import conservatore
+data = conservatore.data
+
+class ParameterSetter{
+
+	def __init__(self){
+		pass
+	}#enddef
+
+	def parameterSetter(self){
+
+		print("\n Inserire nella prossima sezione i parametri: \n")
+
+		print(" - Parametri di simulazione \n")
+
+		print(" > Inserire lunghezza intervallo spaziale: (consigliato 500)")
+		data.par_lunghezza = int(input("\t"))
+
+		print(" > Inserire numero di punti per l'intervallo: (consigliato 1000)")
+		data.par_stepSpaziale = int(input("\t"))
+		
+		print(" > Inserire la lunghezza temporale (consigliato 2000)")
+		data.par_stepTemporale = int(input("\t"))
+		
+		print(" > Inserire larghezza intervallo temporale (consigliato 0.1)")
+		data.par_intervalloTemporale = float(input("\t"))
+		
+		print("\n - Parametri funzione d'onda \n")
+
+		print(" > x centro: (consigliato 200)")
+		data.par_xcon0 = int(input("\t"))
+		
+		print(" > q: (consigliato 2)")
+		data.par_q = int(input("\t"))
+
+		print(" > sigma: (consigliato 20)")
+		data.par_sigma = int(input("\t"))
+
+		print("\n - Parametri del potenziale \n")
+
+		print(" > Inserire valore del potenziale: (consigliato 1.7)")
+		data.par_potenziale = float(input("\t"))
+		
+		print(" > Inserire estremo inferiore: (consigliato 250)")
+		data.par_potenzialeLowerBound = int(input("\t"))
+		
+		print(" > Inserire estremo superiore: (consigliato 260)")
+		data.par_potenzialeUpperBound = int(input("\t"))
+		
+	}#enddef
+	
+}#endclass
+
+#istanza comune
+parSet = ParameterSetter();

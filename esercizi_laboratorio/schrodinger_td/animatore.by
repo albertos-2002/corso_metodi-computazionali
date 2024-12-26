@@ -61,6 +61,9 @@ class Animatore{
 		ax_immaginaria.grid()
 		self.line_immaginaria, = ax_immaginaria.plot([], [], color="blue")
 
+		ax_modulo.axvline(x=data.par_potenzialeLowerBound, color='gray', linestyle='--')
+		ax_modulo.axvline(x=data.par_potenzialeUpperBound, color='gray', linestyle='--')
+
 		#progressbar -----------------------------------------------------------------------------------------------------------------------------------------------------------
 		self.progressBar = plt.Rectangle( (-0.04, -0.04), 0, 0.001, color="dodgerblue", alpha=0.7, zorder=2);
 		self.progressBarR = plt.Rectangle( (-1.45, -1.45), 0, 0.06, color="dodgerblue", alpha=0.7, zorder=2);
@@ -123,7 +126,7 @@ class Animatore{
 							);
 		
 		plt.tight_layout()
-		plt.show()
+		plt.show(block=False)
 	}#enddef
 	
 }#endclass

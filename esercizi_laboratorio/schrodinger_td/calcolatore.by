@@ -8,7 +8,11 @@ data = conservatore.data;
 
 class Calcolatore{
 
-	def __init__(self){
+	def __init(self){
+		pass
+	}#enddef
+
+	def makeMemory(self){
 		self.MainDiagonal = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
 		self.vecF = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
 		self.vecpsi = np.zeros( data.par_stepSpaziale-2, dtype=np.complex64);
@@ -128,6 +132,7 @@ class Calcolatore{
 #---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 	def SetUpProblem(self){
+		self.makeMemory();
 		data.par_fattoreNormalizzazione = np.pi * data.par_sigma;
 		self.calcIntSpazio();
 		self.calcIntTempo();

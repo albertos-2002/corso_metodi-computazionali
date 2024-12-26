@@ -21,7 +21,11 @@ def main(){
 	}
 
 	anim.giveLife();
-	
+
+	print(" Condizione di convergenza:")
+	print("  ", data.par_intervalloTemporale / (data.par_intervalloSpaziale)**2 )
+
+	input("\n Press enter to exit ....")
 }#enddef
 
 if (__name__ == "__main__"){

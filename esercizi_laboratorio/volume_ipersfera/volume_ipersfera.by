@@ -8,12 +8,15 @@ def main(){
 	dimensioneSpazio = 1;
 	numeroPunti = 1;
 
-	sommaValorMedio = 0;
-	valorMediofCubo = 0;
+	#sommaValorMedio = 0;
+	#valorMediofCubo = 0;
 
 	stimaVolumeSfera = 0;
 	valoreTeoricoIntegrale = 0;
 	volumeIpercubo = 0;
+
+	probabilita = 0;
+	incertezzaVolume = 0;
 	
 	puntiInterniSfera = 0;
 	puntiEsterniSfera = 0;
@@ -53,15 +56,23 @@ def main(){
 		if (np.dot(puntiX,puntiX) < 1) {
 			puntiInterniSfera = puntiInterniSfera + 1;
 			
-			sommaValorMedio = sommaValorMedio +1;
+			#sommaValorMedio = sommaValorMedio +1;
 		}
 		
 		puntiX = 0;
 	}
 
-	stimaVolumeSfera = puntiInterniSfera * volumeIpercubo / numeroPunti ;
+	probabilita = puntiInterniSfera / numeroPunti;
+	stimaVolumeSfera = probabilita * volumeIpercubo;
 
-	valorMediofCubo = sommaValorMedio / numeroPunti;
+	#valorMediofCubo = sommaValorMedio / numeroPunti;
+
+	#incertezza sul metodo ------------------------------------------------------------------------------------------------------
+	#deriva dall'incertezza di una binomiale (probabilità che i punti cadano nella sfera)
+	#propagata sulla formula del volume
+	#dal vangelo secondo chatgpt
+
+	incertezzaVolume = volumeIpercubo * np.sqrt( ( probabilita * (1-probabilita) ) / numeroPunti )
 
 
 	#print dei risultati --------------------------------------------------------------------------------------------------------
@@ -72,7 +83,7 @@ def main(){
 	print("\t", 1/np.sqrt(numeroPunti) )
 
 	print("\n Incertezza del risultato:")
-	print()	
+	print("\t", incertezzaVolume);	
 	
 	
 }#enddef

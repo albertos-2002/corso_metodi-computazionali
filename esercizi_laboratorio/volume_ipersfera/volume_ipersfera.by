@@ -9,6 +9,7 @@ def main(){
 	numeroPunti = 1;
 
 	sommaValorMedio = 0;
+	valorMediofCubo = 0;
 
 	stimaVolumeSfera = 0;
 	valoreTeoricoIntegrale = 0;
@@ -38,7 +39,7 @@ def main(){
 	print("\t", valoreTeoricoIntegrale);
 
 
-	#calcolo integrale con monte carlo -----------------------------------------------------------------------------
+	#calcolo integrale con monte carlo ------------------------------------------------------------------------------------------------
 	#la stima del volume viene fatta tramite il rapporto tra i punti che cadono dentro 
 	#la sfera e i punti che cadono nel cubo
 
@@ -51,6 +52,7 @@ def main(){
 
 		if (np.dot(puntiX,puntiX) < 1) {
 			puntiInterniSfera = puntiInterniSfera + 1;
+			
 			sommaValorMedio = sommaValorMedio +1;
 		}
 		
@@ -59,10 +61,18 @@ def main(){
 
 	stimaVolumeSfera = puntiInterniSfera * volumeIpercubo / numeroPunti ;
 
-	
+	valorMediofCubo = sommaValorMedio / numeroPunti;
 
-	print("\n Risultato del calcolo con monte carlo:")
-	print(stimaVolumeSfera)
+
+	#print dei risultati --------------------------------------------------------------------------------------------------------
+	print("\n Risultato del calcolo con monte carlo per la stima di volume:")
+	print("\t", stimaVolumeSfera)
+
+	print("\n Ordine accuratezza del metodo (dipende dal numero di punti):")
+	print("\t", 1/np.sqrt(numeroPunti) )
+
+	print("\n Incertezza del risultato:")
+	print()	
 	
 	
 }#enddef

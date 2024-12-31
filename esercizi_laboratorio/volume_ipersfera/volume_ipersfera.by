@@ -1,0 +1,72 @@
+""" -------------------------------------------------------------------------------
+------------------------------------------------------------------------------- """
+import numpy as np
+import scipy
+
+def main(){
+
+	dimensioneSpazio = 1;
+	numeroPunti = 1;
+
+	sommaValorMedio = 0;
+
+	stimaVolumeSfera = 0;
+	valoreTeoricoIntegrale = 0;
+	volumeIpercubo = 0;
+	
+	puntiInterniSfera = 0;
+	puntiEsterniSfera = 0;
+
+	puntiX = 0;
+
+	rng = np.random.default_rng();
+
+	#set dei parametri --------------------------------------------------------------------------------------------
+	print(" Inserire di seguito i parametri per il calcolo:\n");
+	print(" > Dimensione dello spazio:");
+	dimensioneSpazio = int(input("\t"));
+	print("\n > Numero di punti:");
+	numeroPunti = int(input("\t"));
+
+
+	#calcoliamo il valore teorico per l'integrale -----------------------------------------------------------------
+	numeratore = np.pi ** (dimensioneSpazio/2);
+	denominatore = scipy.special.gamma( (dimensioneSpazio/2)+1 );
+	valoreTeoricoIntegrale = numeratore / denominatore;
+
+	print("\n Risultato teorico per l'integrale di volume di una ipersfera:");
+	print("\t", valoreTeoricoIntegrale);
+
+
+	#calcolo integrale con monte carlo -----------------------------------------------------------------------------
+	#la stima del volume viene fatta tramite il rapporto tra i punti che cadono dentro 
+	#la sfera e i punti che cadono nel cubo
+
+	#proviamo a calcolare il valor medio della funzione f sull ipercubo
+
+	volumeIpercubo = 2**dimensioneSpazio;
+	
+	for _ in range(numeroPunti){
+		puntiX = 2 * rng.random( size=dimensioneSpazio, dtype=np.float64 ) -1; #numeri casuali tra -1 e 1
+
+		if (np.dot(puntiX,puntiX) < 1) {
+			puntiInterniSfera = puntiInterniSfera + 1;
+			sommaValorMedio = sommaValorMedio +1;
+		}
+		
+		puntiX = 0;
+	}
+
+	stimaVolumeSfera = puntiInterniSfera * volumeIpercubo / numeroPunti ;
+
+	
+
+	print("\n Risultato del calcolo con monte carlo:")
+	print(stimaVolumeSfera)
+	
+	
+}#enddef
+
+if __name__ == "__main__" {
+	main();
+}

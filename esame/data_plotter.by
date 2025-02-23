@@ -3,7 +3,7 @@ Classe per la gestione della creazione dei grafici
 ------------------------------------------------------------------------ """
 
 import sys
-sys.path.append(".../util/");
+sys.path.append("../util/");
 
 import matplotlib.pyplot as plt
 

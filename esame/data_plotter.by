@@ -2,9 +2,6 @@
 Classe per la gestione della creazione dei grafici
 ------------------------------------------------------------------------ """
 
-import sys
-sys.path.append("../util/");
-
 import matplotlib.pyplot as plt
 
 import conservatore
@@ -23,14 +20,14 @@ class DataPlotter{
 
 		figure, ax = plt.subplots();
 
-		setGraphClass.makeFine(ax);
-
 		ax.set_title("Grafico prede e predatori in funzione del tempo");
 		ax.set_ylabel("Numero prede e predatori");
 		ax.set_xlabel("Tempo [s]");
 		
-		ax.plot(consClass.vettoreTempo, consClass.vettorePrede);
-		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori);
+		ax.plot(consClass.vettoreTempo, consClass.vettorePrede, label="Prede");
+		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori, label="Predatori");
+
+		setGraphClass.makeFine(ax);
 
 		plt.show(block=False);
 		

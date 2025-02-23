@@ -1,0 +1,78 @@
+""" -------------------------------------------------------------
+Propagatore di Runge-Kutta a 4 punti
+
+struttura del vettore Y = (prede,predatori)
+------------------------------------------------------------- """
+
+import numpy as np
+import conservatore
+consClass = conservatore.consClass;
+import parameter_setter
+parSetClass = parameter_setter.parSetClass;
+
+class Propagatore{
+
+	def __init__(self){
+
+		self.formerStep = np.zeros(2, dtype=np.float64);
+		self.vecForza = np.zeros(2, dtype=np.float64);
+		self.nextStep = np.zeros(2, dtype=np.float64);
+		
+	}#enddef
+
+	def forzatore(self, argToProp){
+
+		self.vecForza[0] = parSetClass.ALPHA*argToProp[0] - (parSetClass.BETA*argToProp[0]*argToProp[1]);
+		self.vecForza[1] = -parSetClass.GAMMA*argToProp[1] + (parSetClass.DELTA*argToProp[0]*argToProp[1]);
+
+		return self.vecForza.copy()
+		
+	}#enddef
+
+	def formerStepExtractor(self, index){
+
+		self.formerStep[0] = consClass.vettorePrede[index];
+		self.formerStep[1] = consClass.vettorePredatori[index];
+
+		return self.formerStep.copy()
+		
+	}#enddef
+
+	def propagatore(self, index){
+
+		step1 = self.formerStepExtractor(index);
+
+		forzaDi1 = self.forzatore(step1);
+		step2 = step1 + forzaDi1 * parSetClass.STEP_TEMPORALE / 2;
+
+		forzaDi2 = self.forzatore(step2);
+		step3 = step1 + forzaDi2 * parSetClass.STEP_TEMPORALE / 2;
+
+		forzaDi3 = self.forzatore(step3);
+		step4 = step1 + forzaDi3 * parSetClass.STEP_TEMPORALE;
+
+		self.nextStep = step1 + ( forzaDi1 + 2*forzaDi2 + 2*forzaDi3 + self.forzatore(step4) ) * parSetClass.STEP_TEMPORALE / 6;
+		
+	}#enddef
+
+	def makeThaCycle(self){
+
+		indiceP = 0;
+
+		while (indiceP < parSetClass.NUMERO_STEP_TEMPORALI){
+
+			self.propagatore(indiceP);
+
+			consClass.salvatoreSpaziale(self.nextStep);
+			consClass.salvatoreTemporale( (indiceP+1) * parSetClass.STEP_TEMPORALE);
+
+			indiceP = indiceP +1;
+			self.nextStep[0] = 0;
+			self.nextStep[1] = 0;
+		}
+		
+	}#enddef
+	
+}#endclass
+
+propClass = Propagatore();

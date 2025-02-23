@@ -1,0 +1,25 @@
+""" ------------------------------------------------------------------
+Esercizio:
+ Problema prede-predatori, soluzione equazione di Lotka-Volterra
+ con il metodo di Runge-Kuttae grafico nello spazio delle fasi
+------------------------------------------------------------------ """
+
+import parameter_setter
+parSetClass = parameter_setter.parSetClass;
+
+import propagatore
+propClass = propagatore.propClass;
+
+import data_plotter
+dataPlotClass = data_plotter.dataPlotClass;
+
+parSetClass.printInfo();
+parSetClass.parameterSetter();
+
+propClass.makeThaCycle();
+
+dataPlotClass.plotCartesiano();
+dataPlotClass.plotFasi();
+
+
+input(" Press Enter to exit .....");

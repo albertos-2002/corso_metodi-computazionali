@@ -1,0 +1,40 @@
+""" ------------------------------------------------------------------------
+Classe per la gestione della creazione dei grafici
+------------------------------------------------------------------------ """
+
+import matplotlib.pyplot as plt
+
+import conservatore
+consClass = conservatore.consClass;
+
+class DataPlotter{
+
+	def __init__(self){
+		pass
+	}#enddef
+
+	def plotCartesiano(self){
+
+		figure, ax = plt.subplots();
+		
+		ax.plot(consClass.vettoreTempo, consClass.vettorePrede);
+		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori);
+
+		plt.show(block=False);
+		
+	}#enddef
+
+	def plotFasi(self){
+
+		figure, ax = plt.subplots();
+
+		ax.plot(consClass.vettorePrede, consClass.vettorePredatori);
+
+		plt.show(block=False);
+		
+	}#enddef
+	
+}#endclass
+
+#istanza comune
+dataPlotClass = DataPlotter();

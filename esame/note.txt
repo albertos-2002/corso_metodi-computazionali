@@ -1,0 +1,4 @@
+Limitazionie spiegazioni sul modello di Lotka-Volterra per 
+prede e predatori può essere trovato a questo indirizzo
+
+https://en.wikipedia.org/wiki/Lotka%E2%80%93Volterra_equations

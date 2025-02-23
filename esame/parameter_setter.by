@@ -1,0 +1,74 @@
+""" -------------------------------------------------------------------------
+Setting dei parametri del problema
+------------------------------------------------------------------------- """
+
+import numpy as np
+
+class ParameterSetter{
+
+	def __init__(self){
+
+		self.ALPHA = 0; 
+		self.BETA  = 0;
+		self.GAMMA = 0;
+		self.DELTA = 0;
+
+		self.PREDE_0     = 0;
+		self.PREDATORI_0 = 0;
+		
+	}#enddef
+
+	def parameterSetter(self){
+
+		print(" Inserire nella sezione seguente i parametri per la simulazione:");
+
+		print(" > Alpha:");
+		self.ALPHA = float(input("	"));
+
+		print(" > Beta:");
+		self.BETA = float(input("	"));
+
+		print(" > Gamma:");
+		self.GAMMA = float(input("	"));
+
+		print(" > Delta:");
+		self.DELTA = float(input("	"));
+
+		print(" > Valore iniziale prede:");
+		self.PREDE_0 = float(input("	"));
+
+		print(" > Valore iniziale predatori:");
+		self.PREDATORI_0 = float(input("	"));
+		
+	}#enddef
+
+	@staticmethod
+	def printInfo(self){
+
+		print(" ----------------------------------------------------");
+
+		print(" Modello prede-predatori di Lotka-Volterra\n");
+		print("  Il modello consiste del seguente sistema di equazioni:");
+		print("  per le prede:");
+		print("   dr/dt = a*r(t) - b*r(t)*f(t)");
+		print("  per i predatori:");
+		print("   df/dt = -c*f(t) + d*r(t)*f(t)");
+		print("  r(t) e f(t) posso essere pensato come il numero o la\n
+		         densità, rispettivamente di prede e predatori, presenti");
+		print("  a: parametri di riproduzione delle prede");
+		print("  b: parametro di interazione prede-predatori");
+		print("  c: parametro di perdita di predatori");
+		print("  d: parametri di crescita dei predatori");
+		print("  i parametri sono reali e definiti positivi");
+		print("  ");
+		print("  ");
+		print("  ");
+		print("  ");
+		print("  ");
+		
+		
+		print(" ----------------------------------------------------");
+		
+	}#enddef
+	
+}#endclass

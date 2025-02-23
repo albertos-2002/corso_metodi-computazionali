@@ -9,16 +9,16 @@ class ParameterSetter{
 
 	def __init__(self){
 
-		self.ALPHA = 0; 
-		self.BETA  = 0;
-		self.GAMMA = 0;
-		self.DELTA = 0;
+		self.ALPHA = 1.1; 
+		self.BETA  = 0.4;
+		self.GAMMA = 0.1;
+		self.DELTA = 0.4;
 
-		self.PREDE_0     = 0;
-		self.PREDATORI_0 = 0;
+		self.PREDE_0     = 10;
+		self.PREDATORI_0 = 10;
 
-		self.NUMERO_STEP_TEMPORALI = 0;
-		self.STEP_TEMPORALE = 0;
+		self.NUMERO_STEP_TEMPORALI = 2500;
+		self.STEP_TEMPORALE = 0.1;
 		
 	}#enddef
 

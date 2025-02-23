@@ -2,10 +2,16 @@
 Classe per la gestione della creazione dei grafici
 ------------------------------------------------------------------------ """
 
+import sys
+sys.path.append(".../util/");
+
 import matplotlib.pyplot as plt
 
 import conservatore
 consClass = conservatore.consClass;
+
+import SetGraph
+setGraphClass = SetGraph.setGraphClass;
 
 class DataPlotter{
 
@@ -16,6 +22,8 @@ class DataPlotter{
 	def plotCartesiano(self){
 
 		figure, ax = plt.subplots();
+
+		setGraphClass.makeFine(ax);
 
 		ax.set_title("Grafico prede e predatori in funzione del tempo");
 		ax.set_ylabel("Numero prede e predatori");
@@ -31,6 +39,8 @@ class DataPlotter{
 	def plotFasi(self){
 
 		figure, ax = plt.subplots();
+
+		setGraphClass.makeFine(ax);
 
 		ax.set_title("Grafico prede e predatori spazio delle fasi");
 		ax.set_ylabel("Numero predatori");

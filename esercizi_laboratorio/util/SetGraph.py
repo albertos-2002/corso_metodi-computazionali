@@ -48,3 +48,6 @@ class SetGraph:
     
 #endclass
 
+#istanza comune
+setGraphClass = SetGraph()
+

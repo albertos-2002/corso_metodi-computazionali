@@ -16,6 +16,10 @@ class DataPlotter{
 	def plotCartesiano(self){
 
 		figure, ax = plt.subplots();
+
+		ax.set_title("Grafico prede e predatori in funzione del tempo");
+		ax.set_ylabel("Numero prede e predatori");
+		ax.set_xlabel("Tempo [s]");
 		
 		ax.plot(consClass.vettoreTempo, consClass.vettorePrede);
 		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori);
@@ -28,6 +32,10 @@ class DataPlotter{
 
 		figure, ax = plt.subplots();
 
+		ax.set_title("Grafico prede e predatori spazio delle fasi");
+		ax.set_ylabel("Numero predatori");
+		ax.set_xlabel("Numero prede");
+				
 		ax.plot(consClass.vettorePrede, consClass.vettorePredatori);
 
 		plt.show(block=False);

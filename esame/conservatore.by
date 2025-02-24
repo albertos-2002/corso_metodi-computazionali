@@ -33,8 +33,8 @@ class Conservatore{
 
 	def saveDataFasi(self, index){
 
-		self.dictPrede[0] = self.vettorePrede;
-		self.dictPredatori[0] = self.vettorePredatori;
+		self.dictPrede[index] = self.vettorePrede.copy();
+		self.dictPredatori[index] = self.vettorePredatori.copy();
 		
 	}#enddef
 	

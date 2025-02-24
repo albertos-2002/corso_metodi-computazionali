@@ -23,16 +23,23 @@ class PopolatoreFasi{
 
 	def __init__(self){
 
-		self.popolo = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+		self.popolo = [0,2,4,6,8,10,12,14,16];
 		
 	}#enddef
 
 	def calcolatore(self){
 
 		for element in self.popolo{
-
+		
+			#assegnazione dei nuovi parametri iniziali
 			parSetClass.PREDE_0 = element;
 			parSetClass.PREDATORI_0 = element;
+
+			#pulizia dei vettori che conservano temporaneamente i dati
+			consClass.vettorePrede.clear();
+			consClass.vettorePredatori.clear(); 
+			consClass.vettorePrede.append(parSetClass.PREDE_0);
+			consClass.vettorePredatori.append(parSetClass.PREDATORI_0);
 
 			propClass.makeThaCycle();
 
@@ -54,10 +61,11 @@ class PopolatoreFasi{
 		for element in self.popolo{
 
 			if element == 0{
-				ax.plot(consClass.dictPrede[element], consClass.dictPredatori[element], linestyle=":", label=strLabel);	
+				ax.plot(consClass.dictPrede[element], consClass.dictPredatori[element], linestyle=":", label = str(element) + str("  ") + strLabel );
 			}
-
-			ax.plot(consClass.dictPrede[element], consClass.dictPredatori[element], linestyle=":");
+			else{
+				ax.plot(consClass.dictPrede[element], consClass.dictPredatori[element], linestyle=":", label = str(element) );	
+			}
 		}
 
 		setGraphClass.makeFine(ax);

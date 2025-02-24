@@ -4,6 +4,8 @@ Esercizio:
  con il metodo di Runge-Kuttae grafico nello spazio delle fasi
 ------------------------------------------------------------------ """
 
+import matplotlib.pyplot as plt
+
 import parameter_setter
 parSetClass = parameter_setter.parSetClass;
 
@@ -13,6 +15,11 @@ propClass = propagatore.propClass;
 import data_plotter
 dataPlotClass = data_plotter.dataPlotClass;
 
+import popolatore_fasi
+popFasiClass = popolatore_fasi.popFasiClass;
+
+#----------------------------------------------------------------------
+
 parSetClass.printInfo();
 parSetClass.parameterSetter();
 
@@ -20,6 +27,15 @@ propClass.makeThaCycle();
 
 dataPlotClass.plotCartesiano();
 dataPlotClass.plotFasi();
+
+strCh = input(" Popolare il grafico delle fasi? y or n:   ");
+
+if strCh in ("y", "Y"){
+
+	plt.close("all");
+	popFasiClass.calcolatore();
+	popFasiClass.graficatore();
+}
 
 
 input(" Press Enter to exit .....");

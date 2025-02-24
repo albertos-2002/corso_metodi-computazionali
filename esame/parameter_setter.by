@@ -17,8 +17,8 @@ class ParameterSetter{
 		self.PREDE_0     = 10;
 		self.PREDATORI_0 = 10;
 
-		self.NUMERO_STEP_TEMPORALI = 2500;
-		self.STEP_TEMPORALE = 0.1;
+		self.NUMERO_STEP_TEMPORALI = 25000;
+		self.STEP_TEMPORALE = 0.01;
 		
 	}#enddef
 
@@ -27,7 +27,19 @@ class ParameterSetter{
 		print(" Inserire nella sezione seguente i parametri per la simulazione:");
 
 		print(" > Alpha:");
-		self.ALPHA = float(input("	"));
+
+		tmpVar = input("	");
+
+		if tmpVar in ("def", "std"){
+
+			consClass.vettorePrede.append(self.PREDE_0);
+			consClass.vettorePredatori.append(self.PREDATORI_0);
+			consClass.vettoreTempo.append(0);
+			return
+		}
+		else{
+			self.ALPHA = float(tmpVar);	
+		}
 
 		print(" > Beta:");
 		self.BETA = float(input("	"));
@@ -75,12 +87,6 @@ class ParameterSetter{
 		print("  c: parametro di perdita di predatori");
 		print("  d: parametri di crescita dei predatori");
 		print("  i parametri sono reali e definiti positivi");
-		#print("  ");
-		#print("  ");
-		#print("  ");
-		#print("  ");
-		#print("  ");
-		
 		
 		print(" -------------------------------------------------------------------------");
 		

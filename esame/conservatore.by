@@ -2,6 +2,8 @@
 Classe per la conservazione dei dati calcolati
 ------------------------------------------------------------------------- """
 
+from collections import defaultdict
+
 class Conservatore{
 
 	def __init__(self){
@@ -9,6 +11,10 @@ class Conservatore{
 		self.vettorePrede = [];
 		self.vettorePredatori = [];
 		self.vettoreTempo = [];
+
+		#salvataggio popolo fasi
+		self.dictPrede = defaultdict(list);
+		self.dictPredatori = defaultdict(list);
 		
 	}#enddef
 
@@ -22,6 +28,13 @@ class Conservatore{
 	def salvatoreTemporale(self, value){
 
 		self.vettoreTempo.append(value);
+		
+	}#enddef
+
+	def saveDataFasi(self, index){
+
+		self.dictPrede[0] = self.vettorePrede;
+		self.dictPredatori[0] = self.vettorePredatori;
 		
 	}#enddef
 	

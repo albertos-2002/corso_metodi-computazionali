@@ -10,6 +10,9 @@ consClass = conservatore.consClass;
 import SetGraph
 setGraphClass = SetGraph.setGraphClass;
 
+import parameter_setter
+parSetClass = parameter_setter.parSetClass;
+
 class DataPlotter{
 
 	def __init__(self){
@@ -24,8 +27,8 @@ class DataPlotter{
 		ax.set_ylabel("Numero prede e predatori");
 		ax.set_xlabel("Tempo [s]");
 		
-		ax.plot(consClass.vettoreTempo, consClass.vettorePrede, label="Prede");
-		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori, label="Predatori");
+		ax.plot(consClass.vettoreTempo, consClass.vettorePrede, linestyle="--", label="Prede");
+		ax.plot(consClass.vettoreTempo, consClass.vettorePredatori, linestyle="--", label="Predatori");
 
 		setGraphClass.makeFine(ax);
 
@@ -37,13 +40,15 @@ class DataPlotter{
 
 		figure, ax = plt.subplots();
 
-		setGraphClass.makeFine(ax);
-
 		ax.set_title("Grafico prede e predatori spazio delle fasi");
 		ax.set_ylabel("Numero predatori");
 		ax.set_xlabel("Numero prede");
+
+        strLabel = r'$\ \alpha = $' + str(parSetClass.ALPHA) + r'$\ \beta = $' + str(parSetClass.BETA) + r'$\ \gamma = $' + str(parSetClass.GAMMA) + r'$\ \delta = $' + str(parSetClass.DELTA);
 				
-		ax.plot(consClass.vettorePrede, consClass.vettorePredatori);
+		ax.plot(consClass.vettorePrede, consClass.vettorePredatori, linestyle=":", label=strLabel);
+
+		setGraphClass.makeFine(ax);
 
 		plt.show(block=False);
 		

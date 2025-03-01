@@ -81,11 +81,11 @@ class ParameterSetter{
 		print("   dr/dt = a*r(t) - b*r(t)*f(t)");
 		print("  per i predatori:");
 		print("   df/dt = -c*f(t) + d*r(t)*f(t)");
-		print("  r(t) e f(t) posso essere pensato come il numero o la\n  densità, rispettivamente di prede e predatori, presenti");
-		print("  a: parametri di riproduzione delle prede");
+		print("  r(t) e f(t) posso essere pensati come il numero o la\n  densità, rispettivamente di prede e predatori, presenti");
+		print("  a: parametro di riproduzione delle prede");
 		print("  b: parametro di interazione prede-predatori");
 		print("  c: parametro di perdita di predatori");
-		print("  d: parametri di crescita dei predatori");
+		print("  d: parametro di crescita dei predatori");
 		print("  i parametri sono reali e definiti positivi");
 		
 		print(" -------------------------------------------------------------------------");
